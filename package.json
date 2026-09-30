@@ -1,0 +1,11 @@
+{
+  "name": "civicpulse-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:user": "npm run dev --workspace=apps/web-user"
+  }
+}
