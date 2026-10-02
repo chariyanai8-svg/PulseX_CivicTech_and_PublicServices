@@ -1,0 +1,880 @@
+{"text": "Very smelly rubbish dump kat highway.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pokok besar blocking the way area kedai makan.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Gerai block sidewalk belakang hospital.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pothole really gila belakang hospital.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti depan sekolah.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki near Mydin blocked.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "A large tree has fallen in front of the school.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bahan binaan block jalan belakang kedai.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Please fix the teruk road lines near the hospital.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti dekat simpang.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge depan mall tak safe to use.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "There is a sangat pothole near the hospital.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Big branch patah near Mydin.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous overhanging branches in front of the school.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Chemical spill suspected behind the shops.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Chemical spill suspected at the intersection.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "A large tree has fallen behind the shops.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bahan binaan block jalan belakang kedai.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Traffic light area kedai makan tak function.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "No lighting along the highway at night, very dangerous.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tong sampah penuh melimpah depan sekolah.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Illegal parking block the road kat highway.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tree tumbang depan mall, please clear.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident at the intersection, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car blocking the road near the hospital.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Taman permainan dekat simpang rosak teruk.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "The road behind the shops is extremely damaged.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam kat highway very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop near Mydin roof bocor.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bahan binaan block jalan belakang kedai.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Dahan pokok patah dan bahaya di laluan utama.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bumbung perhentian bas belakang kedai bocor.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Stray dogs roaming aggressively behind the shops.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Banyak lubang dekat simpang sangat membahayakan.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car kat highway dah berbulan.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Please check longkang area kedai makan, bau very bad.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tolong baiki jalan yang rosak di laluan utama.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Longkang tersumbat sangat berhampiran taman.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Uncollected trash piling up behind the shops.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Streetlight area kedai makan dah lama rosak.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Please check longkang kat highway, bau very bad.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Construction materials obstructing traffic along the highway.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam area kedai makan very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous open hole in front of the school.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "No lighting along the highway at night, very dangerous.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sampah tak kutip berhari-hari depan sekolah.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Can't pass jalan ni again, too many lubang belakang hospital.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sisa kaca dan besi tajam depan sekolah.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pokok besar blocking the way belakang hospital.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Jalan near Mydin teruk sangat, full of holes.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan berhampiran taman rosak.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop roof near the hospital is leaking.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Severe open burning happening at the intersection.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Lampu isyarat di laluan utama mati terus.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan dekat simpang rosak.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Severe flooding happens in front of the school every time it rains.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Traffic lights along the highway are totally dark.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk near the hospital is heavily damaged.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Jalan berlubang sangat depan sekolah.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "A large tree has fallen along the highway.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk near Mydin pecah teruk.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Gerai block sidewalk belakang hospital.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Banyak lubang dekat simpang sangat membahayakan.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat belakang kedai bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident at the intersection, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Illegal structure blocking the sidewalk at the intersection.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Jalan depan mall teruk sangat, full of holes.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki area kedai makan blocked.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Stray dogs roaming aggressively at the intersection.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti belakang kedai.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Illegal parking block the road near Mydin.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Asyik banjir je depan sekolah bila hujan lebat.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Extreme noise pollution from factory along the highway.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Big branch patah kat highway.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Exposed live wiring found along the highway.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Wayar elektrik terdedah di laluan utama.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pokok besar blocking the way belakang hospital.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge along the highway is unsafe.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Asyik banjir je belakang kedai bila hujan lebat.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Illegal parking block the road area kedai makan.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Please check longkang near Mydin, bau very bad.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bunyi bising sangat dari kilang berhampiran taman.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge at the intersection is unsafe.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bahan binaan block jalan di laluan utama.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tactile paving missing behind the shops.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Orang buang sampah merata-rata near Mydin.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat belakang kedai bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "General complaint about area in front of the school.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tumpahan sisa kimia di laluan utama.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "A large tree has fallen along the highway.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Extreme noise pollution from factory behind the shops.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Traffic lights at the intersection are totally dark.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "A large tree has fallen behind the shops.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Jalan kat highway teruk sangat, full of holes.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge near the hospital is unsafe.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Penutup longkang pecah dekat simpang.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Sisa kaca dan besi tajam depan sekolah.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat di laluan utama bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Can't pass jalan ni again, too many lubang belakang hospital.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Extreme noise pollution from factory at the intersection.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Drain kat highway sumbat teruk.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous open hole in front of the school.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Need council to check near Mydin.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti di laluan utama.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Kawasan dekat simpang perlukan pemeriksaan majlis.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tong sampah penuh melimpah di laluan utama.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Penutup longkang pecah depan sekolah.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Air sungai depan mall looks polluted.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan belakang hospital always flickering.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Drain depan mall sumbat teruk.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Public toilet in front of the school is in terrible condition.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Air sungai kat highway looks polluted.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sisa kaca dan besi tajam belakang kedai.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Kereta terbiar halang laluan di laluan utama.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Please fix the very road lines at the intersection.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tandas awam depan sekolah kotor gila.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Sharp debris on the road along the highway.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Penutup longkang pecah belakang kedai.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Exposed live wiring found at the intersection.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sampah tak kutip berhari-hari di laluan utama.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Everytime hujan confirm banjir near Mydin.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sharp debris on the road near the hospital.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Pokok tumbang halang jalan belakang kedai.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Uncollected trash piling up behind the shops.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Exposed wire area kedai makan, very dangerous.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tandas awam belakang kedai kotor gila.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Exposed wire belakang hospital, very dangerous.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "A large tree has fallen along the highway.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "No lighting at the intersection at night, very dangerous.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "There is a very pothole in front of the school.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge area kedai makan tak safe to use.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Drain area kedai makan sumbat teruk.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop roof behind the shops is leaking.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam area kedai makan very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bumbung perhentian bas di laluan utama bocor.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bunyi bising sangat dari kilang belakang kedai.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tree tumbang belakang hospital, please clear.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "A large tree has fallen in front of the school.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Stray dogs roaming aggressively near the hospital.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "The drain in front of the school is extremely clogged.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car blocking the road along the highway.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Gerai block sidewalk area kedai makan.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Playground near Mydin rosak, bahaya for kids.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tolong baiki jalan yang rosak depan sekolah.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang di laluan utama.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat depan sekolah bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada gerai haram halang jalan kaki depan sekolah.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Jejantas dekat simpang goyang dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Can't pass jalan ni again, too many lubang near Mydin.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Anjing liar garang belakang kedai.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous overhanging branches in front of the school.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Ada pembuangan sampah haram berhampiran taman.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Extreme noise pollution from factory at the intersection.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam depan mall very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Illegal structure blocking the sidewalk at the intersection.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Banyak sharp objects area kedai makan.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dahan pokok patah dan bahaya di laluan utama.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada pembuangan sampah haram berhampiran taman.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Traffic lights at the intersection are totally dark.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident near the hospital, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tumpahan sisa kimia dekat simpang.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Orang buang sampah merata-rata near Mydin.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Illegal dumping site found near the hospital, teruk smell.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Uncollected trash piling up at the intersection.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Pothole very gila kat highway.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident along the highway, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Weird smell near Mydin, don't know from where.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "There is a very pothole near the hospital.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "There is a very pothole behind the shops.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Orang buang sampah merata-rata kat highway.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Kereta terbiar halang laluan depan sekolah.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pokok besar blocking the way near Mydin.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki belakang hospital blocked.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Chemical spill suspected behind the shops.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Ada gerai haram halang jalan kaki berhampiran taman.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Jalan berlubang teruk depan sekolah.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Kaki lima berhampiran taman pecah dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Orang buang sampah merata-rata area kedai makan.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Rubbish area kedai makan dah seminggu tak collect.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang depan sekolah.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan belakang kedai rosak.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Asyik banjir je belakang kedai bila hujan lebat.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Asyik banjir je belakang kedai bila hujan lebat.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Weird smell near Mydin, don't know from where.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk area kedai makan pecah teruk.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tree tumbang area kedai makan, please clear.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Streetlight near Mydin dah lama rosak.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tree tumbang belakang hospital, please clear.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Open hole area kedai makan takde cover.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Traffic light near Mydin tak function.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dahan pokok patah dan bahaya depan sekolah.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Uncollected trash piling up at the intersection.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Taman permainan di laluan utama rosak teruk.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Orang buang sampah merata-rata area kedai makan.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Banyak lubang belakang kedai sangat membahayakan.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "The rubbish bins along the highway are overflowing.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang di laluan utama.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Kereta terbiar halang laluan di laluan utama.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Please check longkang kat highway, bau very bad.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sisa kaca dan besi tajam belakang kedai.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tandas awam berhampiran taman kotor gila.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Dahan pokok patah dan bahaya belakang kedai.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Asyik banjir je berhampiran taman bila hujan lebat.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada pembakaran terbuka berhampiran taman.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Asyik banjir je berhampiran taman bila hujan lebat.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Everytime hujan confirm banjir depan mall.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car near Mydin dah berbulan.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Public toilet near the hospital is in terrible condition.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk area kedai makan pecah teruk.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Streetlight area kedai makan dah lama rosak.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Lampu isyarat belakang kedai mati terus.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Longkang tersumbat teruk depan sekolah.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada lubang terbuka yang bahaya berhampiran taman.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Need council to check area kedai makan.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pokok tumbang halang jalan depan sekolah.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat depan sekolah bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "The road at the intersection is teruk damaged.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Construction materials obstructing traffic in front of the school.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Traffic light near Mydin tak function.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Exposed live wiring found in front of the school.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Gerai block sidewalk near Mydin.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Construction materials obstructing traffic at the intersection.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki area kedai makan blocked.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Lampu isyarat depan sekolah mati terus.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "The rubbish bins at the intersection are overflowing.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Uncollected trash piling up behind the shops.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Jalan berlubang extremely berhampiran taman.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "General complaint about area in front of the school.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "General complaint about area along the highway.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Big branch patah near Mydin.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Very smelly rubbish dump depan mall.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sharp debris on the road along the highway.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Severe open burning happening near the hospital.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "There is a sangat pothole behind the shops.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Many stray dogs depan mall attacking people.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bumbung perhentian bas di laluan utama bocor.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Penutup longkang pecah dekat simpang.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bunyi bising sangat dari kilang dekat simpang.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam near Mydin very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous open hole at the intersection.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Ada pembuangan sampah haram berhampiran taman.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Need council to check depan mall.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Rubbish kat highway dah seminggu tak collect.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Streetlight belakang hospital dah lama rosak.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat di laluan utama bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Everytime hujan confirm banjir area kedai makan.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bahan binaan block jalan belakang kedai.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Stray dogs roaming aggressively in front of the school.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat belakang kedai bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Please fix the sangat road lines near the hospital.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Many stray dogs depan mall attacking people.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sharp debris on the road behind the shops.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous overhanging branches at the intersection.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "The rubbish bins near the hospital are overflowing.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sampah tak kutip berhari-hari dekat simpang.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Gerai block sidewalk depan mall.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Uncollected trash piling up behind the shops.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Traffic lights at the intersection are totally dark.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Weird smell near Mydin, don't know from where.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk near the hospital is heavily damaged.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Streetlight area kedai makan dah lama rosak.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Banyak lubang dekat simpang sangat membahayakan.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Dahan pokok patah dan bahaya di laluan utama.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada pembakaran terbuka belakang kedai.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Please check longkang depan mall, bau very bad.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Stray dogs roaming aggressively behind the shops.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Factory kat highway release toxic smoke.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Wayar elektrik terdedah dekat simpang.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Traffic lights at the intersection are totally dark.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "The rubbish bins at the intersection are overflowing.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident along the highway, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Gerai block sidewalk kat highway.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Banyak lubang di laluan utama sangat membahayakan.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "General complaint about area near the hospital.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Public toilet along the highway is in terrible condition.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Severe open burning happening in front of the school.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tolong baiki jalan yang rosak belakang kedai.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam near Mydin very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Jejantas berhampiran taman goyang dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop depan mall roof bocor.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Asyik banjir je depan sekolah bila hujan lebat.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tolong baiki jalan yang rosak di laluan utama.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat di laluan utama bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop belakang hospital roof bocor.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Extreme noise pollution from factory at the intersection.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Factory belakang hospital release toxic smoke.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Very smelly rubbish dump area kedai makan.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Kaki lima depan sekolah pecah dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Wayar elektrik terdedah dekat simpang.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Kaki lima berhampiran taman pecah dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada lubang terbuka yang bahaya berhampiran taman.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous overhanging branches along the highway.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bumbung perhentian bas dekat simpang bocor.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Longkang tersumbat really belakang kedai.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge at the intersection is unsafe.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous overhanging branches at the intersection.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki depan mall blocked.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Chemical spill suspected in front of the school.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Banyak sharp objects belakang hospital.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tumpahan sisa kimia di laluan utama.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Exposed live wiring found along the highway.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Longkang tersumbat very di laluan utama.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Open hole near Mydin takde cover.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Banyak sharp objects kat highway.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "The road in front of the school is really damaged.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Severe open burning happening at the intersection.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Factory area kedai makan release toxic smoke.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Gerai block sidewalk depan mall.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Need council to check near Mydin.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous overhanging branches near the hospital.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tactile paving missing in front of the school.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Pothole extremely gila belakang hospital.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Illegal structure blocking the sidewalk near the hospital.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident at the intersection, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Big branch patah near Mydin.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sampah tak kutip berhari-hari berhampiran taman.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pothole extremely gila belakang hospital.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pokok tumbang halang jalan berhampiran taman.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Jejantas dekat simpang goyang dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "The road near the hospital is sangat damaged.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bumbung perhentian bas berhampiran taman bocor.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Orang buang sampah merata-rata depan mall.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Public toilet at the intersection is in terrible condition.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tolong baiki jalan yang rosak depan sekolah.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge behind the shops is unsafe.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Traffic lights in front of the school are totally dark.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bumbung perhentian bas dekat simpang bocor.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Very smelly rubbish dump belakang hospital.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Anjing liar garang di laluan utama.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Rubbish belakang hospital dah seminggu tak collect.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Exposed wire depan mall, very dangerous.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "The rubbish bins near the hospital are overflowing.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Jejantas belakang kedai goyang dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Banyak sharp objects depan mall.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan di laluan utama rosak.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang belakang kedai.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Sharp debris on the road at the intersection.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Open hole belakang hospital takde cover.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Public toilet in front of the school is in terrible condition.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bunyi bising sangat dari kilang di laluan utama.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "No lighting behind the shops at night, very dangerous.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Can't pass jalan ni again, too many lubang belakang hospital.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous open hole near the hospital.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Please fix the very road lines behind the shops.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Kawasan di laluan utama perlukan pemeriksaan majlis.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Illegal parking block the road kat highway.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Open burning depan mall, asap tebal.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Illegal parking block the road depan mall.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk along the highway is heavily damaged.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "The streetlight along the highway is broken.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Need council to check kat highway.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "There is a teruk pothole behind the shops.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Everytime hujan confirm banjir area kedai makan.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti depan sekolah.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car area kedai makan dah berbulan.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Open hole belakang hospital takde cover.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Playground near Mydin rosak, bahaya for kids.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Gerai block sidewalk area kedai makan.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Ada pembakaran terbuka belakang kedai.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tumpahan sisa kimia belakang kedai.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Public toilet along the highway is in terrible condition.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Construction materials obstructing traffic behind the shops.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident behind the shops, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tong sampah penuh melimpah dekat simpang.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Please check longkang depan mall, bau very bad.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Ada lubang terbuka yang bahaya dekat simpang.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Please fix the sangat road lines behind the shops.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Factory near Mydin release toxic smoke.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pothole teruk gila belakang hospital.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Air sungai belakang hospital looks polluted.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Chemical spill suspected along the highway.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Playground area kedai makan rosak, bahaya for kids.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Very smelly rubbish dump area kedai makan.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Big branch patah near Mydin.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Uprooted tree blocking the path at the intersection.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car blocking the road behind the shops.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bumbung perhentian bas di laluan utama bocor.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Traffic light area kedai makan tak function.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bahan binaan block jalan berhampiran taman.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "No lighting behind the shops at night, very dangerous.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Lampu isyarat berhampiran taman mati terus.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tactile paving missing behind the shops.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Playground near Mydin rosak, bahaya for kids.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Jalan near Mydin teruk sangat, full of holes.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "The rubbish bins at the intersection are overflowing.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Kaki lima belakang kedai pecah dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pokok besar blocking the way area kedai makan.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Traffic lights near the hospital are totally dark.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "No lighting in front of the school at night, very dangerous.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Wayar elektrik terdedah berhampiran taman.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Construction materials obstructing traffic at the intersection.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang dekat simpang.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Jalan near Mydin teruk sangat, full of holes.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Illegal structure blocking the sidewalk along the highway.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Very smelly rubbish dump area kedai makan.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Can't pass jalan ni again, too many lubang belakang hospital.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Gerai block sidewalk near Mydin.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Can't pass jalan ni again, too many lubang belakang hospital.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "A large tree has fallen in front of the school.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tree tumbang depan mall, please clear.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "The road along the highway is really damaged.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan depan sekolah rosak.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Everytime hujan confirm banjir area kedai makan.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Air sungai near Mydin looks polluted.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "The rubbish bins along the highway are overflowing.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Construction materials obstructing traffic along the highway.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sisa kaca dan besi tajam berhampiran taman.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Illegal structure blocking the sidewalk behind the shops.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Asyik banjir je depan sekolah bila hujan lebat.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk in front of the school is heavily damaged.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Uncollected trash piling up at the intersection.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Kaki lima dekat simpang pecah dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Asyik banjir je di laluan utama bila hujan lebat.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Anjing liar garang belakang kedai.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Extreme noise pollution from factory in front of the school.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge along the highway is unsafe.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Longkang tersumbat really berhampiran taman.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tree tumbang area kedai makan, please clear.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bahan binaan block jalan belakang kedai.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident at the intersection, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "General complaint about area near the hospital.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Open hole belakang hospital takde cover.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Many stray dogs kat highway attacking people.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Asyik banjir je belakang kedai bila hujan lebat.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat berhampiran taman bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan depan mall always flickering.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Exposed wire depan mall, very dangerous.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Playground equipment at the intersection is broken.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop depan mall roof bocor.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Illegal structure blocking the sidewalk along the highway.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan depan sekolah rosak.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Please fix the teruk road lines in front of the school.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Illegal structure blocking the sidewalk in front of the school.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "The streetlight near the hospital is broken.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang di laluan utama.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Kaki lima di laluan utama pecah dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Orang buang sampah merata-rata near Mydin.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Weird smell depan mall, don't know from where.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Rubbish area kedai makan dah seminggu tak collect.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan di laluan utama rosak.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Many stray dogs near Mydin attacking people.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Penutup longkang pecah berhampiran taman.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Severe flooding happens at the intersection every time it rains.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Severe open burning happening at the intersection.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Big branch patah kat highway.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti berhampiran taman.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bumbung perhentian bas belakang kedai bocor.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car near Mydin dah berbulan.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "General complaint about area at the intersection.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Air sungai belakang hospital looks polluted.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop depan mall roof bocor.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Extreme noise pollution from factory in front of the school.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti dekat simpang.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident in front of the school, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sisa kaca dan besi tajam berhampiran taman.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "There is a very pothole at the intersection.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Ada lubang terbuka yang bahaya di laluan utama.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Playground depan mall rosak, bahaya for kids.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Jalan belakang hospital teruk sangat, full of holes.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "The rubbish bins behind the shops are overflowing.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Can't pass jalan ni again, too many lubang kat highway.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Drain depan mall sumbat teruk.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Exposed wire area kedai makan, very dangerous.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bunyi bising sangat dari kilang berhampiran taman.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "The streetlight along the highway is broken.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous overhanging branches along the highway.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Can't pass jalan ni again, too many lubang near Mydin.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Severe flooding happens near the hospital every time it rains.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tong sampah penuh melimpah dekat simpang.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Illegal structure blocking the sidewalk at the intersection.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tree tumbang belakang hospital, please clear.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Orang buang sampah merata-rata kat highway.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident along the highway, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Jejantas dekat simpang goyang dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge depan mall tak safe to use.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan near Mydin always flickering.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car blocking the road in front of the school.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Illegal structure blocking the sidewalk along the highway.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "There is a teruk pothole at the intersection.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Ada pembakaran terbuka di laluan utama.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Asyik banjir je di laluan utama bila hujan lebat.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Need council to check area kedai makan.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Jalan near Mydin teruk sangat, full of holes.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Air sungai kat highway looks polluted.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Jalan belakang hospital teruk sangat, full of holes.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "A large tree has fallen in front of the school.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop roof along the highway is leaking.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tong sampah penuh melimpah di laluan utama.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam area kedai makan very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous open hole at the intersection.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Weird smell kat highway, don't know from where.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous overhanging branches near the hospital.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "The rubbish bins behind the shops are overflowing.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bunyi bising sangat dari kilang depan sekolah.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tumpahan sisa kimia berhampiran taman.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada gerai haram halang jalan kaki di laluan utama.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam kat highway very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "The drain near the hospital is very clogged.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tong sampah penuh melimpah dekat simpang.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Sisa kaca dan besi tajam depan sekolah.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Longkang tersumbat teruk di laluan utama.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Jalan berlubang sangat berhampiran taman.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Illegal dumping site found behind the shops, sangat smell.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Jejantas di laluan utama goyang dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Can't pass jalan ni again, too many lubang kat highway.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sharp debris on the road in front of the school.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki depan mall blocked.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Weird smell depan mall, don't know from where.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam belakang hospital very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti dekat simpang.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge kat highway tak safe to use.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tree tumbang kat highway, please clear.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Gerai block sidewalk belakang hospital.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Please check longkang area kedai makan, bau very bad.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Ada pembuangan sampah haram di laluan utama.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat berhampiran taman bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Very smelly rubbish dump near Mydin.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Big branch patah belakang hospital.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Very smelly rubbish dump kat highway.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sampah tak kutip berhari-hari belakang kedai.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car belakang hospital dah berbulan.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident at the intersection, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk area kedai makan pecah teruk.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Kaki lima di laluan utama pecah dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Illegal parking block the road belakang hospital.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Gerai block sidewalk depan mall.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Please fix the extremely road lines in front of the school.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "The rubbish bins along the highway are overflowing.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Exposed wire kat highway, very dangerous.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sampah tak kutip berhari-hari berhampiran taman.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat belakang kedai bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Banyak sharp objects area kedai makan.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Manhole cover is broken behind the shops.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Open hole depan mall takde cover.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge near Mydin tak safe to use.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "There is a extremely pothole in front of the school.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Very smelly rubbish dump kat highway.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Kawasan berhampiran taman perlukan pemeriksaan majlis.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Banyak lubang berhampiran taman sangat membahayakan.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Drain near Mydin sumbat teruk.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Orang buang sampah merata-rata belakang hospital.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Very smelly rubbish dump near Mydin.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sharp debris on the road along the highway.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Ada pembuangan sampah haram belakang kedai.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Exposed wire kat highway, very dangerous.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "There is a teruk pothole near the hospital.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "There is a very pothole along the highway.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Please check longkang area kedai makan, bau very bad.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Kawasan depan sekolah perlukan pemeriksaan majlis.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "The road behind the shops is teruk damaged.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Playground near Mydin rosak, bahaya for kids.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tactile paving missing at the intersection.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Wayar elektrik terdedah di laluan utama.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Big branch patah belakang hospital.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Rubbish area kedai makan dah seminggu tak collect.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tumpahan sisa kimia berhampiran taman.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang depan sekolah.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous overhanging branches in front of the school.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat berhampiran taman bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki depan sekolah rosak.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "No lighting near the hospital at night, very dangerous.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Kereta terbiar halang laluan berhampiran taman.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Factory near Mydin release toxic smoke.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Need council to check belakang hospital.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki depan sekolah rosak.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "No lighting behind the shops at night, very dangerous.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Jejantas dekat simpang goyang dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Factory near Mydin release toxic smoke.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "General complaint about area along the highway.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Uncollected trash piling up along the highway.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Kereta terbiar halang laluan dekat simpang.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk near Mydin pecah teruk.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Kawasan depan sekolah perlukan pemeriksaan majlis.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Lampu isyarat dekat simpang mati terus.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada gerai haram halang jalan kaki berhampiran taman.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop kat highway roof bocor.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Factory area kedai makan release toxic smoke.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Severe flooding happens along the highway every time it rains.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tactile paving missing along the highway.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "The streetlight behind the shops is broken.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan di laluan utama rosak.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang belakang kedai.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tumpahan sisa kimia dekat simpang.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge kat highway tak safe to use.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Wayar elektrik terdedah berhampiran taman.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "No lighting near the hospital at night, very dangerous.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Taman permainan dekat simpang rosak teruk.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bunyi bising sangat dari kilang dekat simpang.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "No lighting near the hospital at night, very dangerous.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Severe open burning happening at the intersection.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Everytime hujan confirm banjir area kedai makan.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Longkang tersumbat very depan sekolah.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Chemical spill suspected at the intersection.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam depan mall very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge kat highway tak safe to use.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki di laluan utama rosak.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Need council to check area kedai makan.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous open hole along the highway.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bunyi bising sangat dari kilang depan sekolah.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Severe open burning happening at the intersection.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sharp debris on the road in front of the school.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bunyi bising sangat dari kilang di laluan utama.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti di laluan utama.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bumbung perhentian bas dekat simpang bocor.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Dahan pokok patah dan bahaya berhampiran taman.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Exposed wire near Mydin, very dangerous.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Factory kat highway release toxic smoke.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Banyak sharp objects belakang hospital.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous overhanging branches behind the shops.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Open hole near Mydin takde cover.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk along the highway is heavily damaged.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Need council to check depan mall.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Anjing liar garang depan sekolah.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Uncollected trash piling up at the intersection.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "A large tree has fallen behind the shops.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Longkang tersumbat really depan sekolah.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Extreme noise pollution from factory in front of the school.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sampah tak kutip berhari-hari belakang kedai.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Sampah tak kutip berhari-hari dekat simpang.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti berhampiran taman.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident along the highway, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Severe flooding happens at the intersection every time it rains.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Illegal structure blocking the sidewalk behind the shops.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident in front of the school, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Severe open burning happening behind the shops.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Wayar elektrik terdedah depan sekolah.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tumpahan sisa kimia dekat simpang.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti berhampiran taman.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Sharp debris on the road behind the shops.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Rubbish depan mall dah seminggu tak collect.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan belakang hospital always flickering.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Playground kat highway rosak, bahaya for kids.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sisa kaca dan besi tajam berhampiran taman.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Very smelly rubbish dump belakang hospital.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Please fix the extremely road lines along the highway.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk along the highway is heavily damaged.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tree tumbang kat highway, please clear.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Chemical spill suspected near the hospital.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang di laluan utama.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident behind the shops, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop kat highway roof bocor.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car near Mydin dah berbulan.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Traffic lights behind the shops are totally dark.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Uprooted tree blocking the path at the intersection.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Playground area kedai makan rosak, bahaya for kids.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Weird smell belakang hospital, don't know from where.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "The streetlight near the hospital is broken.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Traffic light depan mall tak function.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Kaki lima dekat simpang pecah dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Sampah tak kutip berhari-hari depan sekolah.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Kereta terbiar halang laluan berhampiran taman.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Construction materials obstructing traffic along the highway.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan area kedai makan always flickering.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam near Mydin very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Ada lubang terbuka yang bahaya belakang kedai.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Stray dogs roaming aggressively behind the shops.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Banyak lubang dekat simpang sangat membahayakan.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pothole teruk gila near Mydin.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Kereta terbiar halang laluan belakang kedai.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Construction materials obstructing traffic along the highway.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Jalan belakang hospital teruk sangat, full of holes.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pokok besar blocking the way belakang hospital.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bunyi bising sangat dari kilang berhampiran taman.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Open burning area kedai makan, asap tebal.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Factory near Mydin release toxic smoke.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Open hole area kedai makan takde cover.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Please check longkang kat highway, bau very bad.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Open burning belakang hospital, asap tebal.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Many stray dogs belakang hospital attacking people.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Illegal parking block the road kat highway.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Air sungai near Mydin looks polluted.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Many stray dogs near Mydin attacking people.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car kat highway dah berbulan.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous open hole behind the shops.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Big branch patah depan mall.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "There is a very pothole at the intersection.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sharp debris on the road in front of the school.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "A large tree has fallen behind the shops.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan area kedai makan always flickering.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Public toilet behind the shops is in terrible condition.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Strange incident near the hospital, need council help.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Orang buang sampah merata-rata area kedai makan.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Ada gerai haram halang jalan kaki depan sekolah.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tactile paving missing at the intersection.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Orang buang sampah merata-rata near Mydin.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sisa kaca dan besi tajam depan sekolah.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Rubbish area kedai makan dah seminggu tak collect.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Streetlight area kedai makan dah lama rosak.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Illegal parking block the road area kedai makan.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Ada lubang terbuka yang bahaya depan sekolah.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Longkang tersumbat really di laluan utama.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Illegal parking block the road kat highway.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pokok besar blocking the way area kedai makan.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Ada gerai haram halang jalan kaki di laluan utama.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Severe flooding happens behind the shops every time it rains.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Taman permainan di laluan utama rosak teruk.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Banyak lubang di laluan utama sangat membahayakan.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Need council to check kat highway.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Taman permainan depan sekolah rosak teruk.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Illegal structure blocking the sidewalk behind the shops.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sisa kaca dan besi tajam berhampiran taman.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki depan sekolah rosak.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Playground equipment along the highway is broken.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tumpahan sisa kimia depan sekolah.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki berhampiran taman rosak.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "No lighting near the hospital at night, very dangerous.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous overhanging branches at the intersection.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Severe open burning happening behind the shops.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Kawasan depan sekolah perlukan pemeriksaan majlis.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Dahan pokok patah dan bahaya berhampiran taman.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tactile paving missing behind the shops.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Playground equipment along the highway is broken.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Wayar elektrik terdedah berhampiran taman.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Sisa kaca dan besi tajam di laluan utama.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Need council to check belakang hospital.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Streetlight belakang hospital dah lama rosak.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Ada lubang terbuka yang bahaya dekat simpang.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Chemical spill suspected in front of the school.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Kawasan berhampiran taman perlukan pemeriksaan majlis.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada pembakaran terbuka dekat simpang.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada gerai haram halang jalan kaki di laluan utama.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Chemical spill suspected along the highway.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge near the hospital is unsafe.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Please fix the really road lines behind the shops.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Lampu isyarat belakang kedai mati terus.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop near Mydin roof bocor.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Uncollected trash piling up behind the shops.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Pothole very gila near Mydin.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pothole sangat gila near Mydin.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous overhanging branches near the hospital.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Pokok tumbang halang jalan di laluan utama.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki dekat simpang rosak.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Severe open burning happening in front of the school.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Open burning area kedai makan, asap tebal.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "The drain behind the shops is sangat clogged.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki di laluan utama rosak.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "There is a really pothole at the intersection.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam near Mydin very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tumpahan sisa kimia belakang kedai.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Kawasan dekat simpang perlukan pemeriksaan majlis.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Many stray dogs depan mall attacking people.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Penutup longkang pecah dekat simpang.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki depan sekolah rosak.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Tandas awam dekat simpang kotor gila.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Construction materials obstructing traffic at the intersection.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tree tumbang area kedai makan, please clear.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop belakang hospital roof bocor.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Wayar elektrik terdedah dekat simpang.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "The drain in front of the school is really clogged.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Drain belakang hospital sumbat teruk.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Please fix the really road lines at the intersection.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Kaki lima depan sekolah pecah dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge in front of the school is unsafe.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Everytime hujan confirm banjir area kedai makan.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Longkang tersumbat sangat depan sekolah.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Severe flooding happens at the intersection every time it rains.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tandas awam depan sekolah kotor gila.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pokok besar blocking the way depan mall.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dahan pokok patah dan bahaya depan sekolah.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Wayar elektrik terdedah belakang kedai.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Lampu isyarat berhampiran taman mati terus.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada pembuangan sampah haram dekat simpang.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada lubang terbuka yang bahaya dekat simpang.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang berhampiran taman.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang di laluan utama.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Wayar elektrik terdedah di laluan utama.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Everytime hujan confirm banjir belakang hospital.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Severe open burning happening behind the shops.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Traffic lights at the intersection are totally dark.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Can't pass jalan ni again, too many lubang near Mydin.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki kat highway blocked.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Sampah tak kutip berhari-hari belakang kedai.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam depan mall very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang belakang kedai.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Ada lubang terbuka yang bahaya di laluan utama.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan depan mall always flickering.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Asyik banjir je belakang kedai bila hujan lebat.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bumbung perhentian bas depan sekolah bocor.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Playground area kedai makan rosak, bahaya for kids.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "The drain along the highway is extremely clogged.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Banyak sharp objects kat highway.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "General complaint about area in front of the school.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tactile paving missing near the hospital.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Jalan berlubang really depan sekolah.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Stray dogs roaming aggressively behind the shops.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki area kedai makan blocked.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pokok besar blocking the way belakang hospital.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tumpahan sisa kimia belakang kedai.", "category": "ENVIRONMENT", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop depan mall roof bocor.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Traffic lights along the highway are totally dark.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Open burning kat highway, asap tebal.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Ada lubang terbuka yang bahaya berhampiran taman.", "category": "HAZARD", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "The drain in front of the school is very clogged.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Everytime hujan confirm banjir kat highway.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Please fix the teruk road lines in front of the school.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tree tumbang near Mydin, please clear.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Ada pembuangan sampah haram dekat simpang.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Gelap sangat di laluan utama bila malam.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Pokok tumbang halang jalan dekat simpang.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Uncollected trash piling up along the highway.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bus stop roof in front of the school is leaking.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Anjing liar garang berhampiran taman.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Exposed live wiring found behind the shops.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti dekat simpang.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Jejantas belakang kedai goyang dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "There is a extremely pothole along the highway.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous open hole near the hospital.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Factory near Mydin release toxic smoke.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "The road near the hospital is extremely damaged.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Please check longkang area kedai makan, bau very bad.", "category": "DRAINAGE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Illegal parking block the road near Mydin.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam kat highway very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Kereta terbiar halang laluan berhampiran taman.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Severe flooding happens near the hospital every time it rains.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Pothole teruk gila belakang hospital.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti belakang kedai.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "The road near the hospital is really damaged.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Can't pass jalan ni again, too many lubang belakang hospital.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Rubbish kat highway dah seminggu tak collect.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Lampu isyarat depan sekolah mati terus.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Stray dogs roaming aggressively in front of the school.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk in front of the school is heavily damaged.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sampah tak kutip berhari-hari di laluan utama.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Illegal structure blocking the sidewalk along the highway.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car kat highway dah berbulan.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Please fix the really road lines along the highway.", "category": "ROADS", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Longkang tersumbat teruk belakang kedai.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Lampu isyarat depan sekolah mati terus.", "category": "LIGHTING", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Many stray dogs kat highway attacking people.", "category": "OTHER", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pedestrian bridge at the intersection is unsafe.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "No lighting near the hospital at night, very dangerous.", "category": "LIGHTING", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Illegal dumping site found in front of the school, teruk smell.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Abandoned car blocking the road along the highway.", "category": "OBSTRUCTION", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Very smelly rubbish dump kat highway.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki kat highway blocked.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Severe open burning happening in front of the school.", "category": "ENVIRONMENT", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Playground kat highway rosak, bahaya for kids.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Uncollected trash piling up behind the shops.", "category": "WASTE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Bahan binaan block jalan berhampiran taman.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Severe flooding happens in front of the school every time it rains.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Banyak sharp objects belakang hospital.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Masalah tak pasti di laluan utama.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Very smelly rubbish dump area kedai makan.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Penutup longkang pecah di laluan utama.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Public toilet behind the shops is in terrible condition.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Jejantas depan sekolah goyang dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Illegal parking block the road belakang hospital.", "category": "OBSTRUCTION", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Severe flooding happens at the intersection every time it rains.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Ada pokok tumbang depan sekolah.", "category": "FALLEN_TREES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Kawasan berhampiran taman perlukan pemeriksaan majlis.", "category": "OTHER", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Laluan pejalan kaki kat highway blocked.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Bumbung perhentian bas berhampiran taman bocor.", "category": "FACILITIES", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Toilet awam area kedai makan very dirty.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tong sampah penuh melimpah berhampiran taman.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Open burning kat highway, asap tebal.", "category": "ENVIRONMENT", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "General complaint about area near the hospital.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Severe flooding happens in front of the school every time it rains.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Open hole near Mydin takde cover.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Pokok besar blocking the way near Mydin.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Traffic light belakang hospital tak function.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Jalan berlubang teruk dekat simpang.", "category": "ROADS", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Playground area kedai makan rosak, bahaya for kids.", "category": "FACILITIES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "General complaint about area along the highway.", "category": "OTHER", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Tactile paving missing along the highway.", "category": "PEDESTRIAN", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Orang buang sampah merata-rata kat highway.", "category": "WASTE", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Longkang tersumbat extremely belakang kedai.", "category": "DRAINAGE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Jejantas berhampiran taman goyang dan bahaya.", "category": "PEDESTRIAN", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Uprooted tree blocking the path behind the shops.", "category": "FALLEN_TREES", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sampah tak kutip berhari-hari berhampiran taman.", "category": "WASTE", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Kereta terbiar halang laluan belakang kedai.", "category": "OBSTRUCTION", "language": "ms", "source": "synthetic", "reviewed": true}
+{"text": "Sharp debris on the road at the intersection.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Lampu jalan depan mall always flickering.", "category": "LIGHTING", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Big branch patah depan mall.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Tree tumbang kat highway, please clear.", "category": "FALLEN_TREES", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "The drain in front of the school is sangat clogged.", "category": "DRAINAGE", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Sidewalk area kedai makan pecah teruk.", "category": "PEDESTRIAN", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Exposed wire area kedai makan, very dangerous.", "category": "HAZARD", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Can't pass jalan ni again, too many lubang near Mydin.", "category": "ROADS", "language": "mixed", "source": "synthetic", "reviewed": true}
+{"text": "Dangerous open hole near the hospital.", "category": "HAZARD", "language": "en", "source": "synthetic", "reviewed": true}
+{"text": "Public toilet at the intersection is in terrible condition.", "category": "FACILITIES", "language": "en", "source": "synthetic", "reviewed": true}
