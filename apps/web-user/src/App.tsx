@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 import { 
   MapPin, Bell, Plus, Home, Map as MapIcon, 
   Activity, User, Clock, ShieldCheck, ThumbsUp, X, Image as ImageIcon,
-  CheckCircle2, HelpCircle, ChevronRight
+  CheckCircle2, HelpCircle, ChevronRight, Settings, LogOut, Globe
 } from 'lucide-react';
 import { INITIAL_ISSUES } from './mockData';
 import { CommunityIssue, IssueCategory } from '../../../packages/shared-types';
@@ -72,7 +72,7 @@ export default function App() {
   const [issues, setIssues] = useState<CommunityIssue[]>([...INITIAL_ISSUES, ...MOCK_RESOLVED_ISSUES]);
   const [selectedIssue, setSelectedIssue] = useState<CommunityIssue | null>(issues[0]);
   const [userVerifications, setUserVerifications] = useState<Record<string, 'FIXED' | 'PARTIAL' | 'NOT_FIXED'>>({});
-  const [activeTab, setActiveTab] = useState<'home' | 'map' | 'activity'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'map' | 'activity' | 'profile'>('home');
   const [showReportModal, setShowReportModal] = useState(false);
 
   // Form State
@@ -204,9 +204,12 @@ export default function App() {
               <button className="p-2 rounded-full bg-white/20 backdrop-blur-md hover:bg-white/30 transition">
                 <Bell size={16} />
               </button>
-              <div className="w-8 h-8 rounded-full bg-blue-200 border-2 border-white overflow-hidden flex items-center justify-center text-blue-800 font-bold text-xs">
+              <button 
+                onClick={() => setActiveTab('profile')}
+                className="w-8 h-8 rounded-full bg-blue-200 border-2 border-white overflow-hidden flex items-center justify-center text-blue-800 font-bold text-xs"
+              >
                 CA
-              </div>
+              </button>
             </div>
           </div>
 
@@ -216,7 +219,7 @@ export default function App() {
             <p className="text-xs text-blue-100 mt-0.5">Here is your local civic activity summary</p>
           </div>
 
-         {/* FULL-LINE HIGH CONTRAST REPORT ISSUE BUTTON (EXTRA BOLD & BIG) */}
+          {/* FULL-LINE HIGH CONTRAST REPORT ISSUE BUTTON */}
           <div className="w-full mb-2">
             <button 
               onClick={() => setShowReportModal(true)}
@@ -271,7 +274,7 @@ export default function App() {
 
           {activeTab === 'home' && (
             <>
-              {/* SECTION 1: ACTIVE COMMUNITY ISSUES (RED TYPE CATEGORY BADGES) */}
+              {/* SECTION 1: ACTIVE COMMUNITY ISSUES */}
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <h2 className="font-extrabold text-slate-900 text-base">Active Community Issues</h2>
@@ -289,7 +292,6 @@ export default function App() {
                     >
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          {/* RED CATEGORY BADGE */}
                           <span className="text-[10px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full uppercase border border-red-100">
                             {issue.category}
                           </span>
@@ -367,7 +369,7 @@ export default function App() {
                 </div>
               )}
 
-              {/* SECTION 2: GRADIENT GREEN SEGMENT (RESOLVED ISSUES & OFFICIAL STATUS VERIFICATION) */}
+              {/* SECTION 2: GRADIENT GREEN SEGMENT */}
               <div className="bg-gradient-to-b from-emerald-50 via-teal-50 to-emerald-100/60 rounded-3xl p-4 border border-emerald-200/80 shadow-sm space-y-4">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-1.5">
@@ -409,7 +411,7 @@ export default function App() {
                   ))}
                 </div>
 
-                {/* OFFICIAL STATUS VERIFICATION CARD MOVED HERE */}
+                {/* OFFICIAL STATUS VERIFICATION CARD */}
                 {selectedIssue && isSelectedResolved && (
                   <div className="bg-white rounded-2xl p-4 shadow-md border border-emerald-200 space-y-3">
                     <div className="flex justify-between items-center pb-2 border-b border-slate-100">
@@ -481,8 +483,9 @@ export default function App() {
           {activeTab === 'map' && (
             <div className="space-y-3">
               <h2 className="font-extrabold text-slate-900 text-base">Shared Civic Map</h2>
-              <div className="h-[420px] w-full rounded-2xl overflow-hidden shadow-inner border border-slate-200">
-                <MapContainer center={[3.1186, 101.6231]} zoom={14} scrollWheelZoom={false}>
+              {/* Added relative z-0 to isolate map stacking context from modal */}
+              <div className="h-[420px] w-full rounded-2xl overflow-hidden shadow-inner border border-slate-200 relative z-0">
+                <MapContainer center={[3.1186, 101.6231]} zoom={14} scrollWheelZoom={false} className="h-full w-full z-0">
                   <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                   {issues.map(issue => (
                     <Marker key={issue.id} position={[issue.location.lat, issue.location.lng]}>
@@ -544,11 +547,94 @@ export default function App() {
             </div>
           )}
 
+          {/* PROFILE PAGE VIEW BLOCK */}
+          {activeTab === 'profile' && (
+            <div className="space-y-5">
+              {/* Profile Card */}
+              <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm text-center space-y-3">
+                <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-blue-600 to-blue-400 border-4 border-white shadow-md flex items-center justify-center text-white font-black text-2xl">
+                  CA
+                </div>
+                <div>
+                  <h2 className="text-lg font-extrabold text-slate-900">Chariya</h2>
+                  <p className="text-xs text-slate-500">chariya@civicpulse.my</p>
+                </div>
+                <div className="inline-flex items-center px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold">
+                  <MapPin size={12} className="mr-1" /> Resident of Taman ABC, PJ
+                </div>
+              </div>
+
+              {/* Civic Impact Stats */}
+              <div className="grid grid-cols-3 gap-2">
+                <div className="bg-white p-3 rounded-2xl border border-slate-200 text-center shadow-sm">
+                  <p className="text-lg font-black text-blue-600">{issues.length}</p>
+                  <p className="text-[10px] text-slate-500 font-semibold mt-0.5">Reported</p>
+                </div>
+                <div className="bg-white p-3 rounded-2xl border border-slate-200 text-center shadow-sm">
+                  <p className="text-lg font-black text-emerald-600">34</p>
+                  <p className="text-[10px] text-slate-500 font-semibold mt-0.5">Backed</p>
+                </div>
+                <div className="bg-white p-3 rounded-2xl border border-slate-200 text-center shadow-sm">
+                  <p className="text-lg font-black text-amber-600">{Object.keys(userVerifications).length}</p>
+                  <p className="text-[10px] text-slate-500 font-semibold mt-0.5">Verified</p>
+                </div>
+              </div>
+
+              {/* Settings List */}
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm divide-y divide-slate-100">
+                <div className="p-3.5 flex justify-between items-center cursor-pointer hover:bg-slate-50 transition">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 rounded-xl bg-blue-50 text-blue-600">
+                      <MapPin size={16} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-slate-800">Local Area / Council</p>
+                      <p className="text-[10px] text-slate-400">Majlis Bandaraya Petaling Jaya (MBPJ)</p>
+                    </div>
+                  </div>
+                  <ChevronRight size={16} className="text-slate-400" />
+                </div>
+
+                <div className="p-3.5 flex justify-between items-center cursor-pointer hover:bg-slate-50 transition">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 rounded-xl bg-purple-50 text-purple-600">
+                      <Bell size={16} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-slate-800">Push Notifications</p>
+                      <p className="text-[10px] text-slate-400">Alerts on nearby repairs and verifications</p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">Active</span>
+                </div>
+
+                <div className="p-3.5 flex justify-between items-center cursor-pointer hover:bg-slate-50 transition">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 rounded-xl bg-amber-50 text-amber-600">
+                      <Globe size={16} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-slate-800">Language</p>
+                      <p className="text-[10px] text-slate-400">English / Bahasa Melayu</p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-600">EN</span>
+                </div>
+              </div>
+
+              {/* Logout Button */}
+              <button className="w-full bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 py-3 rounded-2xl text-xs font-bold transition flex items-center justify-center space-x-2">
+                <LogOut size={16} />
+                <span>Log Out</span>
+              </button>
+            </div>
+          )}
+
         </div>
       </div>
 
       {/* FLOATING NAVIGATION */}
-      <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/90 backdrop-blur-md border-t border-slate-200 py-3 px-8 flex justify-between items-center z-40 rounded-t-2xl shadow-xl">
+      <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/90 backdrop-blur-md border-t border-slate-200 py-3 px-8 flex justify-between items-center z-[9000] rounded-t-2xl shadow-xl">
         <button 
           onClick={() => setActiveTab('home')}
           className={`flex flex-col items-center space-y-0.5 ${activeTab === 'home' ? 'text-blue-600' : 'text-slate-400'}`}
@@ -574,17 +660,18 @@ export default function App() {
         </button>
 
         <button 
-          className="flex flex-col items-center space-y-0.5 text-slate-400 hover:text-slate-600"
+          onClick={() => setActiveTab('profile')}
+          className={`flex flex-col items-center space-y-0.5 ${activeTab === 'profile' ? 'text-blue-600' : 'text-slate-400'}`}
         >
           <User size={20} />
           <span className="text-[10px] font-semibold">Profile</span>
         </button>
       </nav>
 
-      {/* REPORT MODAL SHEET */}
+      {/* REPORT MODAL SHEET (Elevated z-[9999] and z-[10000] to cover Leaflet popups/map) */}
       {showReportModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="bg-white rounded-t-3xl sm:rounded-3xl p-5 w-full max-w-md max-h-[95vh] overflow-y-auto animate-in slide-in-from-bottom">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="bg-white rounded-t-3xl sm:rounded-3xl p-5 w-full max-w-md max-h-[95vh] overflow-y-auto animate-in slide-in-from-bottom relative z-[10000]">
             <div className="flex justify-between items-center mb-1">
               <h2 className="text-base font-extrabold text-slate-900">Report Community Issue</h2>
               <button 
@@ -607,7 +694,7 @@ export default function App() {
                   className="w-full p-2.5 text-xs border border-slate-300 rounded-xl bg-slate-50 font-medium"
                 >
                   <option value="DRAINAGE">🌊 Drainage / Flooding</option>
-                  <option value="ROADS">🛣️️ Roads / Potholes</option>
+                  <option value="ROADS">🛣 Roads / Potholes</option>
                   <option value="WASTE">🗑️ Waste / Trash</option>
                   <option value="LIGHTING">💡 Streetlights</option>
                   <option value="HAZARD">⚠️ Public Hazard</option>
@@ -631,8 +718,8 @@ export default function App() {
                   <span>Pin Affected Location</span>
                   <span className="text-[10px] text-blue-600 font-normal">Tap map to set pin</span>
                 </label>
-                <div className="h-[150px] w-full rounded-xl overflow-hidden border border-slate-300 mb-1.5">
-                  <MapContainer center={selectedLocation} zoom={15} scrollWheelZoom={false}>
+                <div className="h-[150px] w-full rounded-xl overflow-hidden border border-slate-300 mb-1.5 relative z-0">
+                  <MapContainer center={selectedLocation} zoom={15} scrollWheelZoom={false} className="h-full w-full z-0">
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                     <LocationPickerMarker 
                       position={selectedLocation} 
