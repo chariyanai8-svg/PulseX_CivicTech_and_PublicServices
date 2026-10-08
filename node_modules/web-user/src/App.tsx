@@ -68,7 +68,7 @@ const MOCK_RESOLVED_ISSUES: CommunityIssue[] = [
   }
 ];
 
-export default function App() {
+function MainApp() {
   const [issues, setIssues] = useState<CommunityIssue[]>([...INITIAL_ISSUES, ...MOCK_RESOLVED_ISSUES]);
   const [selectedIssue, setSelectedIssue] = useState<CommunityIssue | null>(issues[0]);
   const [userVerifications, setUserVerifications] = useState<Record<string, 'FIXED' | 'PARTIAL' | 'NOT_FIXED'>>({});
@@ -804,3 +804,59 @@ export default function App() {
     </div>
   );
 }
+
+export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loginId, setLoginId] = useState('');
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (loginId.toLowerCase().startsWith('adm')) {
+      window.location.href = 'http://localhost:3001';
+    } else if (loginId.trim() !== '') {
+      setIsAuthenticated(true);
+    }
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="max-w-md mx-auto min-h-screen bg-slate-100 flex flex-col justify-center items-center p-6 font-sans shadow-2xl">
+        <div className="w-full bg-white rounded-3xl p-8 shadow-xl text-center">
+          <div className="w-16 h-16 mx-auto bg-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-blue-200">
+            <span className="text-white font-black text-2xl">CP</span>
+          </div>
+          <h1 className="text-2xl font-black text-slate-900 mb-2">CivicPulse</h1>
+          <p className="text-sm text-slate-500 mb-8">One Door for Every Civic Issue</p>
+          
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label className="block text-left text-xs font-bold text-slate-700 mb-1.5">Identification (IC or Admin ID)</label>
+              <input 
+                type="text" 
+                placeholder="e.g. 901012-14-1234 or ADM-001" 
+                value={loginId}
+                onChange={(e) => setLoginId(e.target.value)}
+                className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                required
+              />
+            </div>
+            <button 
+              type="submit" 
+              className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm shadow-md transition hover:shadow-lg"
+            >
+              Log In
+            </button>
+          </form>
+          
+          <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <p className="text-xs text-blue-800 font-medium text-left leading-relaxed">
+              <strong>Tip:</strong> Enter any IC to login as a Citizen. Enter any ID starting with <strong>ADM</strong> to access the Local Government Dashboard.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return <MainApp />;
+}
