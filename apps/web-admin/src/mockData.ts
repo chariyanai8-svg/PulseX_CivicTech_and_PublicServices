@@ -22,6 +22,19 @@ export interface AdminIssue extends CommunityIssue {
     avgRecurrenceDays: number;
     monthlyTrend: number; // percentage
   };
+  externalRefs?: {
+    pbtCare?: string;
+    sispaa?: string;
+    myJalan?: string;
+  };
+  internalComments?: {
+    id: string;
+    author: string;
+    agency: string;
+    text: string;
+    timestamp: string;
+    isSystemAction?: boolean;
+  }[];
 }
 
 export interface HotspotData {
@@ -96,6 +109,16 @@ export const ADMIN_ISSUES: AdminIssue[] = [
       avgRecurrenceDays: 19,
       monthlyTrend: 43,
     },
+    externalRefs: {
+      pbtCare: '#PBT-99214',
+      sispaa: '#SIS-2026-0182',
+      myJalan: '#MJ-4412'
+    },
+    internalComments: [
+      { id: 'c1', author: 'Ahmad Faiz', agency: 'MBPJ', text: 'Initial assessment: Gutter clearing won\'t be enough. High water volume is coming from the federal road reserve.', timestamp: '27 Sep, 10:15 AM' },
+      { id: 'c2', author: 'System', agency: 'System', text: 'Supporting Agency [JPS Selangor] added to ticket.', timestamp: '27 Sep, 10:20 AM', isSystemAction: true },
+      { id: 'c3', author: 'Sarah Lim', agency: 'JPS Selangor', text: '@JKR_District_Roads: Culvert downstream needs backhoe clearance before we can patch the road and clear the main drains.', timestamp: '28 Sep, 09:30 AM' }
+    ]
   },
   {
     id: 'CIV-2026-004282',

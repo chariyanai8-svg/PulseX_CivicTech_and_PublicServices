@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { ChevronRight, TrendingUp, Activity, CheckCircle2, RefreshCw, ArrowUpRight } from 'lucide-react';
 import { ADMIN_ISSUES, WEEKLY_TRENDS, CATEGORY_BREAKDOWN, HOTSPOTS } from '../mockData';
@@ -7,6 +7,27 @@ const categoryEmoji: Record<string, string> = {
   ROADS: '🛣️', DRAINAGE: '🌊', WASTE: '🗑️', LIGHTING: '💡', FALLEN_TREES: '🌳',
   OBSTRUCTION: '🚧', FACILITIES: '🏞️', PEDESTRIAN: '🚶', HAZARD: '⚠️', ENVIRONMENT: '🌱', OTHER: '📋',
 };
+
+function useCountUp(end: number, duration: number = 1000) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    let startTime: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      // Use easeOutQuart
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 4);
+      setCount(Math.floor(ease * end));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        setCount(end);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [end, duration]);
+  return count;
+}
 
 export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
   const stats = useMemo(() => {
@@ -43,6 +64,11 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
     }, 1500);
   };
 
+  const animatedActive = useCountUp(stats.active, 1500);
+  const animatedCritical = useCountUp(stats.critical, 1500);
+  const animatedResolved = useCountUp(2456, 1500);
+  const animatedEscalated = useCountUp(1124, 1500);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-up">
       {/* Generating Overlay */}
@@ -66,10 +92,10 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
             <div>
               <p className="text-[#064e3b]/70 font-medium mb-1 text-[17px] tracking-tight">Total active issues</p>
               <div className="flex items-baseline mt-2">
-                <h2 className="text-[56px] leading-none font-extrabold text-[#064e3b] tracking-tight">{stats.active},450</h2>
+                <h2 className="text-[56px] leading-none font-extrabold text-[#064e3b] tracking-tight">{animatedActive},450</h2>
                 <span className="text-[22px] text-[#064e3b] font-extrabold ml-2">cases</span>
               </div>
-              <p className="text-[15px] text-[#064e3b]/80 mt-3 font-medium">+{stats.critical} critical cases from last month</p>
+              <p className="text-[15px] text-[#064e3b]/80 mt-3 font-medium">+{animatedCritical} critical cases from last month</p>
             </div>
             <div className="flex items-center gap-2 mt-4 bg-white/20 backdrop-blur-md w-fit p-1.5 rounded-full shadow-sm">
               <button onClick={() => setActiveTab('Live Map')} className="px-6 py-2.5 bg-[#0f111a] text-white rounded-full text-sm font-medium hover:bg-black transition">
@@ -89,7 +115,7 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
             <div className="bg-[#171822] border border-white/5 rounded-[28px] p-7 flex-1 flex flex-col shadow-lg relative overflow-hidden">
               <p className="text-[#a1a1aa] text-[15px] font-medium">Resolved</p>
               <div className="flex items-baseline mt-2 mb-1">
-                <h3 className="text-[42px] leading-none font-extrabold tracking-tight text-white">+2,456</h3>
+                <h3 className="text-[42px] leading-none font-extrabold tracking-tight text-white">+{animatedResolved.toLocaleString()}</h3>
                 <span className="text-[16px] ml-2 text-[#71717a] font-medium">cases</span>
               </div>
               <div className="flex items-center justify-between mt-auto">
@@ -101,7 +127,7 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
             <div className="bg-[#171822] border border-white/5 rounded-[28px] p-7 flex-1 flex flex-col shadow-lg relative overflow-hidden">
               <p className="text-[#a1a1aa] text-[15px] font-medium">Escalated</p>
               <div className="flex items-baseline mt-2 mb-1">
-                <h3 className="text-[42px] leading-none font-extrabold tracking-tight text-white">-1,124</h3>
+                <h3 className="text-[42px] leading-none font-extrabold tracking-tight text-white">-{animatedEscalated.toLocaleString()}</h3>
                 <span className="text-[16px] ml-2 text-[#71717a] font-medium">cases</span>
               </div>
               <div className="flex items-center justify-between mt-auto">

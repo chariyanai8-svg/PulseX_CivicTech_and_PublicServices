@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ADMIN_ISSUES, AdminIssue } from '../mockData';
-import { Search, Filter, AlertCircle, Clock, CheckCircle2, AlertTriangle, X, ShieldAlert, FileText, Check } from 'lucide-react';
+import { Search, Filter, AlertCircle, Clock, CheckCircle2, AlertTriangle, X, ShieldAlert, FileText, Check, MessageSquare, MapPin, Send, CornerUpRight } from 'lucide-react';
 
 const categoryEmoji: Record<string, string> = {
   ROADS: '🛣️', DRAINAGE: '🌊', WASTE: '🗑️', LIGHTING: '💡', FALLEN_TREES: '🌳',
@@ -21,13 +21,17 @@ const COLUMNS: ColumnInfo[] = [
   { id: 'MARKED_RESOLVED', title: 'Settled', icon: <CheckCircle2 size={16} />, color: 'text-emerald-400' },
 ];
 
-export default function AllIssuesTab() {
+export default function AllIssuesTab({ externalSearchQuery = '' }: { externalSearchQuery?: string }) {
   const [issues, setIssues] = useState<AdminIssue[]>(ADMIN_ISSUES);
+  const [localSearchQuery, setLocalSearchQuery] = useState('');
   const [draggedId, setDraggedId] = useState<string | null>(null);
   const [dragOverColumn, setDragOverColumn] = useState<string | null>(null);
   const [selectedDisputedIssue, setSelectedDisputedIssue] = useState<AdminIssue | null>(null);
+  const [selectedRegularIssue, setSelectedRegularIssue] = useState<AdminIssue | null>(null);
   const [overrideReason, setOverrideReason] = useState('');
   const [activeFilter, setActiveFilter] = useState<'ALL' | 'DISPUTED'>('ALL');
+  const [activeModalTab, setActiveModalTab] = useState<'details' | 'comms'>('details');
+  const [chatInput, setChatInput] = useState('');
 
   const handleDragStart = (e: React.DragEvent, id: string) => {
     setDraggedId(id);
@@ -93,6 +97,8 @@ export default function AllIssuesTab() {
             <input 
               type="text" 
               placeholder="Search issues..." 
+              value={localSearchQuery || externalSearchQuery}
+              onChange={(e) => setLocalSearchQuery(e.target.value)}
               className="bg-[#1d1f30] text-sm text-white pl-10 pr-4 py-2.5 rounded-full border border-white/5 focus:outline-none focus:border-white/20 w-[240px]"
             />
           </div>
@@ -111,10 +117,12 @@ export default function AllIssuesTab() {
       {/* Kanban Board Container */}
       <div className="flex gap-6 h-[calc(100vh-220px)] min-h-[600px] overflow-x-auto pb-4">
         {COLUMNS.map(col => {
+          const query = (localSearchQuery || externalSearchQuery).toLowerCase();
           const columnIssues = issues.filter(i => {
             const matchesStatus = i.status === col.id || (col.id === 'MARKED_RESOLVED' && i.status === 'COMMUNITY_VERIFIED');
             const matchesFilter = activeFilter === 'ALL' || (activeFilter === 'DISPUTED' && i.status === 'DISPUTED');
-            return matchesStatus && matchesFilter;
+            const matchesSearch = !query || i.title.toLowerCase().includes(query) || i.id.toLowerCase().includes(query) || i.category.toLowerCase().includes(query) || i.location.neighborhood.toLowerCase().includes(query);
+            return matchesStatus && matchesFilter && matchesSearch;
           });
           const isOver = dragOverColumn === col.id;
 
@@ -171,9 +179,11 @@ export default function AllIssuesTab() {
                       onClick={() => {
                         if (issue.status === 'DISPUTED') {
                           setSelectedDisputedIssue(issue);
+                        } else {
+                          setSelectedRegularIssue(issue);
                         }
                       }}
-                      className={`relative p-5 rounded-2xl border cursor-grab active:cursor-grabbing transition-all duration-200 shadow-lg ${cardStyle} ${issue.status === 'DISPUTED' ? 'hover:ring-2 hover:ring-red-500/50 cursor-pointer' : ''}`}
+                      className={`relative p-5 rounded-2xl border cursor-grab active:cursor-grabbing transition-all duration-200 shadow-lg ${cardStyle} hover:ring-2 hover:ring-white/20`}
                     >
                       {/* SLA Timer (Feature 5) */}
                       {(isCritical || isHigh) && col.id !== 'MARKED_RESOLVED' && (
@@ -328,7 +338,197 @@ export default function AllIssuesTab() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+      {/* Regular Issue Details Modal */}
+      {selectedRegularIssue && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 animate-in fade-in">
+          <div className="absolute inset-0 bg-[#0f111a]/90 backdrop-blur-md" onClick={() => setSelectedRegularIssue(null)}></div>
+          <div className="relative w-full max-w-4xl bg-[#1d1f30] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden max-h-[90vh]">
+            
+            {/* Modal Header */}
+            <div className="flex flex-col border-b border-white/10 bg-[#161825]">
+              <div className="flex items-start justify-between p-5 pb-4">
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 border border-purple-500/20 text-2xl shrink-0">
+                    {categoryEmoji[selectedRegularIssue.category] || '📋'}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white flex items-center gap-2 mb-1">
+                      {selectedRegularIssue.title}
+                      <span className="bg-[#121420] border border-white/10 text-gray-300 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">{selectedRegularIssue.status.replace('_', ' ')}</span>
+                    </h3>
+                    
+                    {/* Unified Reference ID Hub */}
+                    <div className="flex items-center gap-3 text-xs">
+                      <span className="text-purple-400 font-mono bg-purple-400/10 px-2 py-0.5 rounded border border-purple-400/20">
+                        {selectedRegularIssue.id}
+                      </span>
+                      {selectedRegularIssue.externalRefs?.pbtCare && (
+                        <span className="text-gray-400 font-mono border-l border-white/10 pl-3">
+                          PBTCare: <span className="text-gray-300">{selectedRegularIssue.externalRefs.pbtCare}</span>
+                        </span>
+                      )}
+                      {selectedRegularIssue.externalRefs?.sispaa && (
+                        <span className="text-gray-400 font-mono border-l border-white/10 pl-3">
+                          SISPAA: <span className="text-gray-300">{selectedRegularIssue.externalRefs.sispaa}</span>
+                        </span>
+                      )}
+                      {selectedRegularIssue.externalRefs?.myJalan && (
+                        <span className="text-gray-400 font-mono border-l border-white/10 pl-3">
+                          MyJalan: <span className="text-gray-300">{selectedRegularIssue.externalRefs.myJalan}</span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <button onClick={() => setSelectedRegularIssue(null)} className="text-gray-400 hover:text-white p-2 bg-white/5 rounded-full transition">
+                  <X size={20} />
+                </button>
+              </div>
 
+              {/* Tabs */}
+              <div className="flex px-5 gap-6 border-t border-white/5">
+                <button 
+                  onClick={() => setActiveModalTab('details')}
+                  className={`py-3 text-sm font-bold border-b-2 transition-colors ${activeModalTab === 'details' ? 'border-purple-500 text-purple-400' : 'border-transparent text-gray-500 hover:text-gray-300'}`}
+                >
+                  <div className="flex items-center gap-2"><FileText size={16} /> Overview & Logistics</div>
+                </button>
+                <button 
+                  onClick={() => setActiveModalTab('comms')}
+                  className={`py-3 text-sm font-bold border-b-2 transition-colors ${activeModalTab === 'comms' ? 'border-purple-500 text-purple-400' : 'border-transparent text-gray-500 hover:text-gray-300'}`}
+                >
+                  <div className="flex items-center gap-2"><MessageSquare size={16} /> Inter-Agency Comms</div>
+                </button>
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto custom-scrollbar bg-[#0f111a]">
+              {activeModalTab === 'details' ? (
+                <div className="p-6 flex flex-col md:flex-row gap-6">
+                  {/* Left Column */}
+                  <div className="flex-1 space-y-6">
+                    <div className="w-full h-64 bg-black rounded-xl overflow-hidden border border-white/10 relative">
+                      {selectedRegularIssue.images && selectedRegularIssue.images[0] ? (
+                        <img src={selectedRegularIssue.images[0]} alt="Issue" className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-600">No Photo Provided</div>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-bold text-gray-200 mb-2">Citizen Description</h4>
+                      <p className="text-sm text-gray-300 bg-[#1d1f30] p-4 rounded-xl border border-white/5 leading-relaxed">{selectedRegularIssue.description}</p>
+                    </div>
+                  </div>
+                  
+                  {/* Right Column */}
+                  <div className="w-full md:w-[320px] space-y-4 shrink-0">
+                    <div className="bg-[#1d1f30] p-5 rounded-xl border border-white/5">
+                      <h4 className="font-bold text-xs text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2"><ShieldAlert size={14}/> Authorities Responsible</h4>
+                      <div className="space-y-4">
+                        <div className="bg-[#161825] p-3 rounded-lg border border-white/5">
+                          <p className="text-[10px] text-gray-500 uppercase font-bold mb-1">Lead Agency</p>
+                          <p className="text-sm font-bold text-white flex items-center gap-2">
+                            {selectedRegularIssue.leadAgency || 'Pending Assignment'}
+                            <span className="bg-green-500/10 text-green-400 text-[10px] px-2 py-0.5 rounded border border-green-500/20">Primary</span>
+                          </p>
+                        </div>
+                        {selectedRegularIssue.supportingAgency && (
+                          <div className="bg-[#161825] p-3 rounded-lg border border-white/5">
+                            <p className="text-[10px] text-gray-500 uppercase font-bold mb-1">Supporting Agency</p>
+                            <p className="text-sm font-bold text-gray-300">{selectedRegularIssue.supportingAgency}</p>
+                          </div>
+                        )}
+                        
+                        <div className="pt-2 border-t border-white/5">
+                          <button className="w-full py-2.5 bg-[#161825] hover:bg-[#23263b] border border-white/10 rounded-lg text-sm font-bold text-gray-300 transition flex items-center justify-center gap-2 group">
+                            <CornerUpRight size={14} className="text-gray-500 group-hover:text-purple-400 transition" />
+                            Handover Jurisdiction
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#1d1f30] p-5 rounded-xl border border-white/5">
+                      <h4 className="font-bold text-xs text-gray-400 uppercase tracking-wider mb-4">Case Metrics</h4>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-[#161825] p-3 rounded-lg border border-white/5">
+                          <p className="text-[10px] text-gray-500 uppercase font-bold">Affected</p>
+                          <p className="text-lg font-bold text-white">{selectedRegularIssue.affectedCount}</p>
+                        </div>
+                        <div className="bg-[#161825] p-3 rounded-lg border border-white/5">
+                          <p className="text-[10px] text-gray-500 uppercase font-bold">Severity</p>
+                          <p className={`text-sm font-bold mt-1 ${getSeverityColor(selectedRegularIssue.severity).replace('bg-', 'text-')}`}>
+                            {selectedRegularIssue.severity}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col h-full min-h-[400px]">
+                  <div className="flex-1 p-6 space-y-6">
+                    {selectedRegularIssue.internalComments && selectedRegularIssue.internalComments.length > 0 ? (
+                      selectedRegularIssue.internalComments.map((comment) => (
+                        <div key={comment.id} className={`flex ${comment.isSystemAction ? 'justify-center' : 'flex-col'} gap-1`}>
+                          {comment.isSystemAction ? (
+                            <div className="bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs px-4 py-2 rounded-full font-mono flex items-center gap-2">
+                              <CheckCircle2 size={12} /> {comment.text}
+                            </div>
+                          ) : (
+                            <>
+                              <div className="flex items-center gap-2 px-2">
+                                <span className="font-bold text-sm text-gray-200">{comment.author}</span>
+                                <span className="text-[10px] font-black uppercase tracking-wider text-gray-500 bg-white/5 px-2 py-0.5 rounded">{comment.agency}</span>
+                                <span className="text-xs text-gray-600 font-mono">{comment.timestamp}</span>
+                              </div>
+                              <div className="bg-[#1d1f30] p-4 rounded-xl rounded-tl-sm border border-white/5 text-sm text-gray-300 leading-relaxed shadow-sm">
+                                {comment.text.includes('@') ? (
+                                  <>
+                                    <span className="text-blue-400 font-bold bg-blue-500/10 px-1.5 py-0.5 rounded mr-1">
+                                      {comment.text.split(':')[0]}
+                                    </span>
+                                    {comment.text.substring(comment.text.indexOf(':') + 1)}
+                                  </>
+                                ) : (
+                                  comment.text
+                                )}
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      ))
+                    ) : (
+                      <div className="h-full flex flex-col items-center justify-center text-gray-500">
+                        <MessageSquare size={32} className="mb-3 opacity-20" />
+                        <p>No internal discussion yet.</p>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="p-4 border-t border-white/10 bg-[#161825]">
+                    <div className="flex items-end gap-3 bg-[#0f111a] p-2 rounded-xl border border-white/10 focus-within:border-purple-500/50 transition">
+                      <textarea 
+                        value={chatInput}
+                        onChange={(e) => setChatInput(e.target.value)}
+                        placeholder="Tag an agency (@JKR) or write a note..."
+                        className="w-full bg-transparent border-none focus:outline-none text-sm text-white resize-none max-h-32 min-h-[44px] p-3 custom-scrollbar"
+                        rows={1}
+                      />
+                      <button 
+                        className={`p-3 rounded-lg flex items-center justify-center transition shrink-0 ${chatInput.trim() ? 'bg-purple-600 text-white hover:bg-purple-500' : 'bg-white/5 text-gray-600'}`}
+                      >
+                        <Send size={16} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
