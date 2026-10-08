@@ -62,14 +62,14 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
         {/* TOP CARDS ROW */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* VIBRANT HERO CARD */}
-          <div className="hero-gradient p-7 flex flex-col justify-between h-[270px]">
+          <div className="hero-gradient p-8 flex flex-col justify-between h-[310px] !rounded-[28px]">
             <div>
-              <p className="text-gray-900/80 font-medium mb-2 text-lg tracking-tight">Total active issues</p>
-              <div className="flex items-start gap-1">
-                <h2 className="text-[52px] leading-none font-bold text-gray-900 tracking-tight">{stats.active},450</h2>
-                <span className="text-2xl text-gray-900 font-bold mt-2">cases</span>
+              <p className="text-[#064e3b]/70 font-medium mb-1 text-[17px] tracking-tight">Total active issues</p>
+              <div className="flex items-baseline mt-2">
+                <h2 className="text-[56px] leading-none font-extrabold text-[#064e3b] tracking-tight">{stats.active},450</h2>
+                <span className="text-[22px] text-[#064e3b] font-extrabold ml-2">cases</span>
               </div>
-              <p className="text-sm text-gray-900/80 mt-4 font-medium">+{stats.critical} critical cases from last month</p>
+              <p className="text-[15px] text-[#064e3b]/80 mt-3 font-medium">+{stats.critical} critical cases from last month</p>
             </div>
             <div className="flex items-center gap-2 mt-4 bg-white/20 backdrop-blur-md w-fit p-1.5 rounded-full shadow-sm">
               <button onClick={() => setActiveTab('Live Map')} className="px-6 py-2.5 bg-[#0f111a] text-white rounded-full text-sm font-medium hover:bg-black transition">
@@ -85,10 +85,10 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
           </div>
 
           {/* TWO SMALLER CARDS */}
-          <div className="flex flex-col gap-6 h-[270px]">
-            <div className="bg-[#171822] border border-white/5 rounded-[22px] p-6 flex-1 flex flex-col shadow-lg">
+          <div className="flex flex-col gap-4 h-[310px]">
+            <div className="bg-[#171822] border border-white/5 rounded-[28px] p-7 flex-1 flex flex-col shadow-lg relative overflow-hidden">
               <p className="text-[#a1a1aa] text-[15px] font-medium">Resolved</p>
-              <div className="flex items-baseline mt-3 mb-2">
+              <div className="flex items-baseline mt-2 mb-1">
                 <h3 className="text-[42px] leading-none font-extrabold tracking-tight text-white">+2,456</h3>
                 <span className="text-[16px] ml-2 text-[#71717a] font-medium">cases</span>
               </div>
@@ -98,9 +98,9 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
               </div>
             </div>
 
-            <div className="bg-[#171822] border border-white/5 rounded-[22px] p-6 flex-1 flex flex-col shadow-lg">
+            <div className="bg-[#171822] border border-white/5 rounded-[28px] p-7 flex-1 flex flex-col shadow-lg relative overflow-hidden">
               <p className="text-[#a1a1aa] text-[15px] font-medium">Escalated</p>
-              <div className="flex items-baseline mt-3 mb-2">
+              <div className="flex items-baseline mt-2 mb-1">
                 <h3 className="text-[42px] leading-none font-extrabold tracking-tight text-white">-1,124</h3>
                 <span className="text-[16px] ml-2 text-[#71717a] font-medium">cases</span>
               </div>
