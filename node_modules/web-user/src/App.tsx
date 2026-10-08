@@ -74,6 +74,7 @@ function MainApp() {
   const [userVerifications, setUserVerifications] = useState<Record<string, 'FIXED' | 'PARTIAL' | 'NOT_FIXED'>>({});
   const [activeTab, setActiveTab] = useState<'home' | 'map' | 'activity' | 'profile'>('home');
   const [showReportModal, setShowReportModal] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   // Form State
   const [newTitle, setNewTitle] = useState('');
@@ -204,12 +205,47 @@ function MainApp() {
               <button className="p-2 rounded-full bg-white/20 backdrop-blur-md hover:bg-white/30 transition">
                 <Bell size={16} />
               </button>
-              <button 
-                onClick={() => setActiveTab('profile')}
-                className="w-8 h-8 rounded-full bg-blue-200 border-2 border-white overflow-hidden flex items-center justify-center text-blue-800 font-bold text-xs"
+              
+              <div 
+                className="relative"
+                onMouseEnter={() => setIsProfileOpen(true)}
+                onMouseLeave={() => setIsProfileOpen(false)}
               >
-                CA
-              </button>
+                <button 
+                  onClick={() => setActiveTab('profile')}
+                  className="w-8 h-8 rounded-full bg-blue-200 border-2 border-white overflow-hidden flex items-center justify-center text-blue-800 font-bold text-xs cursor-pointer"
+                >
+                  CA
+                </button>
+
+                {isProfileOpen && (
+                  <div className="absolute top-full right-0 pt-2 z-50">
+                    <div className="w-[240px] bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden animate-fade-up text-left">
+                      <div className="p-4 border-b border-slate-100">
+                        <p className="font-bold text-slate-800 text-sm">Chariya A.</p>
+                        <p className="text-[11px] text-slate-500">Citizen Account</p>
+                        <div className="mt-2 flex items-center gap-2">
+                          <span className="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.4)]"></span>
+                          <span className="text-[10px] text-emerald-600 font-bold uppercase tracking-wider">Online</span>
+                        </div>
+                      </div>
+                      <div className="p-2">
+                        <button className="w-full text-left px-3 py-2 text-xs text-slate-600 hover:bg-slate-50 rounded-lg transition">Account Settings</button>
+                        <button className="w-full text-left px-3 py-2 text-xs text-slate-600 hover:bg-slate-50 rounded-lg transition">My Reports</button>
+                        <div className="h-[1px] bg-slate-100 my-1 mx-2"></div>
+                        <button 
+                          onClick={() => {
+                            window.location.href = 'http://localhost:3001';
+                          }}
+                          className="w-full text-left px-3 py-2 text-xs text-rose-500 hover:bg-rose-50 rounded-lg transition flex items-center gap-2"
+                        >
+                          Sign Out
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
