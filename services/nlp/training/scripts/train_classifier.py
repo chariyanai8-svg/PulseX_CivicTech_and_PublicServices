@@ -42,7 +42,13 @@ def main():
                         help="Number of training epochs.")
     parser.add_argument("--batch-size", type=int, default=8,
                         help="Batch size per device.")
+    parser.add_argument("--version", type=str, default="v0.2.0",
+                        help="Model version to save (e.g. v0.2.0).")
     args = parser.parse_args()
+
+    output_dir = BASE_DIR / "models" / "classifier" / args.version
+    if output_dir.exists() and args.version == "v0.1.0":
+        raise ValueError("v0.1.0 is the protected baseline! Specify a new version like --version v0.2.0.")
 
     print("=== CivicPulse: Classifier Training Pipeline ===")
 
@@ -136,14 +142,14 @@ def main():
     trainer.train()
 
     # 8. Save Final Model
-    print(f"\nSaving fine-tuned model to: {OUTPUT_DIR}")
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    trainer.save_model(str(OUTPUT_DIR))
+    print(f"\nSaving fine-tuned model to: {output_dir}")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    trainer.save_model(str(output_dir))
 
-    # Also save a dummy metrics file for demonstration
+    # Also save a metrics file
     metrics = {"status": "trained",
-               "base_model": MODEL_NAME, "epochs": args.epochs}
-    with open(OUTPUT_DIR / "training_metrics.json", "w") as f:
+               "base_model": MODEL_NAME, "epochs": args.epochs, "version": args.version}
+    with open(output_dir / "training_metrics.json", "w") as f:
         json.dump(metrics, f)
 
     print("\nTraining complete! Baseline classifier is ready.")

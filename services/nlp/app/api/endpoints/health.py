@@ -18,6 +18,12 @@ _start_time = time.time()
     description="Returns the service health status and whether NLP models are loaded.",
     tags=["System"],
 )
+@router.get(
+    "/health",
+    summary="Health check (alias)",
+    description="Returns the service health status and whether NLP models are loaded.",
+    tags=["System"],
+)
 async def health_check() -> dict:
     """Check if the NLP service is healthy and models are loaded.
 

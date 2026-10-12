@@ -19,13 +19,17 @@ Interactive API documentation (Swagger UI) is available at `http://localhost:800
 
 ## 📡 API Endpoints
 
-All NLP routes are prefixed with `/api/v1/nlp`.
+All NLP routes are mounted directly under `/nlp`:
+- `GET  /nlp/health` (also accessible at `/health`): Service health status and uptime
+- `POST /nlp/analyze`: Text classification and information extraction
+- `POST /nlp/similarity`: Compare semantic similarity between two civic reports
+- `POST /nlp/embed`: Dense 384-dimensional vector embedding
 
 ### 1. Analyze a Civic Report
 
 Extracts categories and specific issue entities from raw text. This handles code-switched text (English/Bahasa Malaysia) natively.
 
-**Endpoint:** `POST /api/v1/nlp/analyze`
+**Endpoint:** `POST /nlp/analyze`
 
 **Request:**
 ```json
@@ -44,9 +48,9 @@ Extracts categories and specific issue entities from raw text. This handles code
   "category": "ROADS",
   "confidence": 0.998,
   "extracted_info": {
-    "issue": ["Jalanberlubang", "repair"],
+    "issue": ["Jalan berlubang", "repair"],
     "location": ["sekolah"],
-    "severity": ["bahayasangat"],
+    "severity": ["bahaya sangat"],
     "timing": [],
     "symptom": []
   }
@@ -57,7 +61,7 @@ Extracts categories and specific issue entities from raw text. This handles code
 
 Useful for checking if a newly submitted report is a duplicate of an existing report.
 
-**Endpoint:** `POST /api/v1/nlp/similarity`
+**Endpoint:** `POST /nlp/similarity`
 
 **Request:**
 ```json
@@ -79,7 +83,7 @@ Useful for checking if a newly submitted report is a duplicate of an existing re
 
 Converts a string of text into a 384-dimensional array of floats. Useful if you want to store representations in a vector database (like pgvector) for semantic search.
 
-**Endpoint:** `POST /api/v1/nlp/embed`
+**Endpoint:** `POST /nlp/embed`
 
 **Request:**
 ```json

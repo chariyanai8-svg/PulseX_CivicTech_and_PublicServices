@@ -9,6 +9,12 @@ def test_health_returns_200(client: TestClient) -> None:
     assert response.status_code == 200
 
 
+def test_health_alias_root_returns_200(client: TestClient) -> None:
+    """Root alias /health should also return 200."""
+    response = client.get("/health")
+    assert response.status_code == 200
+
+
 def test_health_response_structure(client: TestClient) -> None:
     """Health response should contain all expected fields."""
     response = client.get("/nlp/health")

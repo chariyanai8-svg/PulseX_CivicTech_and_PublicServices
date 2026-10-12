@@ -89,7 +89,7 @@ class InferencePipeline:
             }
             
         # 2. Category Classification
-        cls_result = self.classifier(clean_text)[0]
+        cls_result = self.classifier(clean_text, truncation=True, max_length=512)[0]
         category = cls_result["label"]
         category_confidence = float(cls_result["score"])
         
@@ -99,8 +99,8 @@ class InferencePipeline:
         # 4. Format Extracted Information
         for ent in ner_results:
             group = ent["entity_group"].lower()
-            # Clean up the stitched word (sometimes HuggingFace leaves leading spaces '_' or ' ')
-            word = ent["word"].replace(" ", "").strip()
+            # Clean up the stitched word, normalizing any subword whitespace artifacts while preserving word spaces
+            word = " ".join(ent["word"].replace("\u2581", " ").split())
             
             if group in extracted_info and word:
                 extracted_info[group].append(word)

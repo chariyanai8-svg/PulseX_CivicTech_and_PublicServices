@@ -55,3 +55,11 @@ def test_similarity_endpoint(client: TestClient):
     
     assert "similarity_score" in data
     assert data["similarity_score"] > 0.5  # Should be highly similar cross-lingual
+
+def test_analyze_long_text_truncation(client: TestClient):
+    long_text = "Jalan berlubang dan berbahaya dekat simpang ini. " * 50
+    response = client.post("/nlp/analyze", json={"text": long_text})
+    assert response.status_code == 200
+    data = response.json()
+    assert "category" in data
+    assert data["category"] is not None
