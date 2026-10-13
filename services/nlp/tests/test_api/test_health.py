@@ -27,13 +27,34 @@ def test_health_response_structure(client: TestClient) -> None:
     assert "environment" in data
 
 
-def test_health_models_not_loaded_yet(client: TestClient) -> None:
-    """Before models are trained, models_loaded should be False."""
+def test_health_models_loaded(client: TestClient) -> None:
+    """When models are loaded during startup, models_loaded should be True and status healthy."""
     response = client.get("/nlp/health")
     data = response.json()
 
-    assert data["models_loaded"] is False
-    assert data["status"] == "degraded"
+    assert data["models_loaded"] is True
+    assert data["status"] == "healthy"
+
+
+def test_health_models_unloaded_reports_degraded(client: TestClient) -> None:
+    """When models are not loaded, models_loaded should be False and status degraded."""
+    original_pipeline = getattr(client.app.state, "pipeline", None)
+    try:
+        client.app.state.pipeline = None
+        response = client.get("/nlp/health")
+        data = response.json()
+
+        assert data["models_loaded"] is False
+        assert data["status"] == "degraded"
+    finally:
+        client.app.state.pipeline = original_pipeline
+
+
+def test_root_returns_404(client: TestClient) -> None:
+    """Root URL / should return 404 Not Found as no homepage is intended."""
+    response = client.get("/")
+    assert response.status_code == 404
+
 
 
 def test_health_shows_model_version(client: TestClient) -> None:

@@ -2,7 +2,7 @@
 
 import time
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 
 from app.core.config import settings
 
@@ -24,7 +24,7 @@ _start_time = time.time()
     description="Returns the service health status and whether NLP models are loaded.",
     tags=["System"],
 )
-async def health_check() -> dict:
+async def health_check(request: Request) -> dict:
     """Check if the NLP service is healthy and models are loaded.
 
     This endpoint is intended for:
@@ -34,10 +34,20 @@ async def health_check() -> dict:
     """
     uptime_seconds = int(time.time() - _start_time)
 
-    # TODO: Check actual model loading status once ModelManager is implemented (Step 12).
-    # For now, models_loaded is False since no models are loaded yet.
-    models_loaded = False
+    pipeline = getattr(request.app.state, "pipeline", None)
+    similarity = getattr(request.app.state, "similarity", None)
 
+    pipeline_loaded = bool(
+        pipeline is not None
+        and getattr(pipeline, "classifier", None) is not None
+        and getattr(pipeline, "ner", None) is not None
+    )
+    similarity_loaded = bool(
+        similarity is not None
+        and getattr(similarity, "model", None) is not None
+    )
+
+    models_loaded = pipeline_loaded and similarity_loaded
     status = "healthy" if models_loaded else "degraded"
 
     return {

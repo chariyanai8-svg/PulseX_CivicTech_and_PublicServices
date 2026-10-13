@@ -44,14 +44,25 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     logger.info("Environment: %s", settings.app_env)
     logger.info("Model version: %s", settings.model_version)
 
+    app.state.pipeline = None
+    app.state.similarity = None
+
     try:
         app.state.pipeline = InferencePipeline()
-        app.state.similarity = SemanticSimilarity()
-        logger.info("NLP models loaded successfully!")
+        logger.info("Inference pipeline loaded successfully.")
     except Exception as e:
-        logger.error(f"Failed to load NLP models: {e}")
-        app.state.pipeline = None
-        app.state.similarity = None
+        logger.error(f"Failed to load inference pipeline: {e}")
+
+    try:
+        app.state.similarity = SemanticSimilarity()
+        logger.info("Semantic similarity service loaded successfully.")
+    except Exception as e:
+        logger.error(f"Failed to load semantic similarity service: {e}")
+
+    if app.state.pipeline and app.state.similarity:
+        logger.info("All NLP models loaded successfully!")
+    else:
+        logger.warning("NLP Service started with degraded model status.")
 
     logger.info("NLP Service ready at http://%s:%d", settings.app_host, settings.app_port)
     logger.info("API docs available at http://%s:%d/docs", settings.app_host, settings.app_port)

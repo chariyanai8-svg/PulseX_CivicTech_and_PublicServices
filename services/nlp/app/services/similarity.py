@@ -20,6 +20,11 @@ class SemanticSimilarity:
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         # sentence-transformers automatically downloads and caches the model
         self.model = SentenceTransformer(model_name, device=self.device)
+
+    @property
+    def is_loaded(self) -> bool:
+        """Returns True if the similarity model is loaded."""
+        return self.model is not None
         
     def get_embedding(self, text: str) -> List[float]:
         """Generates a dense vector embedding for the input text.

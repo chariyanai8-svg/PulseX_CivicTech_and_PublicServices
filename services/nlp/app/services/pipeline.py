@@ -10,17 +10,27 @@ from pathlib import Path
 from typing import Dict, Any
 
 from transformers import pipeline
+from app.core.config import settings
 from app.services.preprocessor import Preprocessor
 
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-CLASSIFIER_DIR = BASE_DIR / "models" / "classifier" / "v0.2.0"
-NER_DIR = BASE_DIR / "models" / "ner" / "v0.2.0"
+_classifier_path = Path(settings.model_classifier_path)
+CLASSIFIER_DIR = _classifier_path if _classifier_path.is_absolute() else (BASE_DIR / _classifier_path).resolve()
+
+_ner_path = Path(settings.model_extractor_path)
+NER_DIR = _ner_path if _ner_path.is_absolute() else (BASE_DIR / _ner_path).resolve()
 
 
 class InferencePipeline:
     """End-to-end CivicPulse NLP Pipeline."""
+
+    @property
+    def is_loaded(self) -> bool:
+        """Returns True if both classifier and NER models are loaded."""
+        return getattr(self, "classifier", None) is not None and getattr(self, "ner", None) is not None
+
 
     def __init__(self):
         """Initializes all sub-modules and loads ML models into memory."""
