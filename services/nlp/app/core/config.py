@@ -27,12 +27,12 @@ class Settings(BaseSettings):
     app_log_level: str = "INFO"
 
     # --- Model Paths ---
-    model_classifier_path: str = "models/classifier/v0.1.0"
-    model_extractor_path: str = "models/extractor/v0.1.0"
+    model_classifier_path: str = "models/classifier/v0.2.0"
+    model_extractor_path: str = "models/ner/v0.2.0"
     model_embedder_path: str = "models/embedder/v0.1.0"
 
     # --- Model Version ---
-    model_version: str = "0.1.0"
+    model_version: str = "0.2.0"
 
     # --- Confidence Thresholds ---
     confidence_high_threshold: float = 0.7

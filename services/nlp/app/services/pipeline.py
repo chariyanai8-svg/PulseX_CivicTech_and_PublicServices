@@ -15,8 +15,8 @@ from app.services.preprocessor import Preprocessor
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-CLASSIFIER_DIR = BASE_DIR / "models" / "classifier" / "v0.1.0"
-NER_DIR = BASE_DIR / "models" / "ner" / "v0.1.0"
+CLASSIFIER_DIR = BASE_DIR / "models" / "classifier" / "v0.2.0"
+NER_DIR = BASE_DIR / "models" / "ner" / "v0.2.0"
 
 
 class InferencePipeline:

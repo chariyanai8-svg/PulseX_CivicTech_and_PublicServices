@@ -111,17 +111,24 @@ TEMPLATES = {
         "en": [
             "Abandoned car blocking the road {location}.",
             "Illegal structure blocking the sidewalk {location}.",
-            "Construction materials obstructing traffic {location}."
+            "Construction materials obstructing traffic {location}.",
+            "Damaged vehicle abandoned and blocking the entrance {location}.",
+            "Obstruction blocking the access road {location}."
         ],
         "ms": [
             "Kereta terbiar halang laluan {location}.",
             "Ada gerai haram halang jalan kaki {location}.",
-            "Bahan binaan block jalan {location}."
+            "Bahan binaan block jalan {location}.",
+            "Kenderaan rosak ditinggalkan menghalang laluan keluar masuk {location}.",
+            "Kenderaan ditinggalkan menghalang laluan {location}.",
+            "Ada halangan di laluan keluar masuk lorong {location}."
         ],
         "mixed": [
             "Abandoned car {location} dah berbulan.",
             "Illegal parking block the road {location}.",
-            "Gerai block sidewalk {location}."
+            "Gerai block sidewalk {location}.",
+            "Kenderaan rosak abandoned block laluan {location}.",
+            "Kereta rosak ditinggalkan menghalang jalan {location}."
         ]
     },
     "FACILITIES": {
@@ -196,24 +203,33 @@ TEMPLATES = {
         "en": [
             "Stray dogs roaming aggressively {location}.",
             "Strange incident {location}, need council help.",
-            "General complaint about area {location}."
+            "General complaint about area {location}.",
+            "Request to review and replace faded signboard {location}.",
+            "Signboard name is faded and illegible {location}.",
+            "Petition regarding public boundary signage {location}."
         ],
         "ms": [
             "Anjing liar garang {location}.",
             "Masalah tak pasti {location}.",
-            "Kawasan {location} perlukan pemeriksaan majlis."
+            "Kawasan {location} perlukan pemeriksaan majlis.",
+            "Permohonan semakan papan tanda nama taman yang telah pudar {location}.",
+            "Papan tanda nama taman pudar dan tidak jelas {location}.",
+            "Permohonan memasang papan tanda amaran {location}.",
+            "Papan tanda rosak dan pudar {location}."
         ],
         "mixed": [
             "Many stray dogs {location} attacking people.",
             "Weird smell {location}, don't know from where.",
-            "Need council to check {location}."
+            "Need council to check {location}.",
+            "Papan tanda faded and needs replacement {location}.",
+            "Request semakan signboard taman {location}."
         ]
     }
 }
 
 # Fillers
 LOCATIONS_EN = ["near the hospital", "in front of the school", "along the highway", "behind the shops", "at the intersection"]
-LOCATIONS_MS = ["depan sekolah", "dekat simpang", "belakang kedai", "berhampiran taman", "di laluan utama"]
+LOCATIONS_MS = ["depan sekolah", "dekat simpang", "belakang kedai", "berhampiran taman", "di laluan utama", "lorong"]
 LOCATIONS_MIXED = ["near Mydin", "depan mall", "kat highway", "area kedai makan", "belakang hospital"]
 
 SEVERITIES = ["very", "extremely", "teruk", "sangat", "really"]
