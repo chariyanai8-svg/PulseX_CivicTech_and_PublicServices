@@ -6,6 +6,7 @@ flow, converting a raw user string into a structured JSON payload.
 """
 
 import logging
+import string
 from pathlib import Path
 from typing import Dict, Any
 
@@ -62,7 +63,89 @@ class InferencePipeline:
         except Exception as e:
             logger.error(f"Failed to load NER model: {e}")
             raise RuntimeError("NER model not found. Ensure training completed.") from e
-            
+
+    def _postprocess_entities(self, text: str, ner_results: list) -> Dict[str, list]:
+        """Post-process raw NER results with word-boundary snapping, span merging, and punctuation trimming.
+
+        Handles subword tokenization artifacts where SentencePiece splits words into subwords
+        (e.g. 'Lampu' -> 'Lamp' + 'u', 'pothole' -> 'pot' + 'hole', or 'rosak' -> 'rosa')
+        and strips trailing punctuation from extracted spans.
+        """
+        extracted_info = {
+            "issue": [],
+            "location": [],
+            "severity": [],
+            "timing": [],
+            "symptom": []
+        }
+        if not ner_results:
+            return extracted_info
+
+        text_len = len(text)
+        chars_to_strip = string.punctuation + " \t\n\r"
+
+        # 1. Snap each entity span to word boundaries if cut mid-word by subword tokenization
+        snapped = []
+        for ent in ner_results:
+            group = ent.get("entity_group", "").lower()
+            if group not in extracted_info:
+                continue
+
+            start = ent.get("start")
+            end = ent.get("end")
+
+            # Fallback if offsets are missing (e.g. mock outputs in unit tests)
+            if start is None or end is None:
+                word = " ".join(ent.get("word", "").replace("\u2581", " ").split()).strip(chars_to_strip)
+                if word and word not in extracted_info[group]:
+                    extracted_info[group].append(word)
+                continue
+
+            # Expand start leftward if boundary falls inside an alphanumeric word
+            while start > 0 and text[start - 1].isalnum() and text[start].isalnum():
+                start -= 1
+
+            # Expand end rightward if boundary falls inside an alphanumeric word
+            while end < text_len and text[end - 1].isalnum() and text[end].isalnum():
+                end += 1
+
+            snapped.append({
+                "group": group,
+                "start": start,
+                "end": end,
+                "score": float(ent.get("score", 0.0))
+            })
+
+        # 2. Merge overlapping or adjacent spans of the SAME entity group
+        merged = []
+        for ent in snapped:
+            if not merged:
+                merged.append(ent)
+                continue
+
+            prev = merged[-1]
+            if ent["group"] == prev["group"]:
+                gap = text[prev["end"]:ent["start"]] if ent["start"] >= prev["end"] else ""
+                # Directly touching, overlapping, or separated only by whitespace
+                if ent["start"] <= prev["end"] or gap.strip() == "":
+                    prev["end"] = max(prev["end"], ent["end"])
+                    prev["score"] = max(prev["score"], ent["score"])
+                    continue
+
+            merged.append(ent)
+
+        # 3. Clean span text, strip trailing/leading punctuation, and deduplicate
+        for ent in merged:
+            group = ent["group"]
+            span_text = text[ent["start"]:ent["end"]]
+            cleaned = span_text.strip(chars_to_strip)
+            # Normalize internal whitespace
+            cleaned = " ".join(cleaned.split())
+            if cleaned and cleaned not in extracted_info[group]:
+                extracted_info[group].append(cleaned)
+
+        return extracted_info
+
     def analyze(self, raw_text: str) -> Dict[str, Any]:
         """Runs the complete end-to-end NLP analysis.
         
@@ -106,14 +189,8 @@ class InferencePipeline:
         # 3. Entity Extraction
         ner_results = self.ner(clean_text)
         
-        # 4. Format Extracted Information
-        for ent in ner_results:
-            group = ent["entity_group"].lower()
-            # Clean up the stitched word, normalizing any subword whitespace artifacts while preserving word spaces
-            word = " ".join(ent["word"].replace("\u2581", " ").split())
-            
-            if group in extracted_info and word:
-                extracted_info[group].append(word)
+        # 4. Format Extracted Information with Offset Alignment & Boundary Snapping
+        extracted_info = self._postprocess_entities(clean_text, ner_results)
                 
         # 5. Construct Final Output Payload
         return {

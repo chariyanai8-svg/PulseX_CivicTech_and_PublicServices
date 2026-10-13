@@ -70,3 +70,36 @@ def test_pipeline_other_signboard_classification(nlp_pipeline: InferencePipeline
     result = nlp_pipeline.analyze(text)
     assert result["category"] == "OTHER"
 
+def test_pipeline_malay_entity_extraction_clean(nlp_pipeline: InferencePipeline):
+    """Verify Malay entity extraction preserves compound words, un-truncated words, and punctuation-free spans."""
+    text = "Lampu jalan rosak di Jalan SS2 semalam."
+    result = nlp_pipeline.analyze(text)
+
+    assert result["category"] == "LIGHTING"
+    assert result["extracted_info"]["issue"] == ["Lampu jalan"]
+    assert result["extracted_info"]["location"] == ["Jalan SS2"]
+    assert "rosak" in result["extracted_info"]["severity"]
+    assert result["extracted_info"]["timing"] == ["semalam"]
+
+def test_pipeline_english_entity_extraction_clean(nlp_pipeline: InferencePipeline):
+    """Verify English entity extraction merges subword-split compound words like 'pothole'."""
+    text = "There is a large pothole near the bus stop since Monday."
+    result = nlp_pipeline.analyze(text)
+
+    assert result["category"] == "ROADS"
+    assert result["extracted_info"]["issue"] == ["pothole"]
+    assert result["extracted_info"]["location"] == ["near the bus stop"]
+    assert result["extracted_info"]["timing"] == ["since Monday"]
+
+def test_pipeline_code_switched_entity_extraction_clean(nlp_pipeline: InferencePipeline):
+    """Verify code-switched entity extraction preserves 'Streetlight', un-truncated 'rosak', and clean timing."""
+    text = "Streetlight dekat school dah rosak sejak minggu lepas, bahaya sangat."
+    result = nlp_pipeline.analyze(text)
+
+    assert result["category"] == "LIGHTING"
+    assert result["extracted_info"]["issue"] == ["Streetlight"]
+    assert result["extracted_info"]["location"] == ["dekat school"]
+    assert "rosak" in result["extracted_info"]["severity"]
+    assert result["extracted_info"]["timing"] == ["sejak minggu lepas"]
+
+

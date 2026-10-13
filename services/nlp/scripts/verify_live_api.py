@@ -69,8 +69,23 @@ def run_live_verification():
             print(f"Body: {json.dumps(body, indent=2)}")
             assert e.code == 404, f"Expected 404, got {e.code}"
             
-        # 3. Test POST /nlp/analyze
-        print("\n--- Testing POST /nlp/analyze ---")
+        # 3. Test POST /nlp/analyze (Prompt test case)
+        print("\n--- Testing POST /nlp/analyze (Lampu jalan rosak di Jalan SS2 semalam.) ---")
+        payload = json.dumps({"text": "Lampu jalan rosak di Jalan SS2 semalam."}).encode("utf-8")
+        req = urllib.request.Request(analyze_url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            status = resp.status
+            body = json.loads(resp.read().decode("utf-8"))
+            print(f"Status: {status}")
+            print(f"Body: {json.dumps(body, indent=2)}")
+            assert body["category"] == "LIGHTING", f"Expected LIGHTING, got {body['category']}"
+            assert body["extracted_info"]["issue"] == ["Lampu jalan"], f"Expected ['Lampu jalan'], got {body['extracted_info']['issue']}"
+            assert body["extracted_info"]["location"] == ["Jalan SS2"], f"Expected ['Jalan SS2'], got {body['extracted_info']['location']}"
+            assert "rosak" in body["extracted_info"]["severity"], f"Expected 'rosak' in severity, got {body['extracted_info']['severity']}"
+            assert body["extracted_info"]["timing"] == ["semalam"], f"Expected ['semalam'], got {body['extracted_info']['timing']}"
+
+        # 4. Test POST /nlp/analyze (Tolong baiki test case)
+        print("\n--- Testing POST /nlp/analyze (Tolong baiki lampu jalan rosak teruk di Jalan SS2 semalam.) ---")
         payload = json.dumps({"text": "Tolong baiki lampu jalan rosak teruk di Jalan SS2 semalam."}).encode("utf-8")
         req = urllib.request.Request(analyze_url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
         with urllib.request.urlopen(req, timeout=10) as resp:
