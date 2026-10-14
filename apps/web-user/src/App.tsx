@@ -5,8 +5,63 @@ import {
   Activity, User, Clock, ShieldCheck, ThumbsUp, X, Image as ImageIcon,
   CheckCircle2, HelpCircle, ChevronRight, Settings, LogOut, Globe, Search, Compass
 } from 'lucide-react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { INITIAL_ISSUES } from './mockData';
 import { CommunityIssue, IssueCategory } from '../../../packages/shared-types';
+
+
+// 📍 2. CUSTOM CATEGORY MAP MARKER HELPER
+export const createCategoryIcon = (category: string, status?: string) => {
+  let emoji = '⚠️';
+  let bgColor = 'bg-red-500';
+
+  switch (category) {
+    case 'DRAINAGE':
+      emoji = '🌊';
+      bgColor = 'bg-blue-600';
+      break;
+    case 'ROADS':
+      emoji = '🛣️';
+      bgColor = 'bg-amber-500';
+      break;
+    case 'WASTE':
+      emoji = '🗑️';
+      bgColor = 'bg-emerald-500';
+      break;
+    case 'LIGHTING':
+      emoji = '💡';
+      bgColor = 'bg-purple-600';
+      break;
+    case 'HAZARD':
+    case 'FALLEN_TREES':
+      emoji = '🌳';
+      bgColor = 'bg-rose-600';
+      break;
+    default:
+      emoji = '📍';
+      bgColor = 'bg-slate-700';
+  }
+
+  // Ring color: Green for resolved, Red for active issues
+  const isResolved = status === 'MARKED_RESOLVED' || status === 'COMMUNITY_VERIFIED';
+  const ringColor = isResolved 
+    ? 'ring-4 ring-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.8)]' 
+    : 'ring-4 ring-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.8)]';
+
+  return L.divIcon({
+    className: 'custom-map-marker',
+    html: `
+      <div class="relative flex items-center justify-center w-9 h-9 rounded-full ${bgColor} ${ringColor} text-white border-2 border-white transform hover:scale-110 transition-transform cursor-pointer">
+        <span class="text-base">${emoji}</span>
+      </div>
+    `,
+    iconSize: [36, 36],
+    iconAnchor: [18, 18],
+    popupAnchor: [0, -18]
+  });
+};
+
 
 // 2. Add this Haversine formula function above LocationPickerMarker:
 function getDistanceKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
@@ -34,8 +89,15 @@ function LocationPickerMarker({ position, setPosition, setAddress }: {
     },
   });
 
-  return <Marker position={position} />;
+  return (
+    <Marker 
+      position={position} 
+      icon={createCategoryIcon('HAZARD')} // 👈 ADD THIS LINE FOR PREVIEW
+    />
+  );
 }
+
+
 
 const MOCK_RESOLVED_ISSUES: CommunityIssue[] = [
   {
@@ -561,26 +623,117 @@ const [radiusFilter, setRadiusFilter] = useState<number>(0); // 0 = Any, 1 to 10
             </>
           )}
 
-          {activeTab === 'map' && (
-            <div className="space-y-3">
-              <h2 className="font-extrabold text-slate-900 text-base">Shared Civic Map</h2>
-              <div className="h-[420px] w-full rounded-2xl overflow-hidden shadow-inner border border-slate-200 relative z-0">
-                <MapContainer center={[3.1186, 101.6231]} zoom={14} scrollWheelZoom={false} className="h-full w-full z-0">
-                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                  {issues.map(issue => (
-                    <Marker key={issue.id} position={[issue.location.lat, issue.location.lng]}>
-                      <Popup>
-                        <div className="p-1">
-                          <h4 className="font-bold text-sm">{issue.title}</h4>
-                          <p className="text-xs text-slate-600">{issue.affectedCount} residents affected</p>
-                        </div>
-                      </Popup>
-                    </Marker>
-                  ))}
-                </MapContainer>
-              </div>
-            </div>
-          )}
+      {activeTab === 'map' && (
+  <div className="space-y-3">
+    <h2 className="font-extrabold text-slate-900 text-base">Shared Civic Map</h2>
+    <div className="h-[420px] w-full rounded-2xl overflow-hidden shadow-inner border border-slate-200 relative z-0">
+      <MapContainer center={[3.1186, 101.6231]} zoom={14} scrollWheelZoom={false} className="h-full w-full z-0">
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        
+        {/* Combine active issues and resolved issues onto the map */}
+        {[...issues, ...(typeof MOCK_RESOLVED_ISSUES !== 'undefined' ? MOCK_RESOLVED_ISSUES : [])].map(issue => {
+          const isResolved = issue.status === 'MARKED_RESOLVED' || issue.status === 'COMMUNITY_VERIFIED';
+
+          return (
+            <Marker 
+              key={issue.id} 
+              position={[issue.location.lat, issue.location.lng]} 
+              icon={createCategoryIcon(issue.category, issue.status)}
+            >
+              <Popup>
+                <div className="p-2 max-w-[240px] space-y-2">
+                  {/* Status Badge */}
+                  <div className="flex items-center justify-between">
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                      isResolved ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                    }`}>
+                      {isResolved ? 'RESOLVED BY PBT' : issue.status}
+                    </span>
+                    <span className="text-[10px] text-slate-400">{issue.id}</span>
+                  </div>
+
+                  {/* Title & Info */}
+                  <div>
+                    <h4 className="font-bold text-xs text-slate-900 leading-snug">{issue.title}</h4>
+                    <p className="text-[11px] text-slate-500 mt-0.5">{issue.location.address}</p>
+                  </div>
+
+                  {/* Image preview */}
+                  {issue.images && issue.images.length > 0 && (
+                    <img 
+                      src={issue.images[0]} 
+                      alt={issue.title} 
+                      className="w-full h-20 object-cover rounded-lg border border-slate-200"
+                    />
+                  )}
+
+                  {/* CONDITIONAL WIDGET CONTENT */}
+                  {isResolved ? (
+                    /* --- RESOLVED VOTING WIDGET --- */
+                    <div className="pt-2 border-t border-slate-200 space-y-1.5">
+                      <div className="flex items-center justify-between text-[10px]">
+                        <span className="font-bold text-slate-700">Community Verification</span>
+                        <span className="text-emerald-600 font-bold">{issue.communityVerificationRate ?? 80}% Verified</span>
+                      </div>
+                      <p className="text-[10px] text-slate-500">Has this issue been fixed properly?</p>
+                      
+                      <div className="grid grid-cols-3 gap-1 pt-1">
+                        <button 
+                          onClick={() => alert(`Voted FIXED for ${issue.id}`)}
+                          className="bg-emerald-500 hover:bg-emerald-600 text-white text-[10px] font-bold py-1 rounded transition text-center"
+                        >
+                          Fixed
+                        </button>
+                        <button 
+                          onClick={() => alert(`Voted PARTIAL for ${issue.id}`)}
+                          className="bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold py-1 rounded transition text-center"
+                        >
+                          Partial
+                        </button>
+                        <button 
+                          onClick={() => alert(`Voted NOT YET for ${issue.id}`)}
+                          className="bg-rose-500 hover:bg-rose-600 text-white text-[10px] font-bold py-1 rounded transition text-center"
+                        >
+                          Not Yet
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    /* --- ACTIVE ISSUE WIDGET WITH "I'M AFFECTED TOO!" BUTTON --- */
+                    <div className="pt-2 border-t border-slate-200 space-y-2">
+                      <div className="flex items-center justify-between text-[11px] text-slate-600">
+                        <span>👥 <strong>{issue.affectedCount}</strong> residents affected</span>
+                      </div>
+                      
+                      <button 
+                        onClick={() => {
+                          if (typeof setIssues === 'function') {
+                            setIssues((prev: any[]) =>
+                              prev.map((item) =>
+                                item.id === issue.id
+                                  ? { ...item, affectedCount: item.affectedCount + 1 }
+                                  : item
+                              )
+                            );
+                          } else {
+                            alert(`You flagged that you are affected by ${issue.id}!`);
+                          }
+                        }}
+                        className="w-full bg-rose-500 hover:bg-rose-600 text-white text-[11px] font-bold py-1.5 px-2 rounded-lg transition-colors flex items-center justify-center gap-1 shadow-sm"
+                      >
+                        ✋ I'm affected too!
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </Popup>
+            </Marker>
+          );
+        })}
+      </MapContainer>
+    </div>
+  </div>
+)}
 
           {activeTab === 'activity' && (
             <div className="space-y-4">
@@ -711,39 +864,42 @@ const [radiusFilter, setRadiusFilter] = useState<number>(0); // 0 = Any, 1 to 10
       </div>
 
       {/* FLOATING NAVIGATION */}
-      <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/90 backdrop-blur-md border-t border-slate-200 py-3 px-8 flex justify-between items-center z-[9000] rounded-t-2xl shadow-xl">
-        <button 
-          onClick={() => setActiveTab('home')}
-          className={`flex flex-col items-center space-y-0.5 ${activeTab === 'home' ? 'text-blue-600' : 'text-slate-400'}`}
-        >
-          <Home size={20} />
-          <span className="text-[10px] font-semibold">Home</span>
-        </button>
+      {/* 🔒 PERMANENTLY LOCKED BOTTOM WRAPPER */}
+<div className="fixed bottom-0 left-0 right-0 z-[9999] pointer-events-none">
+  <nav className="max-w-md mx-auto bg-white/90 backdrop-blur-md border-t border-slate-200 py-3 px-8 flex justify-between items-center rounded-t-2xl shadow-xl pointer-events-auto">
+    <button 
+      onClick={() => setActiveTab('home')}
+      className={`flex flex-col items-center space-y-0.5 ${activeTab === 'home' ? 'text-blue-600' : 'text-slate-400'}`}
+    >
+      <Home size={20} />
+      <span className="text-[10px] font-semibold">Home</span>
+    </button>
 
-        <button 
-          onClick={() => setActiveTab('map')}
-          className={`flex flex-col items-center space-y-0.5 ${activeTab === 'map' ? 'text-blue-600' : 'text-slate-400'}`}
-        >
-          <MapIcon size={20} />
-          <span className="text-[10px] font-semibold">Map</span>
-        </button>
+    <button 
+      onClick={() => setActiveTab('map')}
+      className={`flex flex-col items-center space-y-0.5 ${activeTab === 'map' ? 'text-blue-600' : 'text-slate-400'}`}
+    >
+      <MapIcon size={20} />
+      <span className="text-[10px] font-semibold">Map</span>
+    </button>
 
-        <button 
-          onClick={() => setActiveTab('activity')}
-          className={`flex flex-col items-center space-y-0.5 ${activeTab === 'activity' ? 'text-blue-600' : 'text-slate-400'}`}
-        >
-          <Activity size={20} />
-          <span className="text-[10px] font-semibold">Activity</span>
-        </button>
+    <button 
+      onClick={() => setActiveTab('activity')}
+      className={`flex flex-col items-center space-y-0.5 ${activeTab === 'activity' ? 'text-blue-600' : 'text-slate-400'}`}
+    >
+      <Activity size={20} />
+      <span className="text-[10px] font-semibold">Activity</span>
+    </button>
 
-        <button 
-          onClick={() => setActiveTab('profile')}
-          className={`flex flex-col items-center space-y-0.5 ${activeTab === 'profile' ? 'text-blue-600' : 'text-slate-400'}`}
-        >
-          <User size={20} />
-          <span className="text-[10px] font-semibold">Profile</span>
-        </button>
-      </nav>
+    <button 
+      onClick={() => setActiveTab('profile')}
+      className={`flex flex-col items-center space-y-0.5 ${activeTab === 'profile' ? 'text-blue-600' : 'text-slate-400'}`}
+    >
+      <User size={20} />
+      <span className="text-[10px] font-semibold">Profile</span>
+    </button>
+  </nav>
+</div>
 
       {/* REPORT MODAL SHEET */}
       {showReportModal && (
