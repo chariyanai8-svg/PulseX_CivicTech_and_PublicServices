@@ -1,7 +1,7 @@
 import { CommunityIssue } from '../../../packages/shared-types';
 
 export const INITIAL_ISSUES: CommunityIssue[] = [
-  // --- ORIGINAL ISSUES ---
+  // --- DRAINAGE CATEGORY ---
   {
     id: 'CIV-2026-004281',
     title: 'Flash Flooding & Blocked Drain',
@@ -24,9 +24,46 @@ export const INITIAL_ISSUES: CommunityIssue[] = [
       { date: '29 Sep', title: 'PBT Verified issue' },
       { date: '30 Sep', title: 'Repair work scheduled' }
     ],
-    images: ['https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop'],
+    images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVTTIPc2LQiEIHDkrOImmwtTnAYV4MPI25HY7r8YxlTg&s=10'],
     createdAt: '2026-09-27'
   },
+  {
+    id: 'CIV-2026-004283',
+    title: 'Collapsed Longkang Concrete Wall',
+    category: 'DRAINAGE',
+    description: 'Concrete side wall of monsoon drain collapsed near school back gate, obstructing waterflow.',
+    location: {
+      lat: 3.1250,
+      lng: 101.6310,
+      address: 'Jalan SS2/24',
+      neighborhood: 'SS2 Petaling Jaya'
+    },
+    affectedCount: 14,
+    evidenceCount: 2,
+    occurrenceCount: 1,
+    isRecurring: false,
+    status: 'REPORTED',
+    timeline: [{ date: '14 Oct', title: 'Submitted by resident' }],
+    images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK5uHaL6KrmPrssyZWyaAGpAMFMZGv7eMHj8OXEU7oAg&s=10'],
+    createdAt: '2026-10-14'
+  },
+  {
+    id: 'CIV-2026-004120',
+    title: 'Flash Flood along Jalan 17/5',
+    category: 'DRAINAGE',
+    description: 'Heavy rain causing rapid overflow of main monsoon drain.',
+    location: { lat: 3.1186, lng: 101.6231, address: 'Jalan 17/5, Section 17', neighborhood: 'Petaling Jaya' },
+    affectedCount: 65,
+    evidenceCount: 3,
+    occurrenceCount: 2,
+    isRecurring: true,
+    status: 'REPORTED',
+    timeline: [{ date: '15 Oct', title: 'Reported by residents' }],
+    images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdchbShGLggzbruTDra1wz23czhwXVo3bDx9-VzgFsg&s=10'],
+    createdAt: '2026-10-15'
+  },
+
+  // --- ROADS CATEGORY ---
   {
     id: 'CIV-2026-004282',
     title: 'Deep Pothole Hazard',
@@ -50,30 +87,6 @@ export const INITIAL_ISSUES: CommunityIssue[] = [
     images: ['https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=500&auto=format&fit=crop'],
     createdAt: '2026-09-29'
   },
-
-  // --- ADDITIONAL CASES FOR DRAINAGE ---
-  {
-    id: 'CIV-2026-004283',
-    title: 'Collapsed Longkang Concrete Wall',
-    category: 'DRAINAGE',
-    description: 'Concrete side wall of monsoon drain collapsed near school back gate, obstructing waterflow.',
-    location: {
-      lat: 3.1250,
-      lng: 101.6310,
-      address: 'Jalan SS2/24',
-      neighborhood: 'SS2 Petaling Jaya'
-    },
-    affectedCount: 14,
-    evidenceCount: 2,
-    occurrenceCount: 1,
-    isRecurring: false,
-    status: 'REPORTED',
-    timeline: [{ date: '14 Oct', title: 'Submitted by resident' }],
-    images: ['https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop'],
-    createdAt: '2026-10-14'
-  },
-
-  // --- ADDITIONAL CASES FOR ROADS ---
   {
     id: 'CIV-2026-004284',
     title: 'Damaged Speed Bump & Metal Studs Exposed',
@@ -113,7 +126,7 @@ export const INITIAL_ISSUES: CommunityIssue[] = [
     isRecurring: false,
     status: 'REPORTED',
     timeline: [{ date: '12 Oct', title: 'Logged by neighborhood watch' }],
-    images: ['https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=500&auto=format&fit=crop'],
+    images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOWxtkvGSNWWrucNE2l3tk75lodZs62qYoqNZwcpl-VA&s=10'],
     createdAt: '2026-10-12'
   },
   {
@@ -155,7 +168,7 @@ export const INITIAL_ISSUES: CommunityIssue[] = [
     isRecurring: false,
     status: 'IN_PROGRESS',
     timeline: [{ date: '09 Oct', title: 'Inspected by TNB Contractors' }],
-    images: ['https://images.unsplash.com/photo-1509114397022-ed747cca3f65?w=500&auto=format&fit=crop'],
+    images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeozaghPHNgrzRrdaMf6WGJf12Lz3L7xi_Hn-ZL7sWfw&s=10'],
     createdAt: '2026-10-09'
   },
   {

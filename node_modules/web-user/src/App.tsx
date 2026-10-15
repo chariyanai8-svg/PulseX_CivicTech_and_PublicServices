@@ -10,8 +10,7 @@ import 'leaflet/dist/leaflet.css';
 import { INITIAL_ISSUES } from './mockData';
 import { CommunityIssue, IssueCategory } from '../../../packages/shared-types';
 
-
-// 📍 2. CUSTOM CATEGORY MAP MARKER HELPER
+// 📍 1. CUSTOM CATEGORY MAP MARKER HELPER
 export const createCategoryIcon = (category: string, status?: string) => {
   let emoji = '⚠️';
   let bgColor = 'bg-red-500';
@@ -43,7 +42,6 @@ export const createCategoryIcon = (category: string, status?: string) => {
       bgColor = 'bg-slate-700';
   }
 
-  // Ring color: Green for resolved, Red for active issues
   const isResolved = status === 'MARKED_RESOLVED' || status === 'COMMUNITY_VERIFIED';
   const ringColor = isResolved 
     ? 'ring-4 ring-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.8)]' 
@@ -62,8 +60,7 @@ export const createCategoryIcon = (category: string, status?: string) => {
   });
 };
 
-
-// 2. Add this Haversine formula function above LocationPickerMarker:
+// 2. Haversine distance calculator
 function getDistanceKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371; // Earth radius in km
   const dLat = (lat2 - lat1) * (Math.PI / 180);
@@ -76,10 +73,16 @@ function getDistanceKm(lat1: number, lon1: number, lat2: number, lon2: number): 
   return R * c;
 }
 
-function LocationPickerMarker({ position, setPosition, setAddress }: { 
+function LocationPickerMarker({ 
+  position, 
+  setPosition, 
+  setAddress, 
+  category = 'HAZARD' 
+}: { 
   position: [number, number]; 
   setPosition: (pos: [number, number]) => void;
   setAddress: (addr: string) => void;
+  category?: string;
 }) {
   useMapEvents({
     click(e) {
@@ -92,12 +95,10 @@ function LocationPickerMarker({ position, setPosition, setAddress }: {
   return (
     <Marker 
       position={position} 
-      icon={createCategoryIcon('HAZARD')} // 👈 ADD THIS LINE FOR PREVIEW
+      icon={createCategoryIcon(category)} 
     />
   );
 }
-
-
 
 const MOCK_RESOLVED_ISSUES: CommunityIssue[] = [
   {
@@ -141,21 +142,18 @@ const MOCK_RESOLVED_ISSUES: CommunityIssue[] = [
   }
 ];
 
-export default function App() {
+function MainApp() {
   const [issues, setIssues] = useState<CommunityIssue[]>([...INITIAL_ISSUES, ...MOCK_RESOLVED_ISSUES]);
   const [selectedIssue, setSelectedIssue] = useState<CommunityIssue | null>(issues[0] || null);
   const [userVerifications, setUserVerifications] = useState<Record<string, 'FIXED' | 'PARTIAL' | 'NOT_FIXED'>>({});
   const [activeTab, setActiveTab] = useState<'home' | 'map' | 'activity' | 'profile'>('home');
   const [showReportModal, setShowReportModal] = useState(false);
 
-  // --- ADD THIS: Default User Location ---
+  // --- Search, Location & Filter States ---
   const userLocation: [number, number] = [3.1186, 101.6231];
-
-  // --- ADD THIS: Search & Filter States ---
- // Search Engine & Filter States
-const [searchQuery, setSearchQuery] = useState('');
-const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('ALL');
-const [radiusFilter, setRadiusFilter] = useState<number>(0); // 0 = Any, 1 to 10 for km radius
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('ALL');
+  const [radiusFilter, setRadiusFilter] = useState<number>(0);
 
   // Form State
   const [newTitle, setNewTitle] = useState('');
@@ -165,9 +163,8 @@ const [radiusFilter, setRadiusFilter] = useState<number>(0); // 0 = Any, 1 to 10
   const [autoAddress, setAutoAddress] = useState('Jalan 17/5, Section 17, Petaling Jaya');
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
-  // --- ADD THIS: Filter Computation Engine ---
+  // Filter Engine
   const filteredIssues = issues.filter(issue => {
-    // Text search (Title, Description, ID, Address)
     const q = searchQuery.toLowerCase().trim();
     const matchesSearch = !q || 
       issue.title.toLowerCase().includes(q) ||
@@ -175,10 +172,8 @@ const [radiusFilter, setRadiusFilter] = useState<number>(0); // 0 = Any, 1 to 10
       issue.id.toLowerCase().includes(q) ||
       issue.location.address.toLowerCase().includes(q);
 
-    // Category filter
     const matchesCategory = selectedCategoryFilter === 'ALL' || issue.category === selectedCategoryFilter;
 
-    // Radius distance filter
     let matchesRadius = true;
     if (radiusFilter > 0 && issue.location?.lat && issue.location?.lng) {
       const dist = getDistanceKm(userLocation[0], userLocation[1], issue.location.lat, issue.location.lng);
@@ -188,7 +183,6 @@ const [radiusFilter, setRadiusFilter] = useState<number>(0); // 0 = Any, 1 to 10
     return matchesSearch && matchesCategory && matchesRadius;
   });
 
-  // --- REPLACE YOUR OLD activeIssues / pbtResolvedIssues WITH THESE ---
   const activeIssues = filteredIssues.filter(i => i.status !== 'MARKED_RESOLVED' && i.status !== 'COMMUNITY_VERIFIED');
   const pbtResolvedIssues = filteredIssues.filter(i => i.status === 'MARKED_RESOLVED' || i.status === 'COMMUNITY_VERIFIED');
 
@@ -250,44 +244,43 @@ const [radiusFilter, setRadiusFilter] = useState<number>(0); // 0 = Any, 1 to 10
   };
 
   const handleCreateReport = (e: React.FormEvent) => {
-  e.preventDefault();
-  
-  const finalImages = uploadedImages.length > 0 
-    ? uploadedImages 
-    : ['https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop'];
+    e.preventDefault();
+    
+    const finalImages = uploadedImages.length > 0 
+      ? uploadedImages 
+      : ['https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop'];
 
-  // Generate unique case ID: e.g. CIV-2026-94821034
-  const uniqueId = `CIV-2026-${Date.now().toString().slice(-4)}${Math.floor(1000 + Math.random() * 9000)}`;
+    const uniqueId = `CIV-2026-${Date.now().toString().slice(-4)}${Math.floor(1000 + Math.random() * 9000)}`;
 
-  const newIssue: CommunityIssue = {
-    id: uniqueId,
-    title: newTitle,
-    category: newCategory,
-    description: newDescription,
-    location: {
-      lat: selectedLocation[0],
-      lng: selectedLocation[1],
-      address: autoAddress,
-      neighborhood: 'Petaling Jaya'
-    },
-    affectedCount: 1,
-    evidenceCount: finalImages.length,
-    occurrenceCount: 1,
-    isRecurring: false,
-    status: 'REPORTED',
-    timeline: [{ date: 'Today', title: 'Submitted by you' }],
-    images: finalImages,
-    createdAt: new Date().toISOString().split('T')[0]
+    const newIssue: CommunityIssue = {
+      id: uniqueId,
+      title: newTitle,
+      category: newCategory,
+      description: newDescription,
+      location: {
+        lat: selectedLocation[0],
+        lng: selectedLocation[1],
+        address: autoAddress,
+        neighborhood: 'Petaling Jaya'
+      },
+      affectedCount: 1,
+      evidenceCount: finalImages.length,
+      occurrenceCount: 1,
+      isRecurring: false,
+      status: 'REPORTED',
+      timeline: [{ date: 'Today', title: 'Submitted by you' }],
+      images: finalImages,
+      createdAt: new Date().toISOString().split('T')[0]
+    };
+
+    setIssues([newIssue, ...issues]);
+    setSelectedIssue(newIssue);
+    setShowReportModal(false);
+    
+    setNewTitle('');
+    setNewDescription('');
+    setUploadedImages([]);
   };
-
-  setIssues([newIssue, ...issues]);
-  setSelectedIssue(newIssue);
-  setShowReportModal(false);
-  
-  setNewTitle('');
-  setNewDescription('');
-  setUploadedImages([]);
-};
 
   const activeVerificationRate = selectedIssue?.communityVerificationRate ?? 75;
   const ringStyle = getRingColor(activeVerificationRate);
@@ -295,745 +288,723 @@ const [radiusFilter, setRadiusFilter] = useState<number>(0); // 0 = Any, 1 to 10
   const userVoteForSelected = selectedIssue ? userVerifications[selectedIssue.id] : undefined;
 
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-slate-100 flex flex-col justify-between shadow-2xl relative font-sans">
+    <div className="min-h-screen bg-slate-200 flex justify-center items-center py-0 sm:py-6">
       
-      {/* SCROLLABLE MAIN BODY */}
-      <div className="flex-1 overflow-y-auto pb-28">
+      {/* MOBILE FRAME CONTAINER */}
+      <div className="w-full max-w-md bg-white min-h-screen sm:min-h-[844px] sm:max-h-[900px] shadow-2xl relative flex flex-col overflow-hidden sm:rounded-[36px] border border-slate-300 font-sans">
+        
+        {/* SCROLLABLE MAIN BODY */}
+        <div className="flex-1 overflow-y-auto pb-28">
 
-      {/* TOP HERO BLUE GRADIENT HEADER CARD */}
-<div className="bg-gradient-to-b from-blue-700 via-blue-600 to-blue-500 text-white p-5 rounded-b-[2rem] shadow-lg">
-  <div className="flex justify-between items-center mb-4">
-    <div className="flex items-center space-x-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span className="text-xs font-semibold">Taman ABC, PJ</span>
-    </div>
-    <div className="flex items-center space-x-2">
-      <button className="p-2 rounded-full bg-white/20 backdrop-blur-md hover:bg-white/30 transition">
-        <Bell size={16} />
-      </button>
-      <button 
-        onClick={() => setActiveTab('profile')}
-        className="w-8 h-8 rounded-full bg-blue-200 border-2 border-white overflow-hidden flex items-center justify-center text-blue-800 font-bold text-xs"
-      >
-        CA
-      </button>
-    </div>
-  </div>
+          {/* TOP HERO HEADER */}
+          <div className="bg-gradient-to-b from-blue-700 via-blue-600 to-blue-500 text-white p-5 rounded-b-[2rem] shadow-lg">
+            <div className="flex justify-between items-center mb-4">
+              <div className="flex items-center space-x-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="text-xs font-semibold">Taman ABC, PJ</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <button className="p-2 rounded-full bg-white/20 backdrop-blur-md hover:bg-white/30 transition">
+                  <Bell size={16} />
+                </button>
+                <button 
+                  onClick={() => setActiveTab('profile')}
+                  className="w-8 h-8 rounded-full bg-blue-200 border-2 border-white overflow-hidden flex items-center justify-center text-blue-800 font-bold text-xs"
+                >
+                  CA
+                </button>
+              </div>
+            </div>
 
-  <div className="mb-4">
-    <p className="text-xs text-blue-100">Welcome back,</p>
-    <h1 className="text-2xl font-black tracking-tight">Hi Chariya 👋</h1>
-    <p className="text-xs text-blue-100 mt-0.5">Here is your local civic activity summary</p>
-  </div>
+            <div className="mb-4">
+              <p className="text-xs text-blue-100">Welcome back,</p>
+              <h1 className="text-2xl font-black tracking-tight">Hi John 👋</h1>
+              <p className="text-xs text-blue-100 mt-0.5">Here is your local civic activity summary</p>
+            </div>
 
-  {/* REPORT ISSUE BUTTON */}
-  <div className="w-full mb-2">
-    <button 
-      onClick={() => setShowReportModal(true)}
-      className="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 py-4 px-6 rounded-2xl text-lg font-black tracking-wider shadow-xl hover:scale-[1.02] active:scale-98 transition flex items-center justify-center space-x-2 border-2 border-amber-300 uppercase ring-4 ring-amber-400/20"
-    >
-      <Plus size={24} className="stroke-[3.5]" />
-      <span className="font-extrabold text-lg">REPORT YOUR ISSUE HERE</span>
-    </button>
-  </div>
+            {/* REPORT ISSUE BUTTON */}
+            <div className="w-full mb-2">
+              <button 
+                onClick={() => setShowReportModal(true)}
+                className="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 py-4 px-6 rounded-2xl text-lg font-black tracking-wider shadow-xl hover:scale-[1.02] active:scale-98 transition flex items-center justify-center space-x-2 border-2 border-amber-300 uppercase ring-4 ring-amber-400/20"
+              >
+                <Plus size={24} className="stroke-[3.5]" />
+                <span className="font-extrabold text-lg">REPORT YOUR ISSUE HERE</span>
+              </button>
+            </div>
 
-  {/* SEARCH ENGINE & RADIUS FILTER (1 - 10 KM) */}
-  <div className="bg-white text-slate-900 rounded-2xl p-4 shadow-xl mt-4 space-y-3">
-    <div className="flex items-center justify-between">
-      <div className="flex items-center space-x-1.5">
-        <Search size={16} className="text-blue-600" />
-        <h3 className="font-extrabold text-xs text-slate-900 uppercase tracking-wide">Search & Filter Cases</h3>
-      </div>
-      <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100">
-        {filteredIssues.length} Found
-      </span>
-    </div>
-
-    {/* Text Search Bar */}
-    <div className="relative flex items-center">
-      <Search size={15} className="absolute left-3 text-slate-400" />
-      <input 
-        type="text"
-        placeholder="Search case ID, street, or issue..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="w-full pl-9 pr-8 py-2 bg-slate-50 text-slate-900 placeholder-slate-400 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
-      />
-      {searchQuery && (
-        <button onClick={() => setSearchQuery('')} className="absolute right-2.5 text-slate-400 hover:text-slate-600">
-          <X size={14} />
-        </button>
-      )}
-    </div>
-
-    {/* Category Dropdown & Radius Range Selector */}
-    <div className="grid grid-cols-2 gap-2">
-      {/* Category Filter */}
-      <div>
-        <label className="block text-[10px] font-bold text-slate-500 mb-1">Category</label>
-        <select
-          value={selectedCategoryFilter}
-          onChange={(e) => setSelectedCategoryFilter(e.target.value)}
-          className="w-full p-2 bg-slate-50 text-slate-800 font-semibold text-xs rounded-xl border border-slate-200 focus:outline-none cursor-pointer"
-        >
-          <option value="ALL">📁 All Categories</option>
-          <option value="DRAINAGE">🌊 Drainage</option>
-          <option value="ROADS">🛣 Roads</option>
-          <option value="WASTE">🗑️ Waste</option>
-          <option value="LIGHTING">💡 Streetlights</option>
-          <option value="HAZARD">⚠️ Hazard</option>
-        </select>
-      </div>
-
-      {/* Radius Filter Dropdown (1 - 10 km) */}
-      <div>
-        <label className="block text-[10px] font-bold text-slate-500 mb-1">Radius Range</label>
-        <select
-          value={radiusFilter}
-          onChange={(e) => setRadiusFilter(Number(e.target.value))}
-          className="w-full p-2 bg-slate-50 text-slate-800 font-semibold text-xs rounded-xl border border-slate-200 focus:outline-none cursor-pointer"
-        >
-          <option value={0}>🌐 Any Distance</option>
-          <option value={1}>📍 Within 1 km</option>
-          <option value={2}>📍 Within 2 km</option>
-          <option value={3}>📍 Within 3 km</option>
-          <option value={5}>📍 Within 5 km</option>
-          <option value={7}>📍 Within 7 km</option>
-          <option value={10}>📍 Within 10 km</option>
-        </select>
-      </div>
-    </div>
-  </div>
-</div>
-
-         
-        {/* MAIN BODY CONTENT */}
-        <div className="px-4 mt-5 space-y-6">
-
-          {activeTab === 'home' && (
-            <>
-              {/* SECTION 1: ACTIVE COMMUNITY ISSUES */}
-              <div>
-                <div className="flex justify-between items-center mb-3">
-                  <h2 className="font-extrabold text-slate-900 text-base">Active Community Issues</h2>
-                  <button onClick={() => setActiveTab('map')} className="text-xs text-blue-600 font-bold hover:underline">
-                    See Map
-                  </button>
+            {/* SEARCH & FILTER */}
+            <div className="bg-white text-slate-900 rounded-2xl p-4 shadow-xl mt-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-1.5">
+                  <Search size={16} className="text-blue-600" />
+                  <h3 className="font-extrabold text-xs text-slate-900 uppercase tracking-wide">Search & Filter Cases</h3>
                 </div>
-
-                <div className="flex space-x-3 overflow-x-auto pb-2 scrollbar-none">
-                  {activeIssues.map(issue => (
-                    <div 
-                      key={issue.id}
-                      onClick={() => setSelectedIssue(issue)}
-                      className={`min-w-[210px] bg-white rounded-2xl p-3.5 shadow-sm border transition cursor-pointer flex flex-col justify-between ${selectedIssue?.id === issue.id ? 'border-red-500 ring-2 ring-red-100' : 'border-slate-200'}`}
-                    >
-                      <div>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-[10px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full uppercase border border-red-100">
-                            {issue.category}
-                          </span>
-                          {issue.isRecurring && (
-                            <span className="text-[9px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">Recurring</span>
-                          )}
-                        </div>
-                        <h4 className="font-bold text-xs text-slate-800 line-clamp-1">{issue.title}</h4>
-                        <p className="text-[11px] text-slate-400 mt-0.5 line-clamp-1">{issue.location.address}</p>
-                      </div>
-
-                      <div className="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[11px]">
-                        <span className="font-bold text-slate-700">{issue.affectedCount} Affected</span>
-                        <span className="text-red-600 font-bold">{issue.images.length} Photos</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100">
+                  {filteredIssues.length} Found
+                </span>
               </div>
 
-             {/* SELECTED ACTIVE ISSUE DETAIL CARD */}
-{selectedIssue && !isSelectedResolved && (
-  <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-4">
-    <div className="flex justify-between items-start">
-      <div>
-        <span className="text-[10px] text-slate-400 font-mono">{selectedIssue.id}</span>
-        <h3 className="font-bold text-slate-900 text-base">{selectedIssue.title}</h3>
-      </div>
-      <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
-        {selectedIssue.status}
-      </span>
-    </div>
+              <div className="relative flex items-center">
+                <Search size={15} className="absolute left-3 text-slate-400" />
+                <input 
+                  type="text"
+                  placeholder="Search case ID, street, or issue..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-9 pr-8 py-2 bg-slate-50 text-slate-900 placeholder-slate-400 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+                />
+                {searchQuery && (
+                  <button onClick={() => setSearchQuery('')} className="absolute right-2.5 text-slate-400 hover:text-slate-600">
+                    <X size={14} />
+                  </button>
+                )}
+              </div>
 
-    <p className="text-xs text-slate-600">{selectedIssue.description}</p>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-500 mb-1">Category</label>
+                  <select
+                    value={selectedCategoryFilter}
+                    onChange={(e) => setSelectedCategoryFilter(e.target.value)}
+                    className="w-full p-2 bg-slate-50 text-slate-800 font-semibold text-xs rounded-xl border border-slate-200 focus:outline-none cursor-pointer"
+                  >
+                    <option value="ALL">📁 All Categories</option>
+                    <option value="DRAINAGE">🌊 Drainage</option>
+                    <option value="ROADS">🛣 Roads</option>
+                    <option value="WASTE">🗑️ Waste</option>
+                    <option value="LIGHTING">💡 Streetlights</option>
+                    <option value="HAZARD">⚠️ Hazard</option>
+                  </select>
+                </div>
 
-    {/* Evidence Images */}
-    {selectedIssue.images && selectedIssue.images.length > 0 && (
-      <div>
-        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center">
-          <ImageIcon size={12} className="mr-1" /> Submitted Evidence ({selectedIssue.images.length})
-        </h4>
-        <div className="flex space-x-2 overflow-x-auto pb-1">
-          {selectedIssue.images.map((img, idx) => (
-            <div key={idx} className="w-24 h-24 rounded-xl overflow-hidden border border-slate-200 flex-shrink-0 shadow-sm">
-              <img src={img} alt={`Evidence ${idx + 1}`} className="w-full h-full object-cover" />
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-500 mb-1">Radius Range</label>
+                  <select
+                    value={radiusFilter}
+                    onChange={(e) => setRadiusFilter(Number(e.target.value))}
+                    className="w-full p-2 bg-slate-50 text-slate-800 font-semibold text-xs rounded-xl border border-slate-200 focus:outline-none cursor-pointer"
+                  >
+                    <option value={0}>🌐 Any Distance</option>
+                    <option value={1}>📍 Within 1 km</option>
+                    <option value={2}>📍 Within 2 km</option>
+                    <option value={3}>📍 Within 3 km</option>
+                    <option value={5}>📍 Within 5 km</option>
+                    <option value={7}>📍 Within 7 km</option>
+                    <option value={10}>📍 Within 10 km</option>
+                  </select>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
-    )}
-
-    {/* Affected Count Banner */}
-    <div className="bg-blue-50 border border-blue-100 rounded-xl p-3 flex justify-between items-center">
-      <div>
-        <p className="text-xs font-bold text-blue-900">{selectedIssue.affectedCount} Residents Affected</p>
-        <p className="text-[10px] text-blue-600">Tap to corroborate community impact</p>
-      </div>
-      <button 
-        onClick={() => handleAffectedClick(selectedIssue.id)}
-        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition shadow"
-      >
-        I'm Affected Too
-      </button>
-    </div>
-
-    {/* 📍 ADD THE LIFECYCLE TIMELINE HERE */}
-    <div>
-      <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-        Lifecycle Timeline
-      </h4>
-      <div className="space-y-2 border-l-2 border-slate-200 pl-3 ml-1">
-        {selectedIssue.timeline.map((event, idx) => (
-          <div key={idx} className="relative">
-            <span className="text-[11px] font-bold text-slate-800">{event.date}</span>
-            <p className="text-[11px] text-slate-500">{event.title}</p>
           </div>
-        ))}
-      </div>
-    </div>
 
-  </div>
-)}
-              {/* SECTION 2: GRADIENT GREEN SEGMENT */}
-              <div className="bg-gradient-to-b from-emerald-50 via-teal-50 to-emerald-100/60 rounded-3xl p-4 border border-emerald-200/80 shadow-sm space-y-4">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center space-x-1.5">
-                    <CheckCircle2 size={18} className="text-emerald-700" />
-                    <h2 className="font-extrabold text-emerald-950 text-base">PBT Resolved Issues</h2>
+          {/* MAIN TAB CONTENT */}
+          <div className="px-4 mt-5 space-y-6">
+
+            {activeTab === 'home' && (
+              <>
+                <div>
+                  <div className="flex justify-between items-center mb-3">
+                    <h2 className="font-extrabold text-slate-900 text-base">Active Community Issues</h2>
+                    <button onClick={() => setActiveTab('map')} className="text-xs text-blue-600 font-bold hover:underline">
+                      See Map
+                    </button>
                   </div>
-                  <span className="text-[10px] text-emerald-800 font-bold bg-white/80 px-2 py-0.5 rounded-full border border-emerald-200">
-                    Verify Work
-                  </span>
-                </div>
-                <p className="text-xs text-emerald-800/80">Browse Council-completed work orders below and verify if the repair fixed the problem.</p>
 
-                {/* HORIZONTAL RESOLVED CAROUSEL */}
-                <div className="flex space-x-3 overflow-x-auto pb-2 scrollbar-none">
-                  {pbtResolvedIssues.map(issue => (
-                    <div 
-                      key={issue.id}
-                      onClick={() => setSelectedIssue(issue)}
-                      className={`min-w-[220px] bg-white rounded-2xl p-3.5 shadow-sm border transition cursor-pointer flex flex-col justify-between ${selectedIssue?.id === issue.id ? 'border-emerald-600 ring-2 ring-emerald-200' : 'border-emerald-100'}`}
-                    >
-                      <div>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full uppercase">
-                            RESOLVED
-                          </span>
-                          <span className="text-[10px] font-bold text-slate-500">
-                            {issue.communityVerificationRate}% Confirmed
-                          </span>
+                  <div className="flex space-x-3 overflow-x-auto pb-2 scrollbar-none">
+                    {activeIssues.map(issue => (
+                      <div 
+                        key={issue.id}
+                        onClick={() => setSelectedIssue(issue)}
+                        className={`min-w-[210px] bg-white rounded-2xl p-3.5 shadow-sm border transition cursor-pointer flex flex-col justify-between ${selectedIssue?.id === issue.id ? 'border-red-500 ring-2 ring-red-100' : 'border-slate-200'}`}
+                      >
+                        <div>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-[10px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full uppercase border border-red-100">
+                              {issue.category}
+                            </span>
+                            {issue.isRecurring && (
+                              <span className="text-[9px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">Recurring</span>
+                            )}
+                          </div>
+                          <h4 className="font-bold text-xs text-slate-800 line-clamp-1">{issue.title}</h4>
+                          <p className="text-[11px] text-slate-400 mt-0.5 line-clamp-1">{issue.location.address}</p>
                         </div>
-                        <h4 className="font-bold text-xs text-slate-800 line-clamp-1">{issue.title}</h4>
-                        <p className="text-[11px] text-slate-400 mt-0.5 line-clamp-1">{issue.location.address}</p>
-                      </div>
 
-                      <div className="mt-3 pt-2 border-t border-slate-100 flex justify-between items-center text-[11px]">
-                        <span className="text-emerald-700 font-bold">Review & Vote</span>
-                        <ChevronRight size={14} className="text-emerald-700" />
+                        <div className="mt-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[11px]">
+                          <span className="font-bold text-slate-700">{issue.affectedCount} Affected</span>
+                          <span className="text-red-600 font-bold">{issue.images.length} Photos</span>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
 
-                {/* OFFICIAL STATUS VERIFICATION CARD */}
-                {selectedIssue && isSelectedResolved && (
-                  <div className="bg-white rounded-2xl p-4 shadow-md border border-emerald-200 space-y-3">
-                    <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-                      <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase flex items-center">
-                        <CheckCircle2 size={12} className="mr-1" /> Official Status: Marked Resolved
+                {selectedIssue && !isSelectedResolved && (
+                  <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-4">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <span className="text-[10px] text-slate-400 font-mono">{selectedIssue.id}</span>
+                        <h3 className="font-bold text-slate-900 text-base">{selectedIssue.title}</h3>
+                      </div>
+                      <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
+                        {selectedIssue.status}
                       </span>
-                      <span className="text-[10px] font-bold text-slate-400">PBT Verified 🛠️</span>
                     </div>
 
-                    <div>
-                      <span className="text-[10px] text-slate-400 font-mono">{selectedIssue.id}</span>
-                      <h3 className="font-extrabold text-sm text-slate-900">{selectedIssue.title}</h3>
-                      <p className="text-xs text-slate-500 mt-0.5">{selectedIssue.description}</p>
-                    </div>
+                    <p className="text-xs text-slate-600">{selectedIssue.description}</p>
 
                     {selectedIssue.images && selectedIssue.images.length > 0 && (
                       <div>
-                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 flex items-center">
-                          <ImageIcon size={12} className="mr-1" /> Repair Proof / After Photo
+                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center">
+                          <ImageIcon size={12} className="mr-1" /> Submitted Evidence ({selectedIssue.images.length})
                         </h4>
                         <div className="flex space-x-2 overflow-x-auto pb-1">
                           {selectedIssue.images.map((img, idx) => (
-                            <div key={idx} className="w-20 h-20 rounded-xl overflow-hidden border border-slate-200 flex-shrink-0 shadow-sm">
-                              <img src={img} alt={`Proof ${idx + 1}`} className="w-full h-full object-cover" />
+                            <div key={idx} className="w-24 h-24 rounded-xl overflow-hidden border border-slate-200 flex-shrink-0 shadow-sm">
+                              <img src={img} alt={`Evidence ${idx + 1}`} className="w-full h-full object-cover" />
                             </div>
                           ))}
                         </div>
                       </div>
                     )}
 
-                    {/* Community Verification Action Box */}
-                    <div className="p-3 bg-emerald-50/70 rounded-xl border border-emerald-200/80">
-                      <p className="text-xs font-bold text-emerald-950 mb-2 flex items-center">
-                        <HelpCircle size={14} className="text-emerald-700 mr-1" /> Has this actually been fixed in your area?
-                      </p>
-                      
-                      <div className="grid grid-cols-3 gap-1.5">
-                        <button 
-                          onClick={() => handleVerifyVote(selectedIssue.id, 'FIXED')}
-                          className={`py-1.5 rounded-lg text-[11px] font-bold transition flex items-center justify-center ${userVoteForSelected === 'FIXED' ? 'bg-emerald-600 text-white ring-2 ring-emerald-300' : 'bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-100'}`}
-                        >
-                          🟢 Fixed
-                        </button>
-                        <button 
-                          onClick={() => handleVerifyVote(selectedIssue.id, 'PARTIAL')}
-                          className={`py-1.5 rounded-lg text-[11px] font-bold transition flex items-center justify-center ${userVoteForSelected === 'PARTIAL' ? 'bg-amber-600 text-white ring-2 ring-amber-300' : 'bg-white text-amber-700 border border-amber-200 hover:bg-amber-100'}`}
-                        >
-                          🟡 Partial
-                        </button>
-                        <button 
-                          onClick={() => handleVerifyVote(selectedIssue.id, 'NOT_FIXED')}
-                          className={`py-1.5 rounded-lg text-[11px] font-bold transition flex items-center justify-center ${userVoteForSelected === 'NOT_FIXED' ? 'bg-rose-600 text-white ring-2 ring-rose-300' : 'bg-white text-rose-700 border border-rose-200 hover:bg-rose-100'}`}
-                        >
-                          🔴 Not Fixed
-                        </button>
+                    <div className="bg-blue-50 border border-blue-100 rounded-xl p-3 flex justify-between items-center">
+                      <div>
+                        <p className="text-xs font-bold text-blue-900">{selectedIssue.affectedCount} Residents Affected</p>
+                        <p className="text-[10px] text-blue-600">Tap to corroborate community impact</p>
                       </div>
+                      <button 
+                        onClick={() => handleAffectedClick(selectedIssue.id)}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition shadow"
+                      >
+                        ✋ I'm Affected Too
+                      </button>
                     </div>
 
-                    <div className="flex justify-between items-center text-[10px] text-slate-500 pt-1">
-                      <span>Community Score: <strong className={ringStyle.text}>{activeVerificationRate}% Confirmed</strong></span>
-                      <span>{selectedIssue.affectedCount} Residents Verified</span>
+                    <div>
+                      <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                        Lifecycle Timeline
+                      </h4>
+                      <div className="space-y-2 border-l-2 border-slate-200 pl-3 ml-1">
+                        {selectedIssue.timeline.map((event, idx) => (
+                          <div key={idx} className="relative">
+                            <span className="text-[11px] font-bold text-slate-800">{event.date}</span>
+                            <p className="text-[11px] text-slate-500">{event.title}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}
-              </div>
-            </>
-          )}
 
-      {activeTab === 'map' && (
-  <div className="space-y-3">
-    <h2 className="font-extrabold text-slate-900 text-base">Shared Civic Map</h2>
-    <div className="h-[420px] w-full rounded-2xl overflow-hidden shadow-inner border border-slate-200 relative z-0">
-      <MapContainer center={[3.1186, 101.6231]} zoom={14} scrollWheelZoom={false} className="h-full w-full z-0">
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        
-        {/* Combine active issues and resolved issues onto the map */}
-        {[...issues, ...(typeof MOCK_RESOLVED_ISSUES !== 'undefined' ? MOCK_RESOLVED_ISSUES : [])].map(issue => {
-          const isResolved = issue.status === 'MARKED_RESOLVED' || issue.status === 'COMMUNITY_VERIFIED';
-
-          return (
-            <Marker 
-              key={issue.id} 
-              position={[issue.location.lat, issue.location.lng]} 
-              icon={createCategoryIcon(issue.category, issue.status)}
-            >
-              <Popup>
-                <div className="p-2 max-w-[240px] space-y-2">
-                  {/* Status Badge */}
-                  <div className="flex items-center justify-between">
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                      isResolved ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
-                    }`}>
-                      {isResolved ? 'RESOLVED BY PBT' : issue.status}
+                <div className="bg-gradient-to-b from-emerald-50 via-teal-50 to-emerald-100/60 rounded-3xl p-4 border border-emerald-200/80 shadow-sm space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center space-x-1.5">
+                      <CheckCircle2 size={18} className="text-emerald-700" />
+                      <h2 className="font-extrabold text-emerald-950 text-base">PBT Resolved Issues</h2>
+                    </div>
+                    <span className="text-[10px] text-emerald-800 font-bold bg-white/80 px-2 py-0.5 rounded-full border border-emerald-200">
+                      Verify Work
                     </span>
-                    <span className="text-[10px] text-slate-400">{issue.id}</span>
                   </div>
+                  <p className="text-xs text-emerald-800/80">Browse Council-completed work orders below and verify if the repair fixed the problem.</p>
 
-                  {/* Title & Info */}
-                  <div>
-                    <h4 className="font-bold text-xs text-slate-900 leading-snug">{issue.title}</h4>
-                    <p className="text-[11px] text-slate-500 mt-0.5">{issue.location.address}</p>
-                  </div>
-
-                  {/* Image preview */}
-                  {issue.images && issue.images.length > 0 && (
-                    <img 
-                      src={issue.images[0]} 
-                      alt={issue.title} 
-                      className="w-full h-20 object-cover rounded-lg border border-slate-200"
-                    />
-                  )}
-
-                  {/* CONDITIONAL WIDGET CONTENT */}
-                  {isResolved ? (
-                    /* --- RESOLVED VOTING WIDGET --- */
-                    <div className="pt-2 border-t border-slate-200 space-y-1.5">
-                      <div className="flex items-center justify-between text-[10px]">
-                        <span className="font-bold text-slate-700">Community Verification</span>
-                        <span className="text-emerald-600 font-bold">{issue.communityVerificationRate ?? 80}% Verified</span>
-                      </div>
-                      <p className="text-[10px] text-slate-500">Has this issue been fixed properly?</p>
-                      
-                      <div className="grid grid-cols-3 gap-1 pt-1">
-                        <button 
-                          onClick={() => alert(`Voted FIXED for ${issue.id}`)}
-                          className="bg-emerald-500 hover:bg-emerald-600 text-white text-[10px] font-bold py-1 rounded transition text-center"
-                        >
-                          Fixed
-                        </button>
-                        <button 
-                          onClick={() => alert(`Voted PARTIAL for ${issue.id}`)}
-                          className="bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold py-1 rounded transition text-center"
-                        >
-                          Partial
-                        </button>
-                        <button 
-                          onClick={() => alert(`Voted NOT YET for ${issue.id}`)}
-                          className="bg-rose-500 hover:bg-rose-600 text-white text-[10px] font-bold py-1 rounded transition text-center"
-                        >
-                          Not Yet
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    /* --- ACTIVE ISSUE WIDGET WITH "I'M AFFECTED TOO!" BUTTON --- */
-                    <div className="pt-2 border-t border-slate-200 space-y-2">
-                      <div className="flex items-center justify-between text-[11px] text-slate-600">
-                        <span>👥 <strong>{issue.affectedCount}</strong> residents affected</span>
-                      </div>
-                      
-                      <button 
-                        onClick={() => {
-                          if (typeof setIssues === 'function') {
-                            setIssues((prev: any[]) =>
-                              prev.map((item) =>
-                                item.id === issue.id
-                                  ? { ...item, affectedCount: item.affectedCount + 1 }
-                                  : item
-                              )
-                            );
-                          } else {
-                            alert(`You flagged that you are affected by ${issue.id}!`);
-                          }
-                        }}
-                        className="w-full bg-rose-500 hover:bg-rose-600 text-white text-[11px] font-bold py-1.5 px-2 rounded-lg transition-colors flex items-center justify-center gap-1 shadow-sm"
+                  <div className="flex space-x-3 overflow-x-auto pb-2 scrollbar-none">
+                    {pbtResolvedIssues.map(issue => (
+                      <div 
+                        key={issue.id}
+                        onClick={() => setSelectedIssue(issue)}
+                        className={`min-w-[220px] bg-white rounded-2xl p-3.5 shadow-sm border transition cursor-pointer flex flex-col justify-between ${selectedIssue?.id === issue.id ? 'border-emerald-600 ring-2 ring-emerald-200' : 'border-emerald-100'}`}
                       >
-                        ✋ I'm affected too!
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </Popup>
-            </Marker>
-          );
-        })}
-      </MapContainer>
-    </div>
-  </div>
-)}
-
-          {activeTab === 'activity' && (
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <h2 className="font-extrabold text-slate-900 text-base">Your Civic History</h2>
-                <span className="text-xs text-slate-400 font-semibold">{issues.length} Submissions</span>
-              </div>
-
-              <div className="space-y-3">
-                {issues.map((record) => (
-                  <div key={record.id} className="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-2">
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">
-                          <Clock size={16} />
-                        </div>
                         <div>
-                          <h4 className="font-bold text-xs text-slate-900">{record.title}</h4>
-                          <p className="text-[10px] text-slate-400">
-                            {record.createdAt} • {record.location.address}
-                          </p>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full uppercase">
+                              RESOLVED
+                            </span>
+                            <span className="text-[10px] font-bold text-slate-500">
+                              {issue.communityVerificationRate}% Confirmed
+                            </span>
+                          </div>
+                          <h4 className="font-bold text-xs text-slate-800 line-clamp-1">{issue.title}</h4>
+                          <p className="text-[11px] text-slate-400 mt-0.5 line-clamp-1">{issue.location.address}</p>
                         </div>
-                      </div>
-                      <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full flex items-center">
-                        <ShieldCheck size={12} className="mr-1" /> Logged
-                      </span>
-                    </div>
 
-                    {record.images && record.images.length > 0 && (
-                      <div className="flex space-x-1.5 pt-1">
-                        {record.images.map((img, i) => (
-                          <img key={i} src={img} alt="Evidence" className="w-12 h-12 rounded-lg object-cover border border-slate-200" />
-                        ))}
-                      </div>
-                    )}
-
-                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
-                      <span className="text-slate-500 font-medium">Status: <strong className="text-slate-800">{record.status}</strong></span>
-                      <span className="text-blue-600 font-bold flex items-center">
-                        <ThumbsUp size={12} className="mr-1" /> {record.affectedCount} Backed
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'profile' && (
-            <div className="space-y-5">
-              <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm text-center space-y-3">
-                <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-blue-600 to-blue-400 border-4 border-white shadow-md flex items-center justify-center text-white font-black text-2xl">
-                  CA
-                </div>
-                <div>
-                  <h2 className="text-lg font-extrabold text-slate-900">Chariya</h2>
-                  <p className="text-xs text-slate-500">chariya@civicpulse.my</p>
-                </div>
-                <div className="inline-flex items-center px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold">
-                  <MapPin size={12} className="mr-1" /> Resident of Taman ABC, PJ
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2">
-                <div className="bg-white p-3 rounded-2xl border border-slate-200 text-center shadow-sm">
-                  <p className="text-lg font-black text-blue-600">{issues.length}</p>
-                  <p className="text-[10px] text-slate-500 font-semibold mt-0.5">Reported</p>
-                </div>
-                <div className="bg-white p-3 rounded-2xl border border-slate-200 text-center shadow-sm">
-                  <p className="text-lg font-black text-emerald-600">34</p>
-                  <p className="text-[10px] text-slate-500 font-semibold mt-0.5">Backed</p>
-                </div>
-                <div className="bg-white p-3 rounded-2xl border border-slate-200 text-center shadow-sm">
-                  <p className="text-lg font-black text-amber-600">{Object.keys(userVerifications).length}</p>
-                  <p className="text-[10px] text-slate-500 font-semibold mt-0.5">Verified</p>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm divide-y divide-slate-100">
-                <div className="p-3.5 flex justify-between items-center cursor-pointer hover:bg-slate-50 transition">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 rounded-xl bg-blue-50 text-blue-600">
-                      <MapPin size={16} />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-slate-800">Local Area / Council</p>
-                      <p className="text-[10px] text-slate-400">Majlis Bandaraya Petaling Jaya (MBPJ)</p>
-                    </div>
-                  </div>
-                  <ChevronRight size={16} className="text-slate-400" />
-                </div>
-
-                <div className="p-3.5 flex justify-between items-center cursor-pointer hover:bg-slate-50 transition">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 rounded-xl bg-purple-50 text-purple-600">
-                      <Bell size={16} />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-slate-800">Push Notifications</p>
-                      <p className="text-[10px] text-slate-400">Alerts on nearby repairs and verifications</p>
-                    </div>
-                  </div>
-                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">Active</span>
-                </div>
-
-                <div className="p-3.5 flex justify-between items-center cursor-pointer hover:bg-slate-50 transition">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 rounded-xl bg-amber-50 text-amber-600">
-                      <Globe size={16} />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-slate-800">Language</p>
-                      <p className="text-[10px] text-slate-400">English / Bahasa Melayu</p>
-                    </div>
-                  </div>
-                  <span className="text-[10px] font-bold text-slate-600">EN</span>
-                </div>
-              </div>
-
-              <button className="w-full bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 py-3 rounded-2xl text-xs font-bold transition flex items-center justify-center space-x-2">
-                <LogOut size={16} />
-                <span>Log Out</span>
-              </button>
-            </div>
-          )}
-
-        </div>
-      </div>
-
-      {/* FLOATING NAVIGATION */}
-      {/* 🔒 PERMANENTLY LOCKED BOTTOM WRAPPER */}
-<div className="fixed bottom-0 left-0 right-0 z-[9999] pointer-events-none">
-  <nav className="max-w-md mx-auto bg-white/90 backdrop-blur-md border-t border-slate-200 py-3 px-8 flex justify-between items-center rounded-t-2xl shadow-xl pointer-events-auto">
-    <button 
-      onClick={() => setActiveTab('home')}
-      className={`flex flex-col items-center space-y-0.5 ${activeTab === 'home' ? 'text-blue-600' : 'text-slate-400'}`}
-    >
-      <Home size={20} />
-      <span className="text-[10px] font-semibold">Home</span>
-    </button>
-
-    <button 
-      onClick={() => setActiveTab('map')}
-      className={`flex flex-col items-center space-y-0.5 ${activeTab === 'map' ? 'text-blue-600' : 'text-slate-400'}`}
-    >
-      <MapIcon size={20} />
-      <span className="text-[10px] font-semibold">Map</span>
-    </button>
-
-    <button 
-      onClick={() => setActiveTab('activity')}
-      className={`flex flex-col items-center space-y-0.5 ${activeTab === 'activity' ? 'text-blue-600' : 'text-slate-400'}`}
-    >
-      <Activity size={20} />
-      <span className="text-[10px] font-semibold">Activity</span>
-    </button>
-
-    <button 
-      onClick={() => setActiveTab('profile')}
-      className={`flex flex-col items-center space-y-0.5 ${activeTab === 'profile' ? 'text-blue-600' : 'text-slate-400'}`}
-    >
-      <User size={20} />
-      <span className="text-[10px] font-semibold">Profile</span>
-    </button>
-  </nav>
-</div>
-
-      {/* REPORT MODAL SHEET */}
-      {showReportModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="bg-white rounded-t-3xl sm:rounded-3xl p-5 w-full max-w-md max-h-[95vh] overflow-y-auto animate-in slide-in-from-bottom relative z-[10000]">
-            <div className="flex justify-between items-center mb-1">
-              <h2 className="text-base font-extrabold text-slate-900">Report Community Issue</h2>
-              <button 
-                type="button"
-                onClick={() => setShowReportModal(false)} 
-                className="p-1 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200"
-              >
-                <X size={16} />
-              </button>
-            </div>
-            <p className="text-xs text-slate-500 mb-4">CivicPulse links nearby duplicate complaints automatically.</p>
-
-            <form onSubmit={handleCreateReport} className="space-y-4">
-              
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Category</label>
-                <select 
-                  value={newCategory} 
-                  onChange={(e) => setNewCategory(e.target.value as IssueCategory)}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl bg-slate-50 font-medium"
-                >
-                  <option value="DRAINAGE">🌊 Drainage / Flooding</option>
-                  <option value="ROADS">🛣 Roads / Potholes</option>
-                  <option value="WASTE">🗑️ Waste / Trash</option>
-                  <option value="LIGHTING">💡 Streetlights</option>
-                  <option value="HAZARD">⚠️ Public Hazard</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Title</label>
-                <input 
-                  type="text" 
-                  required
-                  placeholder="e.g. Blocked Drain on Jalan 17/5" 
-                  value={newTitle}
-                  onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center justify-between">
-                  <span>Pin Affected Location</span>
-                  <span className="text-[10px] text-blue-600 font-normal">Tap map to set pin</span>
-                </label>
-                <div className="h-[150px] w-full rounded-xl overflow-hidden border border-slate-300 mb-1.5 relative z-0">
-                  <MapContainer center={selectedLocation} zoom={15} scrollWheelZoom={false} className="h-full w-full z-0">
-                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                    <LocationPickerMarker 
-                      position={selectedLocation} 
-                      setPosition={setSelectedLocation} 
-                      setAddress={setAutoAddress} 
-                    />
-                  </MapContainer>
-                </div>
-                <input 
-                  type="text" 
-                  readOnly
-                  value={autoAddress}
-                  className="w-full p-2 text-[11px] bg-slate-100 text-slate-700 border border-slate-200 rounded-lg font-medium"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Description (BM / English)</label>
-                <textarea 
-                  required
-                  rows={2}
-                  placeholder="e.g. Longkang tersumbat teruk, everytime hujan confirm banjir" 
-                  value={newDescription}
-                  onChange={(e) => setNewDescription(e.target.value)}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Attach Photos / Evidence</label>
-                <div className="grid grid-cols-2 gap-2 mb-2">
-                  <label className="flex items-center justify-center space-x-1.5 p-2.5 bg-slate-50 border border-slate-300 border-dashed rounded-xl cursor-pointer hover:bg-slate-100 transition text-slate-700 text-xs font-bold">
-                    <ImageIcon size={16} className="text-blue-600" />
-                    <span>Upload Gallery</span>
-                    <input type="file" accept="image/*" multiple onChange={handleImageUpload} className="hidden" />
-                  </label>
-
-                  <label className="flex items-center justify-center space-x-1.5 p-2.5 bg-blue-50 border border-blue-200 border-dashed rounded-xl cursor-pointer hover:bg-blue-100 transition text-blue-700 text-xs font-bold">
-                    <ImageIcon size={16} className="text-blue-600" />
-                    <span>Take Photo</span>
-                    <input type="file" accept="image/*" capture="environment" onChange={handleImageUpload} className="hidden" />
-                  </label>
-                </div>
-
-                {uploadedImages.length > 0 && (
-                  <div className="flex space-x-2 overflow-x-auto pt-1">
-                    {uploadedImages.map((imgUrl, index) => (
-                      <div key={index} className="relative w-14 h-14 rounded-lg overflow-hidden border border-slate-200 flex-shrink-0">
-                        <img src={imgUrl} alt="Uploaded evidence" className="w-full h-full object-cover" />
-                        <button 
-                          type="button" 
-                          onClick={() => removeImage(index)}
-                          className="absolute top-0.5 right-0.5 bg-black/70 text-white rounded-full p-0.5"
-                        >
-                          <X size={10} />
-                        </button>
+                        <div className="mt-3 pt-2 border-t border-slate-100 flex justify-between items-center text-[11px]">
+                          <span className="text-emerald-700 font-bold">Review & Vote</span>
+                          <ChevronRight size={14} className="text-emerald-700" />
+                        </div>
                       </div>
                     ))}
                   </div>
-                )}
-              </div>
 
-              <div className="flex space-x-2 pt-2">
-                <button 
-                  type="button" 
-                  onClick={() => setShowReportModal(false)}
-                  className="flex-1 py-2.5 text-xs font-bold text-slate-600 bg-slate-100 rounded-xl"
-                >
-                  Cancel
-                </button>
-                <button 
-                  type="submit" 
-                  className="flex-1 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow transition"
-                >
-                  Submit Issue
+                  {selectedIssue && isSelectedResolved && (
+                    <div className="bg-white rounded-2xl p-4 shadow-md border border-emerald-200 space-y-3">
+                      <div className="flex justify-between items-center pb-2 border-b border-slate-100">
+                        <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase flex items-center">
+                          <CheckCircle2 size={12} className="mr-1" /> Official Status: Marked Resolved
+                        </span>
+                        <span className="text-[10px] font-bold text-slate-400">PBT Verified 🛠️</span>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] text-slate-400 font-mono">{selectedIssue.id}</span>
+                        <h3 className="font-extrabold text-sm text-slate-900">{selectedIssue.title}</h3>
+                        <p className="text-xs text-slate-500 mt-0.5">{selectedIssue.description}</p>
+                      </div>
+
+                      {selectedIssue.images && selectedIssue.images.length > 0 && (
+                        <div>
+                          <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 flex items-center">
+                            <ImageIcon size={12} className="mr-1" /> Repair Proof / After Photo
+                          </h4>
+                          <div className="flex space-x-2 overflow-x-auto pb-1">
+                            {selectedIssue.images.map((img, idx) => (
+                              <div key={idx} className="w-20 h-20 rounded-xl overflow-hidden border border-slate-200 flex-shrink-0 shadow-sm">
+                                <img src={img} alt={`Proof ${idx + 1}`} className="w-full h-full object-cover" />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="p-3 bg-emerald-50/70 rounded-xl border border-emerald-200/80">
+                        <p className="text-xs font-bold text-emerald-950 mb-2 flex items-center">
+                          <HelpCircle size={14} className="text-emerald-700 mr-1" /> Has this actually been fixed in your area?
+                        </p>
+                        
+                        <div className="grid grid-cols-3 gap-1.5">
+                          <button 
+                            onClick={() => handleVerifyVote(selectedIssue.id, 'FIXED')}
+                            className={`py-1.5 rounded-lg text-[11px] font-bold transition flex items-center justify-center ${userVoteForSelected === 'FIXED' ? 'bg-emerald-600 text-white ring-2 ring-emerald-300' : 'bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-100'}`}
+                          >
+                            🟢 Fixed
+                          </button>
+                          <button 
+                            onClick={() => handleVerifyVote(selectedIssue.id, 'PARTIAL')}
+                            className={`py-1.5 rounded-lg text-[11px] font-bold transition flex items-center justify-center ${userVoteForSelected === 'PARTIAL' ? 'bg-amber-600 text-white ring-2 ring-amber-300' : 'bg-white text-amber-700 border border-amber-200 hover:bg-amber-100'}`}
+                          >
+                            🟡 Partial
+                          </button>
+                          <button 
+                            onClick={() => handleVerifyVote(selectedIssue.id, 'NOT_FIXED')}
+                            className={`py-1.5 rounded-lg text-[11px] font-bold transition flex items-center justify-center ${userVoteForSelected === 'NOT_FIXED' ? 'bg-rose-600 text-white ring-2 ring-rose-300' : 'bg-white text-rose-700 border border-rose-200 hover:bg-rose-100'}`}
+                          >
+                            🔴 Not Fixed
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-between items-center text-[10px] text-slate-500 pt-1">
+                        <span>Community Score: <strong className={ringStyle.text}>{activeVerificationRate}% Confirmed</strong></span>
+                        <span>{selectedIssue.affectedCount} Residents Verified</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+
+            {activeTab === 'map' && (
+              <div className="space-y-3">
+                <h2 className="font-extrabold text-slate-900 text-base">Shared Civic Map</h2>
+                <div className="h-[420px] w-full rounded-2xl overflow-hidden shadow-inner border border-slate-200 relative z-0">
+                  <MapContainer center={[3.1186, 101.6231]} zoom={14} scrollWheelZoom={false} className="h-full w-full z-0">
+                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                    
+                    {[...issues, ...MOCK_RESOLVED_ISSUES].map(issue => {
+                      const isResolved = issue.status === 'MARKED_RESOLVED' || issue.status === 'COMMUNITY_VERIFIED';
+
+                      return (
+                        <Marker 
+                          key={issue.id} 
+                          position={[issue.location.lat, issue.location.lng]} 
+                          icon={createCategoryIcon(issue.category, issue.status)}
+                        >
+                          <Popup>
+                            <div className="p-2 max-w-[240px] space-y-2">
+                              <div className="flex items-center justify-between">
+                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                                  isResolved ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                                }`}>
+                                  {isResolved ? 'RESOLVED BY PBT' : issue.status}
+                                </span>
+                                <span className="text-[10px] text-slate-400">{issue.id}</span>
+                              </div>
+
+                              <div>
+                                <h4 className="font-bold text-xs text-slate-900 leading-snug">{issue.title}</h4>
+                                <p className="text-[11px] text-slate-500 mt-0.5">{issue.location.address}</p>
+                              </div>
+
+                              {issue.images && issue.images.length > 0 && (
+                                <img 
+                                  src={issue.images[0]} 
+                                  alt={issue.title} 
+                                  className="w-full h-20 object-cover rounded-lg border border-slate-200"
+                                />
+                              )}
+
+                              {isResolved ? (
+                                <div className="pt-2 border-t border-slate-200 space-y-1.5">
+                                  <div className="flex items-center justify-between text-[10px]">
+                                    <span className="font-bold text-slate-700">Community Verification</span>
+                                    <span className="text-emerald-600 font-bold">{issue.communityVerificationRate ?? 80}% Verified</span>
+                                  </div>
+                                  <p className="text-[10px] text-slate-500">Has this issue been fixed properly?</p>
+                                  
+                                  <div className="grid grid-cols-3 gap-1 pt-1">
+                                    <button 
+                                      onClick={() => handleVerifyVote(issue.id, 'FIXED')}
+                                      className="bg-emerald-500 hover:bg-emerald-600 text-white text-[10px] font-bold py-1 rounded transition text-center"
+                                    >
+                                      Fixed
+                                    </button>
+                                    <button 
+                                      onClick={() => handleVerifyVote(issue.id, 'PARTIAL')}
+                                      className="bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold py-1 rounded transition text-center"
+                                    >
+                                      Partial
+                                    </button>
+                                    <button 
+                                      onClick={() => handleVerifyVote(issue.id, 'NOT_FIXED')}
+                                      className="bg-rose-500 hover:bg-rose-600 text-white text-[10px] font-bold py-1 rounded transition text-center"
+                                    >
+                                      Not Yet
+                                    </button>
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="pt-2 border-t border-slate-200 space-y-2">
+                                  <div className="flex items-center justify-between text-[11px] text-slate-600">
+                                    <span>👥 <strong>{issue.affectedCount}</strong> residents affected</span>
+                                  </div>
+                                  
+                                  <button 
+                                    onClick={() => handleAffectedClick(issue.id)}
+                                    className="w-full bg-rose-500 hover:bg-rose-600 text-white text-[11px] font-bold py-1.5 px-2 rounded-lg transition-colors flex items-center justify-center gap-1 shadow-sm"
+                                  >
+                                    ✋ I'm affected too!
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          </Popup>
+                        </Marker>
+                      );
+                    })}
+                  </MapContainer>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'activity' && (
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <h2 className="font-extrabold text-slate-900 text-base">Your Civic History</h2>
+                  <span className="text-xs text-slate-400 font-semibold">{issues.length} Submissions</span>
+                </div>
+
+                <div className="space-y-3">
+                  {issues.map((record) => (
+                    <div key={record.id} className="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-2">
+                      <div className="flex justify-between items-start">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">
+                            <Clock size={16} />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-xs text-slate-900">{record.title}</h4>
+                            <p className="text-[10px] text-slate-400">
+                              {record.createdAt} • {record.location.address}
+                            </p>
+                          </div>
+                        </div>
+                        <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full flex items-center">
+                          <ShieldCheck size={12} className="mr-1" /> Logged
+                        </span>
+                      </div>
+
+                      {record.images && record.images.length > 0 && (
+                        <div className="flex space-x-1.5 pt-1">
+                          {record.images.map((img, i) => (
+                            <img key={i} src={img} alt="Evidence" className="w-12 h-12 rounded-lg object-cover border border-slate-200" />
+                          ))}
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
+                        <span className="text-slate-500 font-medium">Status: <strong className="text-slate-800">{record.status}</strong></span>
+                        <span className="text-blue-600 font-bold flex items-center">
+                          <ThumbsUp size={12} className="mr-1" /> {record.affectedCount} Backed
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'profile' && (
+              <div className="space-y-5">
+                <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm text-center space-y-3">
+                  <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-blue-600 to-blue-400 border-4 border-white shadow-md flex items-center justify-center text-white font-black text-2xl">
+                    J
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-extrabold text-slate-900">John</h2>
+                    <p className="text-xs text-slate-500">john@civicpulse.my</p>
+                  </div>
+                  <div className="inline-flex items-center px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold">
+                    <MapPin size={12} className="mr-1" /> Resident of Taman ABC, PJ
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="bg-white p-3 rounded-2xl border border-slate-200 text-center shadow-sm">
+                    <p className="text-lg font-black text-blue-600">{issues.length}</p>
+                    <p className="text-[10px] text-slate-500 font-semibold mt-0.5">Reported</p>
+                  </div>
+                  <div className="bg-white p-3 rounded-2xl border border-slate-200 text-center shadow-sm">
+                    <p className="text-lg font-black text-emerald-600">34</p>
+                    <p className="text-[10px] text-slate-500 font-semibold mt-0.5">Backed</p>
+                  </div>
+                  <div className="bg-white p-3 rounded-2xl border border-slate-200 text-center shadow-sm">
+                    <p className="text-lg font-black text-amber-600">{Object.keys(userVerifications).length}</p>
+                    <p className="text-[10px] text-slate-500 font-semibold mt-0.5">Verified</p>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm divide-y divide-slate-100">
+                  <div className="p-3.5 flex justify-between items-center cursor-pointer hover:bg-slate-50 transition">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 rounded-xl bg-blue-50 text-blue-600">
+                        <MapPin size={16} />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-slate-800">Local Area / Council</p>
+                        <p className="text-[10px] text-slate-400">Majlis Bandaraya Petaling Jaya (MBPJ)</p>
+                      </div>
+                    </div>
+                    <ChevronRight size={16} className="text-slate-400" />
+                  </div>
+
+                  <div className="p-3.5 flex justify-between items-center cursor-pointer hover:bg-slate-50 transition">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 rounded-xl bg-purple-50 text-purple-600">
+                        <Bell size={16} />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-slate-800">Push Notifications</p>
+                        <p className="text-[10px] text-slate-400">Alerts on nearby repairs and verifications</p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">Active</span>
+                  </div>
+
+                  <div className="p-3.5 flex justify-between items-center cursor-pointer hover:bg-slate-50 transition">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 rounded-xl bg-amber-50 text-amber-600">
+                        <Globe size={16} />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-slate-800">Language</p>
+                        <p className="text-[10px] text-slate-400">English / Bahasa Melayu</p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold text-slate-600">EN</span>
+                  </div>
+                </div>
+
+                <button className="w-full bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 py-3 rounded-2xl text-xs font-bold transition flex items-center justify-center space-x-2">
+                  <LogOut size={16} />
+                  <span>Log Out</span>
                 </button>
               </div>
-            </form>
+            )}
+
           </div>
         </div>
-      )}
+
+        {/* 🔒 PERMANENTLY LOCKED BOTTOM NAVIGATION */}
+        <div className="absolute bottom-0 left-0 right-0 z-[9999] pointer-events-none">
+          <nav className="w-full bg-white/95 backdrop-blur-md border-t border-slate-200 py-3 px-8 flex justify-between items-center rounded-t-2xl shadow-xl pointer-events-auto">
+            <button 
+              onClick={() => setActiveTab('home')}
+              className={`flex flex-col items-center space-y-0.5 ${activeTab === 'home' ? 'text-blue-600' : 'text-slate-400'}`}
+            >
+              <Home size={20} />
+              <span className="text-[10px] font-semibold">Home</span>
+            </button>
+
+            <button 
+              onClick={() => setActiveTab('map')}
+              className={`flex flex-col items-center space-y-0.5 ${activeTab === 'map' ? 'text-blue-600' : 'text-slate-400'}`}
+            >
+              <MapIcon size={20} />
+              <span className="text-[10px] font-semibold">Map</span>
+            </button>
+
+            <button 
+              onClick={() => setActiveTab('activity')}
+              className={`flex flex-col items-center space-y-0.5 ${activeTab === 'activity' ? 'text-blue-600' : 'text-slate-400'}`}
+            >
+              <Activity size={20} />
+              <span className="text-[10px] font-semibold">Activity</span>
+            </button>
+
+            <button 
+              onClick={() => setActiveTab('profile')}
+              className={`flex flex-col items-center space-y-0.5 ${activeTab === 'profile' ? 'text-blue-600' : 'text-slate-400'}`}
+            >
+              <User size={20} />
+              <span className="text-[10px] font-semibold">Profile</span>
+            </button>
+          </nav>
+        </div>
+
+        {/* REPORT MODAL SHEET */}
+        {showReportModal && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4">
+            <div className="bg-white rounded-t-3xl sm:rounded-3xl p-5 w-full max-w-md max-h-[95vh] overflow-y-auto relative z-[10000]">
+              <div className="flex justify-between items-center mb-1">
+                <h2 className="text-base font-extrabold text-slate-900">Report Community Issue</h2>
+                <button 
+                  type="button"
+                  onClick={() => setShowReportModal(false)} 
+                  className="p-1 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+              <p className="text-xs text-slate-500 mb-4">CivicPulse links nearby duplicate complaints automatically.</p>
+
+              <form onSubmit={handleCreateReport} className="space-y-4">
+                
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Category</label>
+                  <select 
+                    value={newCategory} 
+                    onChange={(e) => setNewCategory(e.target.value as IssueCategory)}
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl bg-slate-50 font-medium"
+                  >
+                    <option value="DRAINAGE">🌊 Drainage / Flooding</option>
+                    <option value="ROADS">🛣 Roads / Potholes</option>
+                    <option value="WASTE">🗑️ Waste / Trash</option>
+                    <option value="LIGHTING">💡 Streetlights</option>
+                    <option value="HAZARD">⚠️ Public Hazard</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Title</label>
+                  <input 
+                    type="text" 
+                    required
+                    placeholder="e.g. Blocked Drain on Jalan 17/5" 
+                    value={newTitle}
+                    onChange={(e) => setNewTitle(e.target.value)}
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center justify-between">
+                    <span>Pin Affected Location</span>
+                    <span className="text-[10px] text-blue-600 font-normal">Tap map to set pin</span>
+                  </label>
+                  <div className="h-[150px] w-full rounded-xl overflow-hidden border border-slate-300 mb-1.5 relative z-0">
+                    <MapContainer center={selectedLocation} zoom={15} scrollWheelZoom={false} className="h-full w-full z-0">
+                      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                      <LocationPickerMarker 
+                        position={selectedLocation} 
+                        setPosition={setSelectedLocation} 
+                        setAddress={setAutoAddress} 
+                        category={newCategory} 
+                      />
+                    </MapContainer>
+                  </div>
+                  <input 
+                    type="text" 
+                    readOnly
+                    value={autoAddress}
+                    className="w-full p-2 text-[11px] bg-slate-100 text-slate-700 border border-slate-200 rounded-lg font-medium"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Description (BM / English)</label>
+                  <textarea 
+                    required
+                    rows={2}
+                    placeholder="e.g. Longkang tersumbat teruk, everytime hujan confirm banjir" 
+                    value={newDescription}
+                    onChange={(e) => setNewDescription(e.target.value)}
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Attach Photos / Evidence</label>
+                  <div className="grid grid-cols-2 gap-2 mb-2">
+                    <label className="flex items-center justify-center space-x-1.5 p-2.5 bg-slate-50 border border-slate-300 border-dashed rounded-xl cursor-pointer hover:bg-slate-100 transition text-slate-700 text-xs font-bold">
+                      <ImageIcon size={16} className="text-blue-600" />
+                      <span>Upload Gallery</span>
+                      <input type="file" accept="image/*" multiple onChange={handleImageUpload} className="hidden" />
+                    </label>
+
+                    <label className="flex items-center justify-center space-x-1.5 p-2.5 bg-blue-50 border border-blue-200 border-dashed rounded-xl cursor-pointer hover:bg-blue-100 transition text-blue-700 text-xs font-bold">
+                      <ImageIcon size={16} className="text-blue-600" />
+                      <span>Take Photo</span>
+                      <input type="file" accept="image/*" capture="environment" onChange={handleImageUpload} className="hidden" />
+                    </label>
+                  </div>
+
+                  {uploadedImages.length > 0 && (
+                    <div className="flex space-x-2 overflow-x-auto pt-1">
+                      {uploadedImages.map((imgUrl, index) => (
+                        <div key={index} className="relative w-14 h-14 rounded-lg overflow-hidden border border-slate-200 flex-shrink-0">
+                          <img src={imgUrl} alt="Uploaded evidence" className="w-full h-full object-cover" />
+                          <button 
+                            type="button" 
+                            onClick={() => removeImage(index)}
+                            className="absolute top-0.5 right-0.5 bg-black/70 text-white rounded-full p-0.5"
+                          >
+                            <X size={10} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex space-x-2 pt-2">
+                  <button 
+                    type="button" 
+                    onClick={() => setShowReportModal(false)}
+                    className="flex-1 py-2.5 text-xs font-bold text-slate-600 bg-slate-100 rounded-xl"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit" 
+                    className="flex-1 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow transition"
+                  >
+                    Submit Issue
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+      </div>
     </div>
   );
+}
+
+export default function App() {
+ 
+
+  return <MainApp />;
 }

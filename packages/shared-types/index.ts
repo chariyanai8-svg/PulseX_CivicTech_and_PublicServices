@@ -5,7 +5,7 @@ export type IssueCategory =
 
 export type IssueStatus = 
   | 'REPORTED' | 'VERIFIED' | 'AGENCY_IDENTIFIED' 
-  | 'IN_PROGRESS' | 'MARKED_RESOLVED' | 'COMMUNITY_VERIFIED';
+  | 'IN_PROGRESS' | 'DISPUTED' | 'MARKED_RESOLVED' | 'COMMUNITY_VERIFIED';
 
 export interface TimelineEvent {
   date: string;
