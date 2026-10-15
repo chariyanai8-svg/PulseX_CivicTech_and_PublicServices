@@ -175,7 +175,7 @@ export const INITIAL_ISSUES: CommunityIssue[] = [
     isRecurring: false,
     status: 'REPORTED',
     timeline: [{ date: '13 Oct', title: 'Reported by motorist' }],
-    images: ['https://images.unsplash.com/photo-1509114397022-ed747cca3f65?w=500&auto=format&fit=crop'],
+    images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTqAywKkgSNQZwMbVs_3iByh3FUhsmlPBNlodkkurK0g&s=10'],
     createdAt: '2026-10-13'
   },
 
@@ -197,7 +197,7 @@ export const INITIAL_ISSUES: CommunityIssue[] = [
     isRecurring: false,
     status: 'IN_PROGRESS',
     timeline: [{ date: '14 Oct', title: 'MBPJ Landscape team notified' }],
-    images: ['https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop'],
+    images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyYHM-yGCsw19QpsJi9WGN4_v999ciR-FIDe2o9IOfLA&s=10'],
     createdAt: '2026-10-14'
   },
   {
@@ -217,7 +217,7 @@ export const INITIAL_ISSUES: CommunityIssue[] = [
     isRecurring: false,
     status: 'REPORTED',
     timeline: [{ date: '15 Oct', title: 'Urgent safety hazard logged' }],
-    images: ['https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=500&auto=format&fit=crop'],
+    images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpJ0pzeTDkZQYzW4WdR9WGNxGW5PGvjxr3RQSIlWFEHw&s=10'],
     createdAt: '2026-10-15'
   }
 ];
