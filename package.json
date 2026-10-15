@@ -6,6 +6,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev:user": "npm run dev --workspace=apps/web-user"
+    "dev": "npm run dev --workspaces --parallel",
+    "dev:user": "npm run dev --workspace=apps/web-user",
+    "dev:admin": "npm run dev --workspace=apps/web-admin"
   }
 }
