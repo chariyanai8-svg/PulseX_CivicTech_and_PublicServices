@@ -3,7 +3,8 @@ import { MapContainer, TileLayer, Marker, Popup, Tooltip as LeafletTooltip } fro
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { ADMIN_ISSUES, AdminIssue } from '../mockData';
-import { X, Truck, MessageSquare, Paperclip, Send } from 'lucide-react';
+import { API_BASE } from '../apiConfig';
+import { X, Truck, MessageSquare, Paperclip, Send, Check, CheckCircle2 } from 'lucide-react';
 
 const categoryEmoji: Record<string, string> = {
   ROADS: '🛣️', DRAINAGE: '🌊', WASTE: '🗑️', LIGHTING: '💡', FALLEN_TREES: '🌳',
@@ -81,6 +82,14 @@ export default function LiveMapTab() {
     { sender: 'JKR Engineer', color: 'blue-400', align: 'right', text: 'Received. We have a crew in Section 17, redirecting them to assess the culvert now.', time: '10:05 AM' }
   ]);
 
+  const [toastMsg, setToastMsg] = useState<string | null>(null);
+  const [severityFilter, setSeverityFilter] = useState<'ALL' | 'CRITICAL' | 'HIGH' | 'MEDIUM'>('ALL');
+
+  const showToast = (msg: string) => {
+    setToastMsg(msg);
+    setTimeout(() => setToastMsg(null), 3000);
+  };
+
   const handleDispatch = () => {
     if (selectedIssue) {
       setDispatchedIssues(prev => {
@@ -88,6 +97,7 @@ export default function LiveMapTab() {
         newSet.add(selectedIssue.id);
         return newSet;
       });
+      showToast(`Crew dispatched for ${selectedIssue.id}: ${selectedIssue.title}`);
     }
   };
 
@@ -101,28 +111,104 @@ export default function LiveMapTab() {
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }]);
     setChatMessage('');
+    showToast('Dispatch memo sent to inter-agency workspace.');
   };
+
+  const [issues, setIssues] = useState<AdminIssue[]>(ADMIN_ISSUES);
+
+  const filteredIssues = issues.filter(issue => {
+    if (severityFilter === 'ALL') return true;
+    if (severityFilter === 'CRITICAL') return issue.severity === 'CRITICAL';
+    if (severityFilter === 'HIGH') return issue.severity === 'HIGH';
+    if (severityFilter === 'MEDIUM') return issue.severity !== 'CRITICAL' && issue.severity !== 'HIGH';
+    return true;
+  });
+
+  React.useEffect(() => {
+    const fetchMapIssues = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/issues`);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data && Array.isArray(json.data)) {
+            setIssues(prev => json.data.map((srv: any) => {
+              const existing = prev.find(p => p.id === srv.id);
+              return {
+                ...(existing || {}),
+                ...srv,
+                severity: existing?.severity || (srv.isRecurring ? 'HIGH' : 'MEDIUM'),
+                leadAgency: existing?.leadAgency || 'MBPJ Engineering',
+                locationConfidence: existing?.locationConfidence || 'HIGH',
+                relatedReports: srv.reportCount || existing?.relatedReports || 1,
+                socialSignals: existing?.socialSignals || 12,
+              };
+            }));
+          }
+        }
+      } catch (e) {
+        // Fallback to local data
+      }
+    };
+    fetchMapIssues();
+    const interval = setInterval(fetchMapIssues, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="space-y-6 animate-fade-up">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-white">Live Operations Map</h2>
-        <div className="flex gap-2">
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <h2 className="text-2xl font-bold text-white">Live Operations Map</h2>
+          <p className="text-xs text-gray-400 mt-0.5">Real-time geospatial monitoring & multi-agency field dispatch</p>
+        </div>
+        <div className="flex gap-2 flex-wrap items-center">
           <button 
             onClick={() => setShowFleet(!showFleet)}
-            className={`px-4 py-2 rounded-full text-xs font-bold border flex items-center gap-2 transition ${showFleet ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/50' : 'bg-[#1d1f30] text-gray-400 border-white/5 hover:text-white'}`}
+            className={`px-4 py-2 rounded-full text-xs font-bold border flex items-center gap-2 transition active:scale-95 ${showFleet ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/50 shadow-xs' : 'bg-[#1d1f30] text-gray-400 border-white/5 hover:text-white'}`}
           >
-            <Truck size={14} /> Toggle Contractor Fleet
+            <Truck size={14} /> Toggle Contractor Fleet ({showFleet ? 'ON' : 'OFF'})
           </button>
-          <span className="bg-[#1d1f30] px-4 py-2 rounded-full text-xs text-gray-300 border border-white/5 flex items-center gap-2">
+          <button
+            onClick={() => setSeverityFilter(prev => prev === 'CRITICAL' ? 'ALL' : 'CRITICAL')}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold border flex items-center gap-2 transition active:scale-95 ${
+              severityFilter === 'CRITICAL'
+                ? 'bg-red-600 text-white border-red-500 shadow-sm'
+                : 'bg-[#1d1f30] text-gray-300 border-white/5 hover:border-red-500/40'
+            }`}
+            title="Filter to Critical severity"
+          >
             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> Critical
-          </span>
-          <span className="bg-[#1d1f30] px-4 py-2 rounded-full text-xs text-gray-300 border border-white/5 flex items-center gap-2">
+          </button>
+          <button
+            onClick={() => setSeverityFilter(prev => prev === 'HIGH' ? 'ALL' : 'HIGH')}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold border flex items-center gap-2 transition active:scale-95 ${
+              severityFilter === 'HIGH'
+                ? 'bg-orange-600 text-white border-orange-500 shadow-sm'
+                : 'bg-[#1d1f30] text-gray-300 border-white/5 hover:border-orange-500/40'
+            }`}
+            title="Filter to High severity"
+          >
             <span className="w-2 h-2 rounded-full bg-orange-500"></span> High
-          </span>
-          <span className="bg-[#1d1f30] px-4 py-2 rounded-full text-xs text-gray-300 border border-white/5 flex items-center gap-2">
+          </button>
+          <button
+            onClick={() => setSeverityFilter(prev => prev === 'MEDIUM' ? 'ALL' : 'MEDIUM')}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold border flex items-center gap-2 transition active:scale-95 ${
+              severityFilter === 'MEDIUM'
+                ? 'bg-purple-600 text-white border-purple-500 shadow-sm'
+                : 'bg-[#1d1f30] text-gray-300 border-white/5 hover:border-purple-500/40'
+            }`}
+            title="Filter to Normal severity"
+          >
             <span className="w-2 h-2 rounded-full bg-purple-500"></span> Normal
-          </span>
+          </button>
+          {severityFilter !== 'ALL' && (
+            <button
+              onClick={() => setSeverityFilter('ALL')}
+              className="text-xs text-purple-400 hover:text-purple-300 underline font-medium px-2 py-1"
+            >
+              Reset Filter
+            </button>
+          )}
         </div>
       </div>
 
@@ -130,7 +216,7 @@ export default function LiveMapTab() {
         <MapContainer center={[3.125, 101.63]} zoom={13} scrollWheelZoom={true} className="h-full w-full z-0">
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           
-          {ADMIN_ISSUES.map(issue => (
+          {filteredIssues.map(issue => (
             <Marker 
               key={issue.id} 
               position={[issue.location.lat, issue.location.lng]}
@@ -249,7 +335,17 @@ export default function LiveMapTab() {
                       placeholder="Type message to internal agencies..." 
                       className="w-full bg-[#1d1f30] border border-white/10 rounded-xl py-3 pl-10 pr-10 text-xs text-white focus:outline-none focus:border-purple-500" 
                     />
-                    <Paperclip size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setChatMessage(prev => prev ? `[Attached site dispatch memo] ${prev}` : '[Attached site inspection photo / memo]');
+                        showToast('Document attachment appended to message.');
+                      }}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-400 p-1 transition"
+                      title="Attach site memo or file"
+                    >
+                      <Paperclip size={14} />
+                    </button>
                     <button onClick={handleSendMessage} className="absolute right-3 top-1/2 -translate-y-1/2 text-purple-500 hover:text-purple-400 transition">
                       <Send size={14} />
                     </button>
@@ -260,6 +356,14 @@ export default function LiveMapTab() {
           </div>
         )}
       </div>
+
+      {/* Global Toast */}
+      {toastMsg && (
+        <div className="fixed bottom-6 right-6 z-[9999] bg-[#161825] text-white px-5 py-3 rounded-2xl border border-purple-500/40 shadow-2xl flex items-center gap-3 text-xs animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+          <span className="font-semibold">{toastMsg}</span>
+        </div>
+      )}
     </div>
   );
 }

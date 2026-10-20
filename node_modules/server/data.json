@@ -1,0 +1,287 @@
+{
+  "issues": [
+    {
+      "id": "CIV-2026-SIG6011",
+      "title": "The massive pothole on SS2/24 is going to kill ...",
+      "category": "ROADS",
+      "description": "Social Signal from @johndoe_pj (X): \"The massive pothole on SS2/24 is going to kill someone. Hit it twice this week! @PBT_Official\"",
+      "location": {
+        "lat": 3.111974454854887,
+        "lng": 101.62583477306032,
+        "address": "Petaling Jaya Municipal Area",
+        "neighborhood": "Petaling Jaya"
+      },
+      "reportCount": 1,
+      "affectedCount": 13,
+      "evidenceCount": 1,
+      "occurrenceCount": 1,
+      "isRecurring": false,
+      "status": "REPORTED",
+      "timeline": [
+        {
+          "date": "Today",
+          "title": "Ingested from X by AI Signal Monitor (@johndoe_pj)"
+        },
+        {
+          "date": "Today",
+          "title": "Validated by Council Admin as official issue ticket"
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop"
+      ],
+      "createdAt": "2026-10-20"
+    },
+    {
+      "id": "CIV-2026-225334",
+      "title": "Broken Streetlamp at SS2 Park",
+      "category": "LIGHTING",
+      "description": "Lampu jalan mati berhampiran taman permainan.",
+      "location": {
+        "lat": 3.119,
+        "lng": 101.624,
+        "address": "SS2 Park",
+        "neighborhood": "Petaling Jaya"
+      },
+      "reportCount": 1,
+      "affectedCount": 2,
+      "evidenceCount": 1,
+      "occurrenceCount": 1,
+      "isRecurring": false,
+      "status": "MARKED_RESOLVED",
+      "timeline": [
+        {
+          "date": "Today",
+          "title": "Submitted by citizen"
+        }
+      ],
+      "images": [
+        "https://example.com/lamp.jpg"
+      ],
+      "createdAt": "2026-10-19",
+      "communityVerificationRate": 100,
+      "verificationCounts": {
+        "fixed": 1,
+        "partial": 0,
+        "notFixed": 0
+      }
+    },
+    {
+      "id": "CIV-2026-004281",
+      "title": "Flash Flooding & Blocked Drain",
+      "category": "DRAINAGE",
+      "description": "Longkang tersumbat teruk dekat belakang kedai. Heavy rain causes water to overflow into Jalan 17/5.",
+      "location": {
+        "lat": 3.1186,
+        "lng": 101.6231,
+        "address": "Jalan 17/5, Section 17",
+        "neighborhood": "Petaling Jaya"
+      },
+      "affectedCount": 34,
+      "evidenceCount": 8,
+      "occurrenceCount": 4,
+      "isRecurring": true,
+      "status": "IN_PROGRESS",
+      "timeline": [
+        {
+          "date": "27 Sep",
+          "title": "First reported by community"
+        },
+        {
+          "date": "28 Sep",
+          "title": "12 residents confirmed affected"
+        },
+        {
+          "date": "29 Sep",
+          "title": "PBT Verified issue"
+        },
+        {
+          "date": "30 Sep",
+          "title": "Repair work scheduled"
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop"
+      ],
+      "createdAt": "2026-09-27"
+    },
+    {
+      "id": "CIV-2026-004282",
+      "title": "Deep Pothole Hazard",
+      "category": "ROADS",
+      "description": "Dangerous pothole near the traffic light. Multiple motorbikes almost crashed.",
+      "location": {
+        "lat": 3.1205,
+        "lng": 101.626,
+        "address": "Jalan Universiti",
+        "neighborhood": "Petaling Jaya"
+      },
+      "affectedCount": 18,
+      "evidenceCount": 3,
+      "occurrenceCount": 1,
+      "isRecurring": false,
+      "status": "VERIFIED",
+      "timeline": [
+        {
+          "date": "29 Sep",
+          "title": "Reported by Citizen"
+        },
+        {
+          "date": "30 Sep",
+          "title": "Verified by local council"
+        }
+      ],
+      "images": [],
+      "createdAt": "2026-09-29"
+    },
+    {
+      "id": "CIV-2026-003910",
+      "title": "Drain Clearing at Jalan 17/5",
+      "category": "DRAINAGE",
+      "description": "PBT contractor cleared sediment and unblocked underground drain segment.",
+      "location": {
+        "lat": 3.1188,
+        "lng": 101.6235,
+        "address": "Jalan 17/5, Section 17",
+        "neighborhood": "Petaling Jaya"
+      },
+      "affectedCount": 42,
+      "evidenceCount": 4,
+      "occurrenceCount": 2,
+      "isRecurring": false,
+      "status": "MARKED_RESOLVED",
+      "communityVerificationRate": 75,
+      "timeline": [
+        {
+          "date": "25 Sep",
+          "title": "Reported by community"
+        },
+        {
+          "date": "28 Sep",
+          "title": "PBT completed cleaning"
+        },
+        {
+          "date": "30 Sep",
+          "title": "Marked resolved by local council"
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop"
+      ],
+      "createdAt": "2026-09-25"
+    },
+    {
+      "id": "CIV-2026-003882",
+      "title": "Streetlight Bulb Replacement",
+      "category": "LIGHTING",
+      "description": "Replaced malfunctioning LED streetlight lamp near traffic junction.",
+      "location": {
+        "lat": 3.121,
+        "lng": 101.625,
+        "address": "SS2 Junction",
+        "neighborhood": "Petaling Jaya"
+      },
+      "affectedCount": 15,
+      "evidenceCount": 2,
+      "occurrenceCount": 1,
+      "isRecurring": false,
+      "status": "MARKED_RESOLVED",
+      "communityVerificationRate": 92,
+      "timeline": [
+        {
+          "date": "20 Sep",
+          "title": "Reported by Citizen"
+        },
+        {
+          "date": "22 Sep",
+          "title": "PBT maintenance completed"
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?w=500&auto=format&fit=crop"
+      ],
+      "createdAt": "2026-09-20"
+    }
+  ],
+  "reports": [
+    {
+      "id": "REP-225334",
+      "title": "Broken Streetlamp at SS2 Park",
+      "category": "LIGHTING",
+      "description": "Lampu jalan mati berhampiran taman permainan.",
+      "location": {
+        "lat": 3.119,
+        "lng": 101.624,
+        "address": "SS2 Park",
+        "neighborhood": "Petaling Jaya"
+      },
+      "photos": [
+        "https://example.com/lamp.jpg"
+      ],
+      "submittedAt": "2026-10-19",
+      "reporterIdentifier": "RES-TEST-01",
+      "issueId": "CIV-2026-225334"
+    }
+  ],
+  "verifications": [
+    {
+      "id": "VF-1792426225449",
+      "issueId": "CIV-2026-225334",
+      "residentId": "RES-TEST-03",
+      "verdict": "FIXED",
+      "submittedAt": "2026-10-19T16:10:25.449Z"
+    }
+  ],
+  "endorsedSet": [
+    "CIV-2026-225334::RES-TEST-02",
+    "CIV-2026-SIG6011::RESIDENT-CA-01"
+  ],
+  "notifications": [
+    {
+      "id": "N-1792514675056",
+      "title": "Auditor Dispatched",
+      "message": "Quality inspector assigned to site audit for CIV-2026-004285.",
+      "time": "Just now",
+      "read": false
+    },
+    {
+      "id": "N-1792464646011",
+      "title": "Social Signal Converted",
+      "message": "AI complaint from @johndoe_pj converted into new case CIV-2026-SIG6011.",
+      "time": "Just now",
+      "read": true
+    },
+    {
+      "id": "1",
+      "title": "Action Dispatched",
+      "message": "MBPJ Cleansing unit assigned to Jalan 17/5 drain.",
+      "time": "10m ago",
+      "read": true
+    },
+    {
+      "id": "2",
+      "title": "Recurrence Flagged",
+      "message": "CIV-2026-004281 flagged as 4x repeat occurrence.",
+      "time": "45m ago",
+      "read": true
+    },
+    {
+      "id": "3",
+      "title": "Citizen Consensus",
+      "message": "CIV-2026-003910 verified with 75% approval.",
+      "time": "2h ago",
+      "read": true
+    }
+  ],
+  "signals": [
+    {
+      "id": 3,
+      "platform": "X",
+      "handle": "@sara_tweets",
+      "text": "Traffic light at University intersection is completely out.",
+      "sentiment": "Critical",
+      "aiMatch": "New Incident",
+      "time": "5m ago"
+    }
+  ]
+}

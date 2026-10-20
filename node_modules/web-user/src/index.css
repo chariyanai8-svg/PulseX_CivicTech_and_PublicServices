@@ -2,8 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(99, 102, 241, 0.25) transparent;
+  }
+  *::-webkit-scrollbar { width: 5px; height: 5px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.25); border-radius: 100px; }
+  *::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.4); }
+}
+
 .leaflet-container {
   width: 100%;
   height: 100%;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
 }
+
+/* Leaflet dark mode tile filter when html has .dark class */
+.dark .leaflet-container {
+  background: #0d0d1a !important;
+}
+.dark .leaflet-tile-pane {
+  filter: brightness(0.65) contrast(1.2) saturate(0.7) hue-rotate(180deg) invert(1);
+}
+.dark .leaflet-control-zoom a {
+  background: rgba(22, 24, 37, 0.9) !important;
+  color: #e2e8f0 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Custom leaflet marker pin styling matching admin dashboard */
+.custom-leaflet-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.custom-tooltip {
+  background: rgba(18, 20, 32, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+  padding: 6px 10px !important;
+}
+.custom-tooltip::before {
+  border-top-color: rgba(18, 20, 32, 0.95) !important;
+}
+
+/* Glass card styling */
+.glass-card {
+  background: rgba(22, 24, 37, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
