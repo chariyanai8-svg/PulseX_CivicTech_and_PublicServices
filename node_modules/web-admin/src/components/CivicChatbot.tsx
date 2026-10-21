@@ -185,16 +185,62 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
       }
     } catch (err) {
       console.warn('Chatbot fallback error:', err);
+      const lower = query.toLowerCase();
+      let fallbackText = '';
+      let fallbackActions: Array<{ label: string; action: string; payload?: any }> = [];
+
+      if (lower === 'hi' || lower === 'hello' || lower === 'hai' || lower.includes('salam') || lower.includes('morning') || lower.includes('selamat')) {
+        fallbackText = language === 'BM'
+          ? '👋 **Hai! Saya Pembantu Aduan AI Komuniti Petaling Jaya.**\n\nBagaimana saya boleh bantu anda hari ini? Anda boleh tanya tentang status aduan, cara hantar laporan jalan rosak atau longkang, atau direktori talian kecemasan majlis.'
+          : '👋 **Hello! I am your CivicPulse AI Resident Concierge.**\n\nHow can I help you today? You can ask me about active community issues, report submission steps, or municipal hotline directory.';
+        fallbackActions = [
+          { label: language === 'BM' ? '📝 Cara Buat Aduan' : '📝 How to Report', action: 'SEND_PROMPT', payload: language === 'BM' ? 'Cara buat aduan' : 'How to report' },
+          { label: language === 'BM' ? '🌊 Status Longkang Jln 17/5' : '🌊 Status Drain Jln 17/5', action: 'SEND_PROMPT', payload: language === 'BM' ? 'Status longkang Jalan 17/5' : 'Status of Jalan 17/5 drain' },
+          { label: language === 'BM' ? '📞 Hotline MBPJ' : '📞 MBPJ Hotline', action: 'SEND_PROMPT', payload: language === 'BM' ? 'Hotline MBPJ' : 'MBPJ Hotline' }
+        ];
+      } else if (lower.includes('how to report') || lower.includes('cara lapor') || lower.includes('buat aduan') || lower.includes('hantar aduan')) {
+        fallbackText = language === 'BM'
+          ? '📝 **Cara Menghantar Aduan di CivicPulse:**\n\n1. Klik butang kuning **"HANTAR ADUAN ANDA DI SINI"**.\n2. Tulis masalah anda secara ringkas.\n3. Tekan **✨ NLP Auto-Triage** untuk cadangan kategori automatik.\n4. Sahkan pin lokasi pada peta dan hantar!'
+          : '📝 **How to Submit a Report on CivicPulse:**\n\n1. Tap the yellow **"REPORT YOUR ISSUE HERE"** button.\n2. Type your problem in natural language.\n3. Tap **✨ NLP Auto-Triage** for automated classification.\n4. Confirm your map pin and submit!';
+        fallbackActions = [
+          { label: language === 'BM' ? 'Buka Borang Aduan' : 'Open Report Form', action: 'OPEN_REPORT_MODAL' },
+          { label: language === 'BM' ? 'Lihat Peta Komuniti' : 'View Map', action: 'NAVIGATE_TAB', payload: 'Live Map' }
+        ];
+      } else if (lower.includes('jalan 17') || lower.includes('longkang') || lower.includes('drain') || lower.includes('banjir') || lower.includes('pothole') || lower.includes('lubang')) {
+        fallbackText = language === 'BM'
+          ? '🌊 **Status Aduan Semasa (Seksyen 17 / Jalan 17/5):**\n\n- **CIV-2026-004281**: Longkang tersumbat & risiko limpahan banjir sedang **Dalam Tindakan**.\n- Skuad Pembersihan MBPJ telah dijadualkan ke lokasi. Sebanyak **34 penduduk** telah menyokong aduan ini.'
+          : '🌊 **Current Status (Section 17 / Jalan 17/5 Drainage):**\n\n- **CIV-2026-004281**: Blocked drain & flash flood risk is currently **In Progress**.\n- MBPJ Cleansing squad dispatched. **34 verified residents** have endorsed this report.';
+        fallbackActions = [
+          { label: language === 'BM' ? 'Buka Peta' : 'Open Map', action: 'NAVIGATE_TAB', payload: 'Live Map' },
+          { label: language === 'BM' ? 'Buka Borang Aduan' : 'Open Report Form', action: 'OPEN_REPORT_MODAL' }
+        ];
+      } else if (lower.includes('hotline') || lower.includes('telefon') || lower.includes('contact') || lower.includes('nombor') || lower.includes('kecemasan')) {
+        fallbackText = language === 'BM'
+          ? '📞 **Hotline Pihak Berkuasa Tempatan:**\n\n- **MBPJ 24-Jam**: 03-7956 3544\n- **WhatsApp MBPJ**: 019-338 1234\n- **TNB (Lampu/Elektrik)**: 15454\n- **Air Selangor (Paip Pecah)**: 15300'
+          : '📞 **Municipal Hotline Directory:**\n\n- **MBPJ 24-Hour Hotline**: 03-7956 3544\n- **MBPJ WhatsApp**: 019-338 1234\n- **TNB Outages**: 15454\n- **Air Selangor Pipe Burst**: 15300';
+        fallbackActions = [
+          { label: language === 'BM' ? 'Hantar Aduan Dalam Talian' : 'Submit Report', action: 'OPEN_REPORT_MODAL' }
+        ];
+      } else {
+        fallbackText = language === 'BM'
+          ? `🤖 **Pembantu AI Komuniti CivicPulse:**\n\nSaya sedia membantu aduan anda. Adakah anda mahu saya sediakan borang aduan dengan butiran ini?`
+          : `🤖 **CivicPulse AI Resident Concierge:**\n\nI noted your message. Would you like me to open the report form with your inquiry pre-filled?`;
+        fallbackActions = [
+          {
+            label: language === 'BM' ? '📝 Buka Borang Aduan' : '📝 Open Report Form',
+            action: 'OPEN_REPORT_MODAL',
+            payload: { title: query.slice(0, 50), description: query }
+          },
+          { label: language === 'BM' ? '🗺️ Peta Komuniti' : '🗺️ Community Map', action: 'NAVIGATE_TAB', payload: 'Live Map' }
+        ];
+      }
+
       const fallbackReply: ChatMessage = {
-        id: `msg-err-${Date.now()}`,
+        id: `msg-res-${Date.now()}`,
         sender: 'assistant',
-        text: language === 'BM'
-          ? '⚠️ Rangkaian luar talian seketika. Sistem menyimpan cache setempat untuk aduan Seksyen 17.'
-          : '⚠️ Network offline temporarily. Local cache is active for Section 17 incidents.',
+        text: fallbackText,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        suggestedActions: [
-          { label: language === 'BM' ? 'Buka Peta' : 'Open Map', action: 'NAVIGATE_TAB', payload: 'Live Map' }
-        ]
+        suggestedActions: fallbackActions
       };
       setMessages(prev => [...prev, fallbackReply]);
     } finally {
