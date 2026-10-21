@@ -900,13 +900,17 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-app.listen(PORT, async () => {
-  console.log(`CivicPulse Backend Server running at http://localhost:${PORT}`);
-  if (isSupabaseConfigured()) {
-    console.log('⚡ Connected to Supabase Cloud PostgreSQL database');
-    await seedSupabaseIfEmpty(INITIAL_ISSUES, INITIAL_SIGNALS, INITIAL_NOTIFICATIONS);
-  } else {
-    console.log('📁 Running with local JSON database fallback (apps/server/data.json).');
-    console.log('👉 To enable Supabase Cloud: Add SUPABASE_URL and SUPABASE_ANON_KEY to apps/server/.env');
-  }
-});
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, async () => {
+    console.log(`CivicPulse Backend Server running at http://localhost:${PORT}`);
+    if (isSupabaseConfigured()) {
+      console.log('⚡ Connected to Supabase Cloud PostgreSQL database');
+      await seedSupabaseIfEmpty(INITIAL_ISSUES, INITIAL_SIGNALS, INITIAL_NOTIFICATIONS);
+    } else {
+      console.log('📁 Running with local JSON database fallback (apps/server/data.json).');
+      console.log('👉 To enable Supabase Cloud: Add SUPABASE_URL and SUPABASE_ANON_KEY to apps/server/.env');
+    }
+  });
+}
+
+export default app;
