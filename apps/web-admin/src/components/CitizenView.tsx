@@ -1574,58 +1574,58 @@ export default function CitizenView({
       {/* REPORT MODAL SHEET (Elevated z-[9999] and z-[10000] to cover Leaflet popups/map) */}
       {showReportModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="bg-white rounded-t-3xl sm:rounded-3xl p-5 w-full max-w-md max-h-[95vh] overflow-y-auto animate-in slide-in-from-bottom relative z-[10000]">
+          <div className="bg-white dark:bg-[#161825] text-slate-900 dark:text-slate-100 rounded-t-3xl sm:rounded-3xl p-5 w-full max-w-md max-h-[95vh] overflow-y-auto animate-in slide-in-from-bottom relative z-[10000] border border-slate-200 dark:border-white/10 shadow-2xl">
             <div className="flex justify-between items-center mb-1">
-              <h2 className="text-base font-extrabold text-slate-900">
+              <h2 className="text-base font-extrabold text-slate-900 dark:text-white">
                 {language === 'BM' ? 'Laporkan Aduan Komuniti' : 'Report Community Issue'}
               </h2>
               <button
                 type="button"
                 onClick={() => setShowReportModal(false)}
-                className="p-1 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200"
+                className="p-1 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-white/20 transition"
               >
                 <X size={16} />
               </button>
             </div>
-            <p className="text-xs text-slate-500 mb-4">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
               {language === 'BM' ? 'CivicPulse memautkan aduan pendua berdekatan secara automatik.' : 'CivicPulse links nearby duplicate complaints automatically.'}
             </p>
 
             <form onSubmit={handleCreateReport} className="space-y-4">
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">{language === 'BM' ? 'Kategori' : 'Category'}</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">{language === 'BM' ? 'Kategori' : 'Category'}</label>
                 <select
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value as IssueCategory)}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl bg-slate-50 font-medium"
+                  className="w-full p-2.5 text-xs border border-slate-300 dark:border-white/15 rounded-xl bg-slate-50 dark:bg-[#1a1d2e] text-slate-900 dark:text-white font-medium focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 >
-                  <option value="DRAINAGE">🌊 {language === 'BM' ? 'Saliran / Banjir' : 'Drainage / Flooding'}</option>
-                  <option value="ROADS">🛣 {language === 'BM' ? 'Jalan Raya / Lubang' : 'Roads / Potholes'}</option>
-                  <option value="WASTE">🗑️ {language === 'BM' ? 'Sisa / Sampah' : 'Waste / Trash'}</option>
-                  <option value="LIGHTING">💡 {language === 'BM' ? 'Lampu Jalan' : 'Streetlights'}</option>
-                  <option value="HAZARD">⚠️ {language === 'BM' ? 'Bahaya Awam' : 'Public Hazard'}</option>
+                  <option value="DRAINAGE" className="bg-white dark:bg-[#1a1d2e] text-slate-900 dark:text-white">🌊 {language === 'BM' ? 'Saliran / Banjir' : 'Drainage / Flooding'}</option>
+                  <option value="ROADS" className="bg-white dark:bg-[#1a1d2e] text-slate-900 dark:text-white">🛣 {language === 'BM' ? 'Jalan Raya / Lubang' : 'Roads / Potholes'}</option>
+                  <option value="WASTE" className="bg-white dark:bg-[#1a1d2e] text-slate-900 dark:text-white">🗑️ {language === 'BM' ? 'Sisa / Sampah' : 'Waste / Trash'}</option>
+                  <option value="LIGHTING" className="bg-white dark:bg-[#1a1d2e] text-slate-900 dark:text-white">💡 {language === 'BM' ? 'Lampu Jalan' : 'Streetlights'}</option>
+                  <option value="HAZARD" className="bg-white dark:bg-[#1a1d2e] text-slate-900 dark:text-white">⚠️ {language === 'BM' ? 'Bahaya Awam' : 'Public Hazard'}</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">{language === 'BM' ? 'Tajuk Aduan' : 'Title'}</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">{language === 'BM' ? 'Tajuk Aduan' : 'Title'}</label>
                 <input
                   type="text"
                   required
                   placeholder={language === 'BM' ? 'cth. Longkang Tersumbat di Jalan 17/5' : 'e.g. Blocked Drain on Jalan 17/5'}
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl"
+                  className="w-full p-2.5 text-xs border border-slate-300 dark:border-white/15 rounded-xl bg-white dark:bg-[#1a1d2e] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 font-medium focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1 flex items-center justify-between">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 flex items-center justify-between">
                   <span>{language === 'BM' ? 'Pin Lokasi Terjejas' : 'Pin Affected Location'}</span>
-                  <span className="text-[10px] text-blue-600 font-normal">{language === 'BM' ? 'Ketik peta untuk tetap pin' : 'Tap map to set pin'}</span>
+                  <span className="text-[10px] text-blue-600 dark:text-blue-400 font-normal">{language === 'BM' ? 'Ketik peta untuk tetap pin' : 'Tap map to set pin'}</span>
                 </label>
-                <div className="h-[150px] w-full rounded-xl overflow-hidden border border-slate-300 mb-1.5 relative z-0">
+                <div className="h-[150px] w-full rounded-xl overflow-hidden border border-slate-300 dark:border-white/15 mb-1.5 relative z-0">
                   <MapContainer center={selectedLocation} zoom={15} scrollWheelZoom={false} className="h-full w-full z-0">
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                     <LocationPickerMarker
@@ -1639,13 +1639,13 @@ export default function CitizenView({
                   type="text"
                   readOnly
                   value={autoAddress}
-                  className="w-full p-2 text-[11px] bg-slate-100 text-slate-700 border border-slate-200 rounded-lg font-medium"
+                  className="w-full p-2 text-[11px] bg-slate-100 dark:bg-white/5 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-white/10 rounded-lg font-medium"
                 />
               </div>
 
               <div>
                 <div className="flex justify-between items-center mb-1">
-                  <label className="block text-xs font-bold text-slate-700">{language === 'BM' ? 'Penerangan (BM / Bahasa Inggeris / Manglish)' : 'Description (BM / English / Manglish)'}</label>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">{language === 'BM' ? 'Penerangan (BM / Bahasa Inggeris / Manglish)' : 'Description (BM / English / Manglish)'}</label>
                   <button
                     type="button"
                     onClick={async () => {
@@ -1681,7 +1681,7 @@ export default function CitizenView({
                         setIsNlpAnalyzing(false);
                       }
                     }}
-                    className="text-[10px] font-bold text-purple-700 bg-purple-50 hover:bg-purple-100 px-2.5 py-1 rounded-lg border border-purple-200 transition flex items-center gap-1 active:scale-95 shadow-xs"
+                    className="text-[10px] font-bold text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/40 hover:bg-purple-100 dark:hover:bg-purple-900/50 px-2.5 py-1 rounded-lg border border-purple-200 dark:border-purple-800/50 transition flex items-center gap-1 active:scale-95 shadow-xs"
                     title="Run Malaysian NLP parser to classify category, extract landmarks, and generate official title"
                   >
                     <span>{isNlpAnalyzing ? (language === 'BM' ? '⏳ Menganalisis Teks...' : '⏳ Analyzing Text...') : (language === 'BM' ? '✨ NLP Auto-Klasifikasi (BM/EN)' : '✨ NLP Auto-Triage (BM/EN)')}</span>
@@ -1695,36 +1695,36 @@ export default function CitizenView({
                   onChange={(e) => {
                     setNewDescription(e.target.value);
                   }}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-purple-500 focus:outline-none"
+                  className="w-full p-2.5 text-xs border border-slate-300 dark:border-white/15 rounded-xl bg-white dark:bg-[#1a1d2e] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 font-medium focus:border-purple-500 dark:focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-500"
                 />
 
                 {/* NLP Analysis Feedback Badge */}
                 {nlpAnalysis && (
-                  <div className="mt-2 p-2.5 bg-purple-50/80 border border-purple-200 rounded-xl space-y-1.5 animate-in fade-in duration-200">
+                  <div className="mt-2 p-2.5 bg-purple-50/80 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800/40 rounded-xl space-y-1.5 animate-in fade-in duration-200">
                     <div className="flex items-center justify-between text-[10px] font-bold">
-                      <span className="flex items-center gap-1 text-purple-800">
+                      <span className="flex items-center gap-1 text-purple-800 dark:text-purple-200">
                         <span>🤖 {language === 'BM' ? 'Klasifikasi NLP:' : 'NLP Triage:'}</span>
-                        <span className="bg-purple-200/60 text-purple-900 px-1.5 py-0.5 rounded uppercase">{nlpAnalysis.category}</span>
-                        <span className="text-purple-600">({(nlpAnalysis.categoryConfidence * 100).toFixed(0)}% conf)</span>
+                        <span className="bg-purple-200/60 dark:bg-purple-800/60 text-purple-900 dark:text-purple-100 px-1.5 py-0.5 rounded uppercase">{nlpAnalysis.category}</span>
+                        <span className="text-purple-600 dark:text-purple-300">({(nlpAnalysis.categoryConfidence * 100).toFixed(0)}% conf)</span>
                       </span>
-                      <span className={`px-2 py-0.5 rounded-full text-[9px] font-extrabold ${nlpAnalysis.urgency === 'CRITICAL' ? 'bg-red-100 text-red-700 border border-red-200' : nlpAnalysis.urgency === 'HIGH' ? 'bg-orange-100 text-orange-700 border border-orange-200' : 'bg-blue-100 text-blue-700'}`}>
+                      <span className={`px-2 py-0.5 rounded-full text-[9px] font-extrabold ${nlpAnalysis.urgency === 'CRITICAL' ? 'bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800/50' : nlpAnalysis.urgency === 'HIGH' ? 'bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800/50' : 'bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300'}`}>
                         {nlpAnalysis.urgency} {language === 'BM' ? 'KECEMASAN' : 'URGENCY'}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-2 text-[10px] text-slate-600 flex-wrap">
+                    <div className="flex items-center gap-2 text-[10px] text-slate-600 dark:text-slate-300 flex-wrap">
                       <span>{language === 'BM' ? 'Bahasa:' : 'Lang:'} <strong>{nlpAnalysis.detectedLanguage}</strong></span>
                       <span>•</span>
-                      <span>{language === 'BM' ? 'Kekecewaan:' : 'Frustration:'} <strong className="text-purple-800">{nlpAnalysis.sentiment.frustrationIndex}%</strong></span>
+                      <span>{language === 'BM' ? 'Kekecewaan:' : 'Frustration:'} <strong className="text-purple-800 dark:text-purple-300">{nlpAnalysis.sentiment.frustrationIndex}%</strong></span>
                       <span>•</span>
-                      <span>{language === 'BM' ? 'Agensi:' : 'Agency:'} <strong className="text-slate-800">{nlpAnalysis.recommendedAgency.name}</strong></span>
+                      <span>{language === 'BM' ? 'Agensi:' : 'Agency:'} <strong className="text-slate-800 dark:text-slate-200">{nlpAnalysis.recommendedAgency.name}</strong></span>
                     </div>
 
                     {nlpAnalysis.detectedLandmarks.length > 0 && (
-                      <div className="flex items-center gap-1 text-[9px] text-slate-500 flex-wrap pt-0.5">
-                        <span className="font-semibold text-slate-600">{language === 'BM' ? 'Mercu Tanda Dikesan:' : 'Extracted Landmarks:'}</span>
+                      <div className="flex items-center gap-1 text-[9px] text-slate-500 dark:text-slate-400 flex-wrap pt-0.5">
+                        <span className="font-semibold text-slate-600 dark:text-slate-300">{language === 'BM' ? 'Mercu Tanda Dikesan:' : 'Extracted Landmarks:'}</span>
                         {nlpAnalysis.detectedLandmarks.map((lm: string, idx: number) => (
-                          <span key={idx} className="bg-white border border-purple-100 text-purple-700 px-1.5 py-0.2 rounded font-mono">
+                          <span key={idx} className="bg-white dark:bg-[#1a1d2e] border border-purple-100 dark:border-purple-800/40 text-purple-700 dark:text-purple-300 px-1.5 py-0.2 rounded font-mono">
                             {lm}
                           </span>
                         ))}
@@ -1733,22 +1733,22 @@ export default function CitizenView({
                   </div>
                 )}
 
-                <p className="text-[10px] text-slate-400 mt-1 italic">
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1 italic">
                   {language === 'BM' ? 'Nota: NLP pelayan menganalisis teks berbilang bahasa penduduk untuk mengkategorikan isu, tajuk rasmi, keutamaan, dan agensi berkaitan secara automatik.' : 'Note: Backend NLP analyzes multilingual citizen text to auto-assign category, formal title, priority, and routing agency.'}
                 </p>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">{language === 'BM' ? 'Lampirkan Foto / Bukti' : 'Attach Photos / Evidence'}</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">{language === 'BM' ? 'Lampirkan Foto / Bukti' : 'Attach Photos / Evidence'}</label>
                 <div className="grid grid-cols-2 gap-2 mb-2">
-                  <label className="flex items-center justify-center space-x-1.5 p-2.5 bg-slate-50 border border-slate-300 border-dashed rounded-xl cursor-pointer hover:bg-slate-100 transition text-slate-700 text-xs font-bold">
-                    <ImageIcon size={16} className="text-blue-600" />
+                  <label className="flex items-center justify-center space-x-1.5 p-2.5 bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 border-dashed rounded-xl cursor-pointer hover:bg-slate-100 dark:hover:bg-white/10 transition text-slate-700 dark:text-slate-300 text-xs font-bold">
+                    <ImageIcon size={16} className="text-blue-600 dark:text-blue-400" />
                     <span>{language === 'BM' ? 'Muat Naik Galeri' : 'Upload Gallery'}</span>
                     <input type="file" accept="image/*" multiple onChange={handleImageUpload} className="hidden" />
                   </label>
 
-                  <label className="flex items-center justify-center space-x-1.5 p-2.5 bg-blue-50 border border-blue-200 border-dashed rounded-xl cursor-pointer hover:bg-blue-100 transition text-blue-700 text-xs font-bold">
-                    <ImageIcon size={16} className="text-blue-600" />
+                  <label className="flex items-center justify-center space-x-1.5 p-2.5 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/40 border-dashed rounded-xl cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/40 transition text-blue-700 dark:text-blue-300 text-xs font-bold">
+                    <ImageIcon size={16} className="text-blue-600 dark:text-blue-400" />
                     <span>{language === 'BM' ? 'Ambil Foto' : 'Take Photo'}</span>
                     <input type="file" accept="image/*" capture="environment" onChange={handleImageUpload} className="hidden" />
                   </label>
@@ -1757,7 +1757,7 @@ export default function CitizenView({
                 {uploadedImages.length > 0 && (
                   <div className="flex space-x-2 overflow-x-auto pt-1">
                     {uploadedImages.map((imgUrl, index) => (
-                      <div key={index} className="relative w-14 h-14 rounded-lg overflow-hidden border border-slate-200 flex-shrink-0">
+                      <div key={index} className="relative w-14 h-14 rounded-lg overflow-hidden border border-slate-200 dark:border-white/10 flex-shrink-0">
                         <img src={imgUrl} alt="Uploaded evidence" className="w-full h-full object-cover" />
                         <button
                           type="button"
@@ -1776,7 +1776,7 @@ export default function CitizenView({
                 <button
                   type="button"
                   onClick={() => setShowReportModal(false)}
-                  className="flex-1 py-2.5 text-xs font-bold text-slate-600 bg-slate-100 rounded-xl"
+                  className="flex-1 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 rounded-xl transition"
                 >
                   {language === 'BM' ? 'Batal' : 'Cancel'}
                 </button>

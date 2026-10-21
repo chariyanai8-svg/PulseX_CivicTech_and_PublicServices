@@ -650,9 +650,6 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
                           ðŸ¤– Civic AI
                         </span>
                       )}
-                    </div>š¡ Groq AI' : 'ðŸ¤– Civic Engine'}
-                        </span>
-                      )}
                     </div>
 
                     {msg.suggestedActions && msg.suggestedActions.length > 0 && (
