@@ -234,6 +234,18 @@ export async function deleteSupabaseSignal(id: number) {
   await supabaseClient.from('signals').delete().eq('id', id);
 }
 
+export async function resetSupabaseSignals(initialSignals: any[]) {
+  if (!supabaseClient) return;
+  try {
+    await supabaseClient.from('signals').delete().neq('id', 0);
+    for (const signal of initialSignals) {
+      await supabaseClient.from('signals').insert(signal);
+    }
+  } catch (err) {
+    console.error('[Supabase] Error resetting signals:', err);
+  }
+}
+
 export async function seedSupabaseIfEmpty(initialIssues: any[], initialSignals: any[], initialNotifs: any[]) {
   if (!supabaseClient) return;
   const { count } = await supabaseClient.from('issues').select('*', { count: 'exact', head: true });

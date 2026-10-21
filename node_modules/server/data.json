@@ -242,7 +242,7 @@
       "title": "Auditor Dispatched",
       "message": "Quality inspector assigned to site audit for CIV-2026-004285.",
       "time": "Just now",
-      "read": false
+      "read": true
     },
     {
       "id": "N-1792464646011",
@@ -274,6 +274,24 @@
     }
   ],
   "signals": [
+    {
+      "id": 1,
+      "platform": "X",
+      "handle": "@johndoe_pj",
+      "text": "The massive pothole on SS2/24 is going to kill someone. Hit it twice this week! @PBT_Official",
+      "sentiment": "High Danger",
+      "aiMatch": "CIV-2026-004285 (Road Defect)",
+      "time": "10m ago"
+    },
+    {
+      "id": 2,
+      "platform": "Facebook",
+      "handle": "Community Watch",
+      "text": "Water not draining near the morning market. It smells terrible, when is the city council coming?",
+      "sentiment": "Nuisance",
+      "aiMatch": "New Incident",
+      "time": "1h ago"
+    },
     {
       "id": 3,
       "platform": "X",

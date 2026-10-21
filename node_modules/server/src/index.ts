@@ -29,6 +29,7 @@ import {
   markAllSupabaseNotificationsRead,
   getSupabaseSignals,
   deleteSupabaseSignal,
+  resetSupabaseSignals,
   seedSupabaseIfEmpty
 } from './supabase';
 import {
@@ -37,6 +38,7 @@ import {
   generateChatbotResponse,
   NLPAnalysisResult
 } from './nlp';
+import { getAIChatResponse } from './aiService';
 
 const app = express();
 const PORT = process.env.PORT || 3002;
@@ -771,6 +773,73 @@ app.post('/api/signals/:id/dismiss', async (req, res) => {
   res.json({ success: true, remainingSignals: db.signals });
 });
 
+// POST reset demo signals to initial 3 records
+app.post('/api/signals/reset', async (req, res) => {
+  const db = loadDb();
+  db.signals = [...INITIAL_SIGNALS];
+  saveDb(db);
+  if (isSupabaseConfigured()) {
+    await resetSupabaseSignals(INITIAL_SIGNALS);
+  }
+  res.json({ success: true, data: db.signals });
+});
+
+// POST batch validate all high danger / critical signals into issues
+app.post('/api/signals/batch-validate-danger', async (req, res) => {
+  const db = loadDb();
+  const currentSignals = isSupabaseConfigured() ? (await getSupabaseSignals()) : (db.signals || []);
+  const highDangerSignals = currentSignals.filter((s: any) => s.sentiment === 'Critical' || s.sentiment === 'High Danger');
+
+  if (highDangerSignals.length === 0) {
+    return res.json({ success: true, count: 0, remainingSignals: db.signals, createdIssues: [] });
+  }
+
+  const createdIssues: CommunityIssue[] = [];
+
+  for (const signal of highDangerSignals) {
+    const nlpAnalysis = analyzeCivicText(signal.text);
+    const newIssueId = `CIV-2026-SIG${Date.now().toString().slice(-4)}${Math.floor(Math.random() * 10)}`;
+
+    const newIssue: CommunityIssue = {
+      id: newIssueId,
+      title: nlpAnalysis.suggestedTitle,
+      category: nlpAnalysis.category,
+      description: `[NLP Analyzed (${nlpAnalysis.detectedLanguage})] Social Signal from ${signal.handle} (${signal.platform}): "${signal.text}"\n\nIdentified urgency: ${nlpAnalysis.urgency} (Frustration Index: ${nlpAnalysis.sentiment.frustrationIndex}%). Suggested Agency: ${nlpAnalysis.recommendedAgency.name}.`,
+      location: {
+        lat: 3.1186 + (Math.random() - 0.5) * 0.02,
+        lng: 101.6231 + (Math.random() - 0.5) * 0.02,
+        address: nlpAnalysis.detectedLandmarks[0] ? `${nlpAnalysis.detectedLandmarks[0]}, Petaling Jaya` : 'Petaling Jaya Municipal Area',
+        neighborhood: 'Petaling Jaya'
+      },
+      reportCount: 1,
+      affectedCount: nlpAnalysis.urgency === 'CRITICAL' ? 32 : 18,
+      evidenceCount: 1,
+      occurrenceCount: 1,
+      isRecurring: false,
+      status: 'REPORTED',
+      timeline: [
+        { date: 'Today', title: `Ingested from ${signal.platform} by AI Signal Monitor (${signal.handle})` },
+        { date: 'Today', title: `Urgent hazard validated into Council Priority Workorder` }
+      ],
+      images: ['https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop'],
+      createdAt: new Date().toISOString().split('T')[0]
+    };
+
+    if (isSupabaseConfigured()) {
+      await upsertSupabaseIssue(newIssue);
+      await deleteSupabaseSignal(Number(signal.id));
+    }
+
+    const signalIdx = db.signals.findIndex(s => s.id === Number(signal.id));
+    if (signalIdx >= 0) db.signals.splice(signalIdx, 1);
+    db.issues.unshift(newIssue);
+    createdIssues.push(newIssue);
+  }
+
+  saveDb(db);
+  res.json({ success: true, count: createdIssues.length, remainingSignals: db.signals, createdIssues });
+});
+
 // ─────────────────────────────────────────────────────────────
 // NLP Intelligence Endpoints
 // ─────────────────────────────────────────────────────────────
@@ -797,23 +866,38 @@ app.post('/api/nlp/batch-triage', (req, res) => {
   res.json({ success: true, count: triaged.length, data: triaged });
 });
 
-// POST /api/chat - AI Civic Chatbot for Admin and Citizen
+// POST /api/chat - AI Civic Chatbot for Admin and Citizen powered by Groq & Gemini
 app.post('/api/chat', async (req, res) => {
-  const { message, role, language } = req.body;
+  const { message, role, language, provider, history } = req.body;
   if (!message || typeof message !== 'string') {
     return res.status(400).json({ success: false, error: 'Message string is required' });
   }
 
   const db = loadDb();
   const currentIssues = isSupabaseConfigured() ? (await getSupabaseIssues()) : (db.issues || []);
-  const response = generateChatbotResponse(
-    message,
-    role === 'ADMIN' ? 'ADMIN' : 'CITIZEN',
-    language === 'BM' ? 'BM' : 'EN',
-    currentIssues
-  );
+  
+  try {
+    const aiResult = await getAIChatResponse({
+      message,
+      role: role === 'ADMIN' ? 'ADMIN' : 'CITIZEN',
+      language: language === 'BM' ? 'BM' : 'EN',
+      provider: provider || 'auto',
+      currentIssues,
+      history: Array.isArray(history) ? history : []
+    });
 
-  res.json({ success: true, data: response });
+    res.json({ success: true, data: aiResult });
+  } catch (err: any) {
+    console.error('[Chat Error]:', err);
+    // Absolute fallback
+    const fallback = generateChatbotResponse(
+      message,
+      role === 'ADMIN' ? 'ADMIN' : 'CITIZEN',
+      language === 'BM' ? 'BM' : 'EN',
+      currentIssues
+    );
+    res.json({ success: true, data: { ...fallback, provider: 'local_nlp', model: 'Emergency Fallback' } });
+  }
 });
 
 app.listen(PORT, async () => {

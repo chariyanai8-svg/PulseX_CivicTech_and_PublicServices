@@ -3,6 +3,8 @@ export type IssueCategory =
   | 'FALLEN_TREES' | 'OBSTRUCTION' | 'FACILITIES' 
   | 'PEDESTRIAN' | 'HAZARD' | 'ENVIRONMENT' | 'OTHER';
 
+export type IssueSeverity = 'LOW' | 'NORMAL' | 'HIGH' | 'CRITICAL';
+
 export type IssueStatus = 
   | 'REPORTED' | 'VERIFIED' | 'AGENCY_IDENTIFIED' 
   | 'IN_PROGRESS' | 'DISPUTED' | 'MARKED_RESOLVED' | 'COMMUNITY_VERIFIED';

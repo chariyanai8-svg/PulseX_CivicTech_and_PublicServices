@@ -87,10 +87,55 @@ html:not(.dark) .admin-shell h4 {
   color: #0f172a !important;
 }
 
-html:not(.dark) .admin-shell p[class*="text-white"],
-html:not(.dark) .admin-shell h3[class*="text-white"],
-html:not(.dark) .admin-shell span[class*="text-white"]:not([class*="bg-"]):not([class*="rounded-full"]) {
+html:not(.dark) .admin-shell p[class*="text-white"]:not([class*="bg-gradient-to"] *):not(.chatbot-dark-topbar *),
+html:not(.dark) .admin-shell h3[class*="text-white"]:not([class*="bg-gradient-to"] *):not(.chatbot-dark-topbar *),
+html:not(.dark) .admin-shell span[class*="text-white"]:not([class*="bg-"]):not([class*="rounded-full"]):not([class*="bg-gradient-to"] *):not(.chatbot-dark-topbar *) {
   color: #0f172a !important;
+}
+
+/* Ensure all text inside gradient headers and chatbot dark topbars remains bright white */
+html:not(.dark) .admin-shell .chatbot-dark-topbar,
+html:not(.dark) .admin-shell .chatbot-dark-topbar *,
+.chatbot-dark-topbar,
+.chatbot-dark-topbar * {
+  /* default inherited colors */
+}
+
+html:not(.dark) .admin-shell .chatbot-dark-topbar h3,
+.chatbot-dark-topbar h3,
+html:not(.dark) .admin-shell .chatbot-dark-topbar button:not(.active-ai-btn),
+.chatbot-dark-topbar button:not(.active-ai-btn),
+html:not(.dark) .admin-shell .chatbot-dark-topbar span:not(.active-ai-btn):not([class*="bg-emerald"]),
+.chatbot-dark-topbar span:not(.active-ai-btn):not([class*="bg-emerald"]) {
+  color: #ffffff !important;
+}
+
+html:not(.dark) .admin-shell .chatbot-dark-topbar p,
+.chatbot-dark-topbar p {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+html:not(.dark) .admin-shell .chatbot-dark-topbar .active-ai-btn,
+.chatbot-dark-topbar .active-ai-btn {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) .admin-shell .chatbot-dark-topbar .active-ai-gemini,
+.chatbot-dark-topbar .active-ai-gemini {
+  background: linear-gradient(135deg, #3b82f6, #6366f1) !important;
+  color: #ffffff !important;
+}
+
+html:not(.dark) .admin-shell .chatbot-dark-topbar .active-ai-groq,
+.chatbot-dark-topbar .active-ai-groq {
+  background: linear-gradient(135deg, #f97316, #eab308) !important;
+  color: #ffffff !important;
+}
+
+html:not(.dark) .admin-shell .chatbot-dark-topbar .inactive-ai-btn,
+.chatbot-dark-topbar .inactive-ai-btn {
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 
 html:not(.dark) .admin-shell p[class*="text-gray-200"],

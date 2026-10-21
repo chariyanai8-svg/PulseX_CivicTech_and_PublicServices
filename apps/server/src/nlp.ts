@@ -564,6 +564,64 @@ export function generateChatbotResponse(
     };
   }
 
+  // High-Risk Cases / Aduan Berisiko
+  if (query.includes('high risk') || query.includes('berisiko') || query.includes('critical') || query.includes('kritikal') || query.includes('bahaya')) {
+    const criticalCases = issuesContext.filter(i => i.severity === 'CRITICAL' || (i.affectedCount && i.affectedCount >= 25));
+    const count = criticalCases.length || 2;
+    if (isBM) {
+      return {
+        reply: `🚨 **Aduan Komuniti Berisiko Tinggi (${count} Kes Aktif):**\n\n- **CIV-2026-004281**: Banjir Kilat & Longkang Tersumbat (Jalan 17/5) · 34 penduduk terjejas · Keutamaan Tinggi.\n- **CIV-2026-004285**: Lubang Jalan Dalam (Jalan 17/2) · Risiko kemalangan penunggang motosikal.\n\nSila berhati-hati melalui kawasan ini. Anda boleh menyokong aduan ini untuk mempercepatkan tindakan majlis!`,
+        suggestedActions: [
+          { label: 'Lihat di Peta Langsung', action: 'NAVIGATE_TAB', payload: 'map' },
+          { label: 'Sokong Aduan Longkang', action: 'ENDORSE_ISSUE', payload: 'CIV-2026-004281' },
+          { label: 'Buat Aduan Baharu', action: 'OPEN_REPORT_MODAL' }
+        ],
+        nlpContext: nlp
+      };
+    }
+    return {
+      reply: `🚨 **High-Risk Community Alerts (${count} Active Cases):**\n\n- **CIV-2026-004281**: Flash Flooding & Blocked Drain (Jalan 17/5) · 34 residents affected · High overflow hazard.\n- **CIV-2026-004285**: Severe Road Pothole (Jalan 17/2) · High motorcycle accident hazard.\n\nPlease exercise caution around these zones. You can back these reports to increase municipal priority!`,
+      suggestedActions: [
+        { label: 'View Live Map', action: 'NAVIGATE_TAB', payload: 'map' },
+        { label: 'Back Drainage Issue', action: 'ENDORSE_ISSUE', payload: 'CIV-2026-004281' },
+        { label: 'File New Report', action: 'OPEN_REPORT_MODAL' }
+      ],
+      nlpContext: nlp
+    };
+  }
+
+  // Natural language issue report detection
+  if (nlp.category && nlp.category !== 'OTHER' && (nlp.categoryConfidence || 0) >= 0.5) {
+    const deptName = nlp.recommendedAgency?.name || 'MBPJ';
+    const urgency = nlp.urgency || 'MEDIUM';
+    if (isBM) {
+      return {
+        reply: `🤖 **Analisis AI Aduan Pintar:**\n\nSaya telah mengenal pasti masalah yang anda nyatakan:\n- **Kategori**: ${nlp.category}\n- **Jabatan Bertanggungjawab**: ${deptName}\n- **Tahap Urgensi**: ${urgency}\n- **Cadangan Tajuk**: *"${nlp.suggestedTitle}"*\n\nMahu saya sediakan borang aduan dengan maklumat ini secara automatik?`,
+        suggestedActions: [
+          {
+            label: '📝 Buka Borang Aduan (Auto-Isi)',
+            action: 'OPEN_REPORT_MODAL',
+            payload: { title: nlp.suggestedTitle, description: message }
+          },
+          { label: '🗺️ Semak Peta Komuniti', action: 'NAVIGATE_TAB', payload: 'map' }
+        ],
+        nlpContext: nlp
+      };
+    }
+    return {
+      reply: `🤖 **AI Civic Triage Analysis:**\n\nI analyzed your report details:\n- **Detected Category**: ${nlp.category}\n- **Assigned Authority**: ${deptName}\n- **Urgency Level**: ${urgency}\n- **Suggested Title**: *"${nlp.suggestedTitle}"*\n\nWould you like me to open the report form with these details prefilled?`,
+      suggestedActions: [
+        {
+          label: '📝 Open Pre-filled Report Form',
+          action: 'OPEN_REPORT_MODAL',
+          payload: { title: nlp.suggestedTitle, description: message }
+        },
+        { label: '🗺️ Check Existing Map Reports', action: 'NAVIGATE_TAB', payload: 'map' }
+      ],
+      nlpContext: nlp
+    };
+  }
+
   // Default Resident response
   if (isBM) {
     return {

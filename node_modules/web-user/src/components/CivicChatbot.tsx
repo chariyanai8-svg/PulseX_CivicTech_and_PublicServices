@@ -12,6 +12,7 @@ import {
   ChevronLeft
 } from 'lucide-react';
 import { SupportedLanguage, t } from '../../../../packages/shared-types';
+import { API_BASE } from '../apiConfig';
 
 export interface ChatMessage {
   id: string;
@@ -19,6 +20,8 @@ export interface ChatMessage {
   text: string;
   timestamp: string;
   suggestedActions?: Array<{ label: string; action: string; payload?: any }>;
+  provider?: 'gemini' | 'groq' | 'local_nlp';
+  model?: string;
 }
 
 interface CivicChatbotProps {
@@ -26,15 +29,15 @@ interface CivicChatbotProps {
   language: SupportedLanguage;
   onToggleLanguage?: () => void;
   onNavigateTab?: (tab: string) => void;
-  onOpenReportModal?: () => void;
+  onOpenReportModal?: (prefillTitle?: string, prefillDesc?: string) => void;
+  onEndorseIssue?: (issueId: string) => void;
   onFilterStatus?: (status: string) => void;
   floatingPosition?: string;
   isOpenControlled?: boolean;
+  onOpenControlled?: () => void;
   onCloseControlled?: () => void;
   layoutMode?: 'desktop' | 'phone';
 }
-
-const API_BASE = 'http://localhost:3002/api';
 
 export const CivicChatbot: React.FC<CivicChatbotProps> = ({
   role = 'CITIZEN',
@@ -42,19 +45,22 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
   onToggleLanguage,
   onNavigateTab,
   onOpenReportModal,
+  onEndorseIssue,
   onFilterStatus,
   floatingPosition = 'bottom-20 right-4 sm:bottom-6 sm:right-6',
   isOpenControlled,
+  onOpenControlled,
   onCloseControlled,
   layoutMode = 'phone'
 }) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const [aiProvider, setAiProvider] = useState<'auto' | 'gemini' | 'groq'>('auto');
   const isOpen = isOpenControlled !== undefined ? isOpenControlled : internalIsOpen;
   const handleSetOpen = (open: boolean) => {
+    setInternalIsOpen(open);
     if (isOpenControlled !== undefined) {
+      if (open && onOpenControlled) onOpenControlled();
       if (!open && onCloseControlled) onCloseControlled();
-    } else {
-      setInternalIsOpen(open);
     }
   };
 
@@ -124,7 +130,9 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
         body: JSON.stringify({
           message: query,
           role,
-          language
+          language,
+          provider: aiProvider,
+          history: messages.slice(-4).map(m => ({ sender: m.sender, text: m.text }))
         })
       });
 
@@ -136,7 +144,9 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
           sender: 'assistant',
           text: botData.reply || (language === 'BM' ? 'Maaf, tiada maklum balas daripada pelayan.' : 'Sorry, no response received from server.'),
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          suggestedActions: botData.suggestedActions || []
+          suggestedActions: botData.suggestedActions || [],
+          provider: botData.provider,
+          model: botData.model
         };
         setMessages(prev => [...prev, botMsg]);
       } else {
@@ -144,16 +154,61 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
       }
     } catch (err) {
       console.warn('Chatbot fallback error:', err);
+      const lower = query.toLowerCase();
+      let fallbackText = '';
+      let fallbackActions: Array<{ label: string; action: string; payload?: any }> = [];
+
+      if (lower.includes('how to report') || lower.includes('cara lapor') || lower.includes('buat aduan') || lower.includes('hantar aduan')) {
+        fallbackText = language === 'BM'
+          ? '📝 **Cara Menghantar Aduan di CivicPulse:**\n\n1. Klik butang kuning **"HANTAR ADUAN ANDA DI SINI"**.\n2. Tulis masalah anda secara ringkas.\n3. Tekan **✨ NLP Auto-Triage** untuk cadangan kategori automatik.\n4. Sahkan pin lokasi pada peta dan hantar!'
+          : '📝 **How to Submit a Report on CivicPulse:**\n\n1. Tap the yellow **"REPORT YOUR ISSUE HERE"** button.\n2. Type your problem in natural language.\n3. Tap **✨ NLP Auto-Triage** for automated classification.\n4. Confirm your map pin and submit!';
+        fallbackActions = [
+          { label: language === 'BM' ? 'Buka Borang Aduan' : 'Open Report Form', action: 'OPEN_REPORT_MODAL' },
+          { label: language === 'BM' ? 'Lihat Peta Komuniti' : 'View Map', action: 'NAVIGATE_TAB', payload: 'map' }
+        ];
+      } else if (lower.includes('jalan 17') || lower.includes('longkang') || lower.includes('drain') || lower.includes('banjir') || lower.includes('pothole') || lower.includes('lubang')) {
+        fallbackText = language === 'BM'
+          ? '🌊 **Status Aduan Semasa (Seksyen 17 / Jalan 17/5):**\n\n- **CIV-2026-004281**: Longkang tersumbat & risiko limpahan banjir sedang **Dalam Tindakan**.\n- Skuad Pembersihan MBPJ telah dijadualkan ke lokasi. Sebanyak **34 penduduk** telah menyokong aduan ini.'
+          : '🌊 **Current Status (Section 17 / Jalan 17/5 Drainage):**\n\n- **CIV-2026-004281**: Blocked drain & flash flood risk is currently **In Progress**.\n- MBPJ Cleansing squad dispatched. **34 verified residents** have endorsed this report.';
+        fallbackActions = [
+          { label: language === 'BM' ? 'Sokong Aduan Ini (Saya Terjejas)' : 'Back This Issue (I\'m Affected)', action: 'ENDORSE_ISSUE', payload: 'CIV-2026-004281' },
+          { label: language === 'BM' ? 'Buka Peta' : 'Open Map', action: 'NAVIGATE_TAB', payload: 'map' }
+        ];
+      } else if (lower.includes('hotline') || lower.includes('telefon') || lower.includes('contact') || lower.includes('nombor') || lower.includes('kecemasan')) {
+        fallbackText = language === 'BM'
+          ? '📞 **Hotline Pihak Berkuasa Tempatan:**\n\n- **MBPJ 24-Jam**: 03-7956 3544\n- **WhatsApp MBPJ**: 019-338 1234\n- **TNB (Lampu/Elektrik)**: 15454\n- **Air Selangor (Paip Pecah)**: 15300'
+          : '📞 **Municipal Hotline Directory:**\n\n- **MBPJ 24-Hour Hotline**: 03-7956 3544\n- **MBPJ WhatsApp**: 019-338 1234\n- **TNB Outages**: 15454\n- **Air Selangor Pipe Burst**: 15300';
+        fallbackActions = [
+          { label: language === 'BM' ? 'Hantar Aduan Dalam Talian' : 'Submit Report', action: 'OPEN_REPORT_MODAL' }
+        ];
+      } else if (lower.includes('high risk') || lower.includes('berisiko') || lower.includes('critical') || lower.includes('bahaya')) {
+        fallbackText = language === 'BM'
+          ? '🚨 **Aduan Berisiko Tinggi Semasa:**\n\n- **CIV-2026-004281**: Banjir Kilat & Longkang Tersumbat (Jalan 17/5) · 34 penduduk terjejas.\n- **CIV-2026-004285**: Lubang Jalan Dalam (Jalan 17/2) · Bahaya kemalangan motosikal.'
+          : '🚨 **Active High-Risk Cases:**\n\n- **CIV-2026-004281**: Flash Flooding & Blocked Drain (Jalan 17/5) · 34 residents affected.\n- **CIV-2026-004285**: Severe Road Pothole (Jalan 17/2) · Motorcycle accident hazard.';
+        fallbackActions = [
+          { label: language === 'BM' ? 'Lihat di Peta Langsung' : 'View on Live Map', action: 'NAVIGATE_TAB', payload: 'map' },
+          { label: language === 'BM' ? 'Buka Borang Aduan' : 'Open Report Form', action: 'OPEN_REPORT_MODAL' }
+        ];
+      } else {
+        fallbackText = language === 'BM'
+          ? `🤖 **Pembantu AI Komuniti CivicPulse:**\n\nSaya telah merekodkan mesej anda. Adakah anda mahu saya sediakan borang aduan dengan butiran ini?`
+          : `🤖 **CivicPulse AI Resident Concierge:**\n\nI noted your inquiry. Would you like me to open the report form with your message pre-filled?`;
+        fallbackActions = [
+          {
+            label: language === 'BM' ? '📝 Buka Borang Aduan (Auto-Isi)' : '📝 Open Pre-filled Report Form',
+            action: 'OPEN_REPORT_MODAL',
+            payload: { title: query.slice(0, 50), description: query }
+          },
+          { label: language === 'BM' ? '🗺️ Peta Komuniti' : '🗺️ Community Map', action: 'NAVIGATE_TAB', payload: 'map' }
+        ];
+      }
+
       const fallbackReply: ChatMessage = {
         id: `msg-err-${Date.now()}`,
         sender: 'assistant',
-        text: language === 'BM'
-          ? '⚠️ Mod demo luar talian aktif. Anda boleh terus menghantar aduan melalui butang kuning utama.'
-          : '⚠️ Demo offline mode active. You can continue submitting reports via the main yellow button.',
+        text: fallbackText,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        suggestedActions: [
-          { label: language === 'BM' ? 'Buka Borang Aduan' : 'Open Report Form', action: 'OPEN_REPORT_MODAL' }
-        ]
+        suggestedActions: fallbackActions
       };
       setMessages(prev => [...prev, fallbackReply]);
     } finally {
@@ -166,38 +221,143 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
       handleSendMessage(payload);
     } else if (action === 'NAVIGATE_TAB' && onNavigateTab) {
       onNavigateTab(payload);
+      handleSetOpen(false);
     } else if (action === 'OPEN_REPORT_MODAL' && onOpenReportModal) {
-      onOpenReportModal();
+      if (typeof payload === 'object' && payload !== null) {
+        onOpenReportModal(payload.title, payload.description);
+      } else {
+        onOpenReportModal();
+      }
       handleSetOpen(false);
     } else if (action === 'FILTER_STATUS' && onFilterStatus) {
       onFilterStatus(payload);
+    } else if (action === 'ENDORSE_ISSUE' && onEndorseIssue) {
+      onEndorseIssue(payload);
+      const ackMsg: ChatMessage = {
+        id: `msg-ack-${Date.now()}`,
+        sender: 'assistant',
+        text: language === 'BM'
+          ? `✅ **Sokongan Berjaya Didaftarkan!** Anda telah mengesahkan terjejas oleh aduan **${payload}**. Terima kasih kerana membantu mengukuhkan keutamaan tindakan majlis.`
+          : `✅ **Endorsement Registered!** You confirmed being affected by issue **${payload}**. Thank you for helping escalate this priority with the council.`,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        suggestedActions: [
+          { label: language === 'BM' ? 'Lihat Peta Komuniti' : 'View on Map', action: 'NAVIGATE_TAB', payload: 'map' }
+        ]
+      };
+      setMessages(prev => [...prev, ackMsg]);
     }
+  };
+
+  const formatInline = (text: string) => {
+    const tokenRegex = /(\*\*.*?\*\*|`.*?`)/g;
+    const parts = text.split(tokenRegex);
+    return parts.map((part, pIdx) => {
+      if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
+        return (
+          <strong key={pIdx} className="font-extrabold text-slate-900 dark:text-slate-50">
+            {part.slice(2, -2)}
+          </strong>
+        );
+      }
+      if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
+        return (
+          <code
+            key={pIdx}
+            className="px-1.5 py-0.5 mx-0.5 rounded bg-blue-50 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 font-mono text-[11px] font-bold border border-blue-200/80 dark:border-blue-800/80 shadow-2xs"
+          >
+            {part.slice(1, -1)}
+          </code>
+        );
+      }
+      return part;
+    });
   };
 
   const formatText = (content: string) => {
     const lines = content.split('\n');
     return lines.map((line, idx) => {
-      let trimmed = line.trim();
-      const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('* ');
-      if (isBullet) trimmed = trimmed.substring(2);
+      const trimmed = line.trim();
 
-      const parts = trimmed.split(/(\*\*.*?\*\*)/g);
-      const formattedParts = parts.map((part, pIdx) => {
-        if (part.startsWith('**') && part.endsWith('**')) {
-          return <strong key={pIdx} className="font-extrabold text-blue-900 dark:text-blue-200">{part.slice(2, -2)}</strong>;
-        }
-        return part;
-      });
+      // Empty line
+      if (trimmed === '') {
+        return <div key={idx} className="h-1.5" />;
+      }
 
-      if (isBullet) {
+      // Divider
+      if (trimmed === '---' || trimmed === '***' || trimmed === '___') {
+        return <hr key={idx} className="my-2.5 border-t border-slate-200 dark:border-slate-700/60" />;
+      }
+
+      // Markdown Headers (###, ##, #)
+      if (trimmed.startsWith('#')) {
+        const headerLevel = trimmed.match(/^#+/)?.[0].length || 1;
+        const headerText = trimmed.replace(/^#+\s*/, '');
         return (
-          <li key={idx} className="ml-4 list-disc text-xs my-0.5 leading-relaxed">
-            {formattedParts}
+          <div key={idx} className="mt-3 mb-1.5 flex items-center gap-1.5 font-bold tracking-tight text-slate-900 dark:text-white">
+            <span className="w-1.5 h-3.5 bg-gradient-to-b from-blue-500 to-indigo-600 rounded-full shrink-0" />
+            <span className={headerLevel <= 2 ? 'text-xs font-black' : 'text-xs font-extrabold'}>
+              {formatInline(headerText)}
+            </span>
+          </div>
+        );
+      }
+
+      // Markdown Table Row (e.g. | col | col |)
+      if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
+        if (/^\|[-:\s|]+\|$/.test(trimmed)) {
+          return null;
+        }
+        const cells = trimmed
+          .slice(1, -1)
+          .split('|')
+          .map(c => c.trim())
+          .filter(c => c.length > 0);
+
+        return (
+          <div
+            key={idx}
+            className="my-1.5 p-2 rounded-xl bg-slate-100/90 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex flex-wrap items-center gap-1.5 text-xs text-slate-800 dark:text-slate-100 shadow-2xs"
+          >
+            {cells.map((cell, cIdx) => (
+              <span key={cIdx} className="inline-flex items-center text-xs">
+                {formatInline(cell)}
+                {cIdx < cells.length - 1 && (
+                  <span className="ml-1.5 text-slate-400 dark:text-slate-500 font-bold">·</span>
+                )}
+              </span>
+            ))}
+          </div>
+        );
+      }
+
+      // Bullets (- or *)
+      const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('* ');
+      if (isBullet) {
+        const bulletText = trimmed.substring(2);
+        return (
+          <li key={idx} className="ml-4 list-disc text-xs my-0.5 leading-relaxed text-slate-800 dark:text-slate-200">
+            {formatInline(bulletText)}
           </li>
         );
       }
-      if (trimmed === '') return <div key={idx} className="h-1.5" />;
-      return <p key={idx} className="text-xs leading-relaxed my-0.5">{formattedParts}</p>;
+
+      // Numbered lists (e.g. 1. Item)
+      const numMatch = trimmed.match(/^(\d+)\.\s+(.*)/);
+      if (numMatch) {
+        return (
+          <div key={idx} className="ml-2 text-xs my-0.5 leading-relaxed flex items-start gap-1.5 text-slate-800 dark:text-slate-200">
+            <span className="font-bold text-blue-600 dark:text-blue-400 shrink-0">{numMatch[1]}.</span>
+            <span>{formatInline(numMatch[2])}</span>
+          </div>
+        );
+      }
+
+      // Regular text
+      return (
+        <p key={idx} className="text-xs leading-relaxed my-0.5 text-slate-800 dark:text-slate-200">
+          {formatInline(trimmed)}
+        </p>
+      );
     });
   };
 
@@ -231,10 +391,15 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
       {/* CHAT WINDOW (PHONE IN-APP MODAL OR DESKTOP POPUP) */}
       {isOpen && (
         isPhoneLayout ? (
-          <div className="fixed inset-0 z-[9500] bg-black/60 backdrop-blur-xs flex items-center justify-center p-0 sm:p-2 animate-in fade-in duration-200">
-            <div className="w-full max-w-md h-full sm:h-[95vh] sm:max-h-[820px] bg-white dark:bg-[#121420] sm:rounded-[2rem] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-300 border-0 sm:border sm:border-slate-200 sm:dark:border-white/10">
+          <>
+            {/* Transparent backdrop for outside clicks - no blur, no blackout */}
+            <div
+              className="fixed inset-0 z-[9490] cursor-default"
+              onClick={() => handleSetOpen(false)}
+            />
+            <div className="fixed inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-md z-[9500] bg-white dark:bg-[#121420] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-300 border-x border-slate-200 dark:border-white/10">
               {/* TOP BAR FOR PHONE */}
-              <div className="p-3.5 border-b border-slate-200 dark:border-white/10 flex items-center justify-between bg-gradient-to-r from-indigo-900 via-blue-900 to-slate-900 text-white shrink-0">
+              <div className="p-3.5 border-b border-slate-200 dark:border-white/10 flex items-center justify-between bg-gradient-to-r from-indigo-900 via-blue-900 to-slate-900 text-white shrink-0 chatbot-dark-topbar">
                 <div className="flex items-center space-x-2.5">
                   <button
                     onClick={() => handleSetOpen(false)}
@@ -248,7 +413,7 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
                   </div>
                   <div>
                     <div className="flex items-center gap-1.5">
-                      <h3 className="font-extrabold text-xs tracking-tight text-white">
+                      <h3 className="font-extrabold text-xs tracking-tight text-white" style={{ color: '#ffffff' }}>
                         {t('chat.citizen_title', language)}
                       </h3>
                       <span className="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center gap-1">
@@ -256,7 +421,7 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
                         {language === 'BM' ? 'Dalam Talian' : 'Online'}
                       </span>
                     </div>
-                    <p className="text-[9px] text-white/70">
+                    <p className="text-[9px] text-white/90 font-medium" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
                       {language === 'BM' ? 'Aduan MBPJ & Triage Komuniti' : 'MBPJ Reports & Civic Triage'}
                     </p>
                   </div>
@@ -266,11 +431,12 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
                   {onToggleLanguage && (
                     <button
                       onClick={onToggleLanguage}
-                      className="px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold border border-white/10 transition flex items-center gap-1"
+                      style={{ color: '#ffffff', borderColor: 'rgba(255, 255, 255, 0.25)' }}
+                      className="px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold border transition flex items-center gap-1"
                       title="Toggle Language (EN / BM)"
                     >
-                      <Globe size={11} />
-                      <span>{language}</span>
+                      <Globe size={11} className="text-white" />
+                      <span style={{ color: '#ffffff' }}>{language}</span>
                     </button>
                   )}
                   <button
@@ -306,9 +472,16 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
                         )}
                       </div>
 
-                      <span className="text-[9px] text-slate-400 mt-1 px-1">
-                        {msg.timestamp}
-                      </span>
+                      <div className="flex items-center gap-1.5 mt-1 px-1">
+                        <span className="text-[9px] text-slate-400">
+                          {msg.timestamp}
+                        </span>
+                        {!isUser && (
+                          <span className="text-[8px] font-bold px-1.5 py-0.2 rounded-full flex items-center gap-0.5 bg-blue-500/15 text-blue-600 dark:text-blue-300 border border-blue-500/30">
+                            🤖 Civic AI
+                          </span>
+                        )}
+                      </div>
 
                       {!isUser && msg.suggestedActions && (
                         <div className="flex flex-wrap gap-1.5 mt-2 max-w-[95%]">
@@ -386,7 +559,7 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
                 </form>
               </div>
             </div>
-          </div>
+          </>
         ) : (
           <div
             className={`fixed z-[9995] bg-white dark:bg-[#121420] border border-slate-200 dark:border-white/10 rounded-3xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300 ${
@@ -396,14 +569,14 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
             }`}
           >
             {/* TOP BAR */}
-            <div className="p-3.5 border-b border-slate-200 dark:border-white/10 flex items-center justify-between bg-gradient-to-r from-indigo-900/90 via-blue-900/90 to-slate-900 text-white">
+            <div className="p-3.5 border-b border-slate-200 dark:border-white/10 flex items-center justify-between bg-gradient-to-r from-indigo-900/90 via-blue-900/90 to-slate-900 text-white chatbot-dark-topbar">
               <div className="flex items-center space-x-2.5">
                 <div className="w-8 h-8 rounded-xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20">
                   <Bot size={18} className="text-indigo-200" />
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <h3 className="font-extrabold text-xs tracking-tight text-white">
+                    <h3 className="font-extrabold text-xs tracking-tight text-white" style={{ color: '#ffffff' }}>
                       {t('chat.citizen_title', language)}
                     </h3>
                     <span className="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center gap-1">
@@ -411,21 +584,19 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
                       {language === 'BM' ? 'Dalam Talian' : 'Online'}
                     </span>
                   </div>
-                  <p className="text-[9px] text-white/70">
-                    {t('chat.online_status', language)}
-                  </p>
-                </div>
+                       </div>
               </div>
 
               <div className="flex items-center space-x-1">
                 {onToggleLanguage && (
                   <button
                     onClick={onToggleLanguage}
-                    className="px-2 py-0.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold border border-white/10 transition flex items-center gap-1"
+                    style={{ color: '#ffffff', borderColor: 'rgba(255, 255, 255, 0.25)' }}
+                    className="px-2 py-0.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold border transition flex items-center gap-1"
                     title="Toggle Language (EN / BM)"
                   >
-                    <Globe size={11} />
-                    <span>{language}</span>
+                    <Globe size={11} className="text-white" />
+                    <span style={{ color: '#ffffff' }}>{language}</span>
                   </button>
                 )}
 
@@ -470,9 +641,19 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
                       )}
                     </div>
 
-                    <span className="text-[8px] text-slate-400 mt-1 px-1">
-                      {msg.timestamp}
-                    </span>
+                    <div className="flex items-center gap-1.5 mt-1 px-1">
+                      <span className="text-[9px] text-slate-400">
+                        {msg.timestamp}
+                      </span>
+                      {!isUser && (
+                        <span className="text-[8px] font-bold px-1.5 py-0.2 rounded-full flex items-center gap-0.5 bg-blue-500/15 text-blue-600 dark:text-blue-300 border border-blue-500/30">
+                          🤖 Civic AI
+                        </span>
+                      )}
+                    </div>�� Groq AI' : '🤖 Civic Engine'}
+                        </span>
+                      )}
+                    </div>
 
                     {msg.suggestedActions && msg.suggestedActions.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-1.5 max-w-[90%]">

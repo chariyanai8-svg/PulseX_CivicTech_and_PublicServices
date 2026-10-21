@@ -6,7 +6,7 @@ import {
   MapPin, Bell, Plus, Home, Map as MapIcon,
   Activity, User, Clock, ShieldCheck, ThumbsUp, X, Image as ImageIcon,
   CheckCircle2, HelpCircle, ChevronRight, Settings, LogOut, Globe, Sun, Moon, Info,
-  Check, CheckCheck, Bot
+  Check, CheckCheck, Bot, Trash2
 } from 'lucide-react';
 import { ADMIN_ISSUES as INITIAL_ISSUES } from '../mockData';
 import { API_BASE } from '../apiConfig';
@@ -511,7 +511,7 @@ export default function CitizenView({
       <div className="flex-1 overflow-y-auto pb-28">
 
         {/* COMPACT PERSISTENT TOP APP BAR (Consistent across all pages) */}
-        <div className="bg-white text-slate-800 dark:bg-[#121420] dark:text-white px-5 py-4 flex justify-between items-center border-b border-slate-200 dark:border-white/10 sticky top-0 z-40 backdrop-blur-xl shadow-sm transition-colors">
+        <div className="bg-white text-slate-800 dark:bg-[#121420] dark:text-white px-5 py-4 flex justify-between items-center border-b border-slate-200 dark:border-white/10 sticky top-0 z-[9100] backdrop-blur-xl shadow-sm transition-colors relative">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center shadow-md">
               <Activity size={18} className="text-white" />
@@ -560,6 +560,161 @@ export default function CitizenView({
               CA
             </button>
           </div>
+
+          {/* IN-APP NOTIFICATION DROPDOWN (Inside phone layout, no full screen blur, matching admin) */}
+          {showNotifSheet && (
+            <>
+              {/* Transparent backdrop for outside clicks - no blur, no blackout */}
+              <div 
+                className="fixed inset-0 z-40 cursor-default" 
+                onClick={() => setShowNotifSheet(false)} 
+              />
+              
+              <div 
+                onClick={e => e.stopPropagation()}
+                className="absolute right-3 left-3 sm:left-auto top-full mt-2 sm:w-[380px] bg-white dark:bg-[#161825] border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200 text-left"
+              >
+                <div className="p-3.5 border-b border-slate-100 dark:border-white/10 flex items-center justify-between bg-slate-50/80 dark:bg-[#121420]/80">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400">
+                      <Bell size={15} />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <h4 className="font-extrabold text-xs text-slate-900 dark:text-white">
+                          {language === 'BM' ? 'Pemberitahuan Komuniti' : 'Community Alerts'}
+                        </h4>
+                        {notifications.filter(n => n.unread).length > 0 && (
+                          <span className="text-[9px] font-bold bg-indigo-500/15 text-indigo-600 dark:text-indigo-300 border border-indigo-500/30 px-1.5 py-0.5 rounded-full">
+                            {notifications.filter(n => n.unread).length} {language === 'BM' ? 'baru' : 'new'}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    {notifications.some(n => n.unread) && (
+                      <button 
+                        onClick={async () => {
+                          setNotifications(prev => prev.map(n => ({ ...n, unread: false })));
+                          try {
+                            await fetch(`${API_BASE}/notifications/read-all`, { method: 'POST' });
+                          } catch (e) {}
+                        }}
+                        className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-1 rounded-lg transition flex items-center gap-1 border border-indigo-100 dark:border-indigo-800/40"
+                        title="Mark all as read"
+                      >
+                        <CheckCheck size={12} />
+                        <span>{language === 'BM' ? 'Dibaca' : 'Read all'}</span>
+                      </button>
+                    )}
+                    <button
+                      onClick={() => setShowNotifSheet(false)}
+                      className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/10 transition"
+                      title="Close"
+                    >
+                      <X size={15} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="max-h-[350px] overflow-y-auto divide-y divide-slate-100 dark:divide-white/5 custom-scrollbar">
+                  {notifications.length === 0 ? (
+                    <div className="p-7 text-center text-slate-400">
+                      <Check size={26} className="mx-auto mb-2 text-emerald-500/80" />
+                      <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                        {language === 'BM' ? 'Semua telah selesai!' : 'All caught up!'}
+                      </p>
+                      <p className="text-[11px] text-slate-400 mt-0.5">
+                        {language === 'BM' ? 'Tiada pemberitahuan baharu.' : 'No new notifications.'}
+                      </p>
+                    </div>
+                  ) : (
+                    notifications.map(n => (
+                      <div 
+                        key={n.id} 
+                        onClick={() => {
+                          if (n.unread) {
+                            setNotifications(prev => prev.map(item => item.id === n.id ? { ...item, unread: false } : item));
+                          }
+                          if (n.issueId) {
+                            const found = issues.find(i => i.id === n.issueId);
+                            if (found) {
+                              setSelectedIssue(found);
+                              setActiveTab('activity');
+                              setShowNotifSheet(false);
+                            }
+                          }
+                        }}
+                        className={`p-3.5 transition cursor-pointer flex gap-2.5 items-start ${
+                          n.unread 
+                            ? 'bg-indigo-50/70 dark:bg-indigo-950/40 border-l-4 border-l-indigo-600' 
+                            : 'hover:bg-slate-50 dark:hover:bg-white/5 opacity-80'
+                        }`}
+                      >
+                        <div className="mt-1 w-2 h-2 rounded-full shrink-0">
+                          {n.unread ? (
+                            <span className="w-2 h-2 block rounded-full bg-indigo-600 shadow-[0_0_6px_rgba(79,70,229,0.8)]" />
+                          ) : (
+                            <Check size={11} className="text-slate-400 shrink-0" />
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-1 mb-0.5">
+                            <p className={`text-xs font-bold truncate ${n.unread ? 'text-indigo-950 dark:text-white' : 'text-slate-700 dark:text-slate-300'}`}>
+                              {translateNotification(n.title, language)}
+                            </p>
+                            <span className="text-[10px] text-slate-400 font-mono shrink-0 ml-1">
+                              {translateTimeAgo(n.time, language)}
+                            </span>
+                          </div>
+                          <p className={`text-[11px] leading-snug line-clamp-2 ${n.unread ? 'text-slate-800 dark:text-slate-200' : 'text-slate-500 dark:text-slate-400'}`}>
+                            {translateNotification(n.message, language)}
+                          </p>
+                          {n.issueId && (
+                            <span className="inline-block mt-1 text-[9px] font-mono text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-1.5 py-0.5 rounded border border-indigo-200 dark:border-indigo-800/40">
+                              View {n.issueId} →
+                            </span>
+                          )}
+                        </div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setNotifications(prev => prev.filter(item => item.id !== n.id));
+                          }}
+                          className="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded transition opacity-50 hover:opacity-100 shrink-0"
+                          title="Dismiss"
+                        >
+                          <X size={12} />
+                        </button>
+                      </div>
+                    ))
+                  )}
+                </div>
+
+                {notifications.length > 0 && (
+                  <div className="p-2.5 bg-slate-50 dark:bg-[#121420]/60 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+                    <button 
+                      onClick={() => {
+                        setNotifications([]);
+                        setToastMessage(language === 'BM' ? 'Pusat pemberitahuan dikosongkan.' : 'Notification center cleared.');
+                      }}
+                      className="text-[11px] text-slate-400 hover:text-rose-500 transition px-2 py-1 flex items-center gap-1 font-medium"
+                    >
+                      <Trash2 size={12} /> {language === 'BM' ? 'Kosongkan' : 'Clear all'}
+                    </button>
+                    <button 
+                      onClick={() => setShowNotifSheet(false)}
+                      className="px-3 py-1 bg-white dark:bg-[#1f2233] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold rounded-lg border border-slate-200 dark:border-white/10 transition"
+                    >
+                      {language === 'BM' ? 'Tutup' : 'Close'}
+                    </button>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
         </div>
 
         {/* HOME PAGE EXCLUSIVE HERO & QUICK ACTION (Only shown on 'home' tab) */}
@@ -1636,115 +1791,20 @@ export default function CitizenView({
           </div>
         </div>
       )}
-      {/* ELEGANT IN-APP NOTIFICATION SHEET */}
-      {showNotifSheet && (
-        <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 pt-16 bg-black/40 backdrop-blur-sm animate-fade-in" onClick={() => setShowNotifSheet(false)}>
-          <div 
-            onClick={e => e.stopPropagation()} 
-            className="w-full max-w-sm bg-white dark:bg-[#161825] rounded-3xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden animate-scale-up"
-          >
-            <div className="p-4 border-b border-slate-100 dark:border-white/5 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400">
-                  <Bell size={16} />
-                </div>
-                <div>
-                  <h3 className="font-extrabold text-sm text-slate-900 dark:text-white">
-                    {language === 'BM' ? 'Pemberitahuan Komuniti' : 'Community Alerts'}
-                  </h3>
-                  <p className="text-[10px] text-slate-400">
-                    {notifications.filter(n => n.unread).length > 0
-                      ? (language === 'BM' ? `${notifications.filter(n => n.unread).length} makluman belum dibaca` : `${notifications.filter(n => n.unread).length} unread alert${notifications.filter(n => n.unread).length > 1 ? 's' : ''}`)
-                      : (language === 'BM' ? 'Semua telah disemak ✓' : 'All caught up ✓')}
-                  </p>
-                </div>
-              </div>
-              {notifications.some(n => n.unread) ? (
-                <button 
-                  onClick={async () => {
-                    setNotifications(prev => prev.map(n => ({ ...n, unread: false })));
-                    try {
-                      await fetch(`${API_BASE}/notifications/read-all`, { method: 'POST' });
-                    } catch (e) {
-                      // offline fallback
-                    }
-                  }}
-                  className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-1 rounded-full transition flex items-center gap-1 border border-indigo-100 dark:border-indigo-800/40"
-                >
-                  <CheckCheck size={13} />
-                  <span>{language === 'BM' ? 'Tanda semua dibaca' : 'Mark all read'}</span>
-                </button>
-              ) : (
-                <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800/40 flex items-center gap-1">
-                  <Check size={11} /> {language === 'BM' ? 'Dibaca' : 'Read'}
-                </span>
-              )}
-            </div>
 
-            <div className="max-h-[360px] overflow-y-auto divide-y divide-slate-100 dark:divide-white/5">
-              {notifications.length === 0 ? (
-                <div className="p-8 text-center text-slate-400">
-                  <Bell size={28} className="mx-auto mb-2 opacity-30" />
-                  <p className="text-xs font-semibold">{language === 'BM' ? 'Tiada pemberitahuan baharu di kawasan anda.' : 'No new notifications in your area.'}</p>
-                </div>
-              ) : (
-                notifications.map(n => (
-                  <div 
-                    key={n.id} 
-                    onClick={() => {
-                      if (n.unread) {
-                        setNotifications(prev => prev.map(item => item.id === n.id ? { ...item, unread: false } : item));
-                      }
-                    }}
-                    className={`p-4 transition cursor-pointer ${
-                      n.unread 
-                        ? 'bg-indigo-50/70 dark:bg-indigo-950/40 border-l-4 border-l-indigo-600' 
-                        : 'hover:bg-slate-50 dark:hover:bg-white/5 opacity-75'
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        {n.unread ? (
-                          <span className="w-2 h-2 rounded-full bg-indigo-600 shrink-0"></span>
-                        ) : (
-                          <Check size={12} className="text-slate-400 shrink-0" />
-                        )}
-                        <p className={`text-xs font-extrabold ${n.unread ? 'text-indigo-950 dark:text-white' : 'text-slate-600 dark:text-slate-300'}`}>
-                          {translateNotification(n.title, language)}
-                        </p>
-                      </div>
-                      <span className="text-[10px] text-slate-400 shrink-0">{translateTimeAgo(n.time, language)}</span>
-                    </div>
-                    <p className={`text-xs mt-1 leading-relaxed pl-4 ${n.unread ? 'text-slate-800 dark:text-slate-200' : 'text-slate-400 dark:text-slate-400'}`}>
-                      {translateNotification(n.message, language)}
-                    </p>
-                  </div>
-                ))
-              )}
-            </div>
-
-            <div className="p-3 bg-slate-50 dark:bg-white/5 border-t border-slate-100 dark:border-white/5">
-              <button 
-                onClick={() => setShowNotifSheet(false)}
-                className="w-full py-2 bg-white dark:bg-[#1f2233] hover:bg-slate-100 text-slate-800 dark:text-white text-xs font-bold rounded-xl border border-slate-200 dark:border-white/10 transition"
-              >
-                {language === 'BM' ? 'Tutup' : 'Close'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* MODERN IN-APP TOAST */}
       {toastMessage && (
-        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-[10000] max-w-sm w-[90%] bg-slate-900/95 dark:bg-white/95 text-white dark:text-slate-900 px-4 py-3 rounded-2xl shadow-2xl flex items-center justify-between gap-3 animate-fade-up border border-white/10">
-          <div className="flex items-center gap-2.5">
-            <Info size={16} className="text-indigo-400 dark:text-indigo-600 shrink-0" />
-            <p className="text-xs font-semibold leading-snug">{toastMessage}</p>
+        <div className="fixed top-5 left-1/2 -translate-x-1/2 w-full max-w-md px-4 pointer-events-none z-[10000] flex justify-center">
+          <div className="pointer-events-auto w-full bg-slate-900/95 dark:bg-white/95 text-white dark:text-slate-900 px-4 py-3 rounded-2xl shadow-2xl flex items-center justify-between gap-3 border border-white/10 animate-fade-up">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <Info size={16} className="text-indigo-400 dark:text-indigo-600 shrink-0" />
+              <p className="text-xs font-semibold leading-snug">{toastMessage}</p>
+            </div>
+            <button onClick={() => setToastMessage(null)} className="p-1 hover:opacity-70 transition shrink-0">
+              <X size={14} />
+            </button>
           </div>
-          <button onClick={() => setToastMessage(null)} className="p-1 hover:opacity-70 transition shrink-0">
-            <X size={14} />
-          </button>
         </div>
       )}
 
@@ -1761,11 +1821,17 @@ export default function CitizenView({
           else if (lower.includes('profile') || lower.includes('profil')) setActiveTab('profile');
           else setActiveTab('home');
         }}
-        onOpenReportModal={() => {
+        onOpenReportModal={(prefillTitle?: string, prefillDesc?: string) => {
           setIsChatOpen(false);
+          if (prefillTitle) setNewTitle(prefillTitle);
+          if (prefillDesc) setNewDescription(prefillDesc);
           setShowReportModal(true);
         }}
+        onEndorseIssue={(issueId) => {
+          handleAffectedClick(issueId);
+        }}
         isOpenControlled={isChatOpen}
+        onOpenControlled={() => setIsChatOpen(true)}
         onCloseControlled={() => setIsChatOpen(false)}
         layoutMode="phone"
       />
