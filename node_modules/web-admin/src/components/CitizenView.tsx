@@ -234,11 +234,13 @@ export default function CitizenView({
 
   // Dark / Light Theme State synchronized with localStorage
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    return (localStorage.getItem('civicpulse_theme') as 'dark' | 'light') || 'dark';
+    const saved = localStorage.getItem('civicpulse_theme_mode');
+    if (saved === 'light') return 'light';
+    return 'dark';
   });
 
   useEffect(() => {
-    localStorage.setItem('civicpulse_theme', theme);
+    localStorage.setItem('civicpulse_theme_mode', theme);
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -504,14 +506,31 @@ export default function CitizenView({
   const userVoteForSelected = selectedIssue ? userVerifications[selectedIssue.id] : undefined;
 
   return (
-    <div className={`max-w-md mx-auto min-h-screen flex flex-col justify-between shadow-2xl relative font-sans transition-colors duration-300 ${theme === 'dark' ? 'bg-[#0f111a] text-slate-100' : 'bg-slate-100 text-slate-900'
-      }`}>
+    <div className="w-full min-h-screen flex items-center justify-center bg-white text-slate-900 sm:py-6 sm:px-4">
+      {/* PHONE FRAME VIEWPORT CONTAINER: Exact mobile viewport, centered on desktop */}
+      <div 
+        id="civicpulse-mobile-viewport"
+        className={`w-full sm:max-w-[400px] h-[100dvh] sm:h-[844px] sm:max-h-[92vh] flex flex-col relative overflow-hidden sm:rounded-[48px] sm:border-[9px] sm:border-[#1a1d2e] phone-shadow transition-colors duration-300 ${
+          theme === 'dark' ? 'bg-[#0d0f1a] text-slate-100' : 'bg-slate-50 text-slate-900'
+        }`}
+      >
+        {/* HARDWARE STATUS BAR (Only visible in desktop preview mockup, camera removed) */}
+        <div className="hidden sm:flex items-center justify-between px-7 pt-3 pb-1 shrink-0 z-50 bg-[#0d0f1a] text-xs font-semibold text-white/90 select-none">
+          <span className="text-[12px] font-bold tracking-tight">9:41</span>
 
-      {/* SCROLLABLE MAIN BODY */}
-      <div className="flex-1 overflow-y-auto pb-28">
+          <div className="flex items-center space-x-1.5 text-white/80">
+            <span className="text-[10px] font-bold">5G</span>
+            <div className="w-5 h-2.5 border border-white/60 rounded-xs p-0.5 flex items-center">
+              <div className="h-full w-full bg-emerald-400 rounded-2xs"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* SCROLLABLE MAIN BODY */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 custom-scrollbar">
 
         {/* COMPACT PERSISTENT TOP APP BAR (Consistent across all pages) */}
-        <div className="bg-white text-slate-800 dark:bg-[#121420] dark:text-white px-5 py-4 flex justify-between items-center border-b border-slate-200 dark:border-white/10 sticky top-0 z-[9100] backdrop-blur-xl shadow-sm transition-colors relative">
+        <div className="bg-white text-slate-800 dark:bg-[#121420] dark:text-white px-5 py-4 flex justify-between items-center border-b border-slate-200 dark:border-white/10 sticky top-0 z-20 backdrop-blur-xl shadow-sm transition-colors relative">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center shadow-md">
               <Activity size={18} className="text-white" />
@@ -1512,69 +1531,74 @@ export default function CitizenView({
         </div>
       </div>
 
-      {/* FLOATING NAVIGATION */}
-      <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/90 dark:bg-[#161825]/90 backdrop-blur-md border-t border-slate-200 dark:border-white/10 py-3 px-6 flex justify-between items-center z-[9000] rounded-t-2xl shadow-xl transition-colors">
-        <button
-          onClick={() => {
-            setIsChatOpen(false);
-            setActiveTab('home');
-          }}
-          className={`flex flex-col items-center space-y-0.5 ${activeTab === 'home' && !isChatOpen ? 'text-blue-600' : 'text-slate-400'}`}
-        >
-          <Home size={20} />
-          <span className="text-[10px] font-semibold">{language === 'BM' ? 'Utama' : 'Home'}</span>
-        </button>
+      {/* FLOATING NAVIGATION (Locked inside mobile phone viewport) */}
+      <nav className="absolute bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-[#121424]/95 backdrop-blur-xl border-t border-slate-200 dark:border-white/10 px-3 pt-2 pb-2 sm:pb-3 flex flex-col shadow-2xl transition-colors">
+        <div className="flex justify-around items-center">
+          <button
+            onClick={() => {
+              setIsChatOpen(false);
+              setActiveTab('home');
+            }}
+            className={`flex flex-col items-center py-1 px-2 rounded-xl transition-all ${activeTab === 'home' && !isChatOpen ? 'text-indigo-600 dark:text-indigo-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'}`}
+          >
+            <Home size={20} className={activeTab === 'home' && !isChatOpen ? 'stroke-[2.5]' : 'stroke-2'} />
+            <span className="text-[10px] font-semibold mt-0.5">{language === 'BM' ? 'Utama' : 'Home'}</span>
+          </button>
 
-        <button
-          onClick={() => {
-            setIsChatOpen(false);
-            setActiveTab('map');
-          }}
-          className={`flex flex-col items-center space-y-0.5 ${activeTab === 'map' && !isChatOpen ? 'text-blue-600' : 'text-slate-400'}`}
-        >
-          <MapIcon size={20} />
-          <span className="text-[10px] font-semibold">{language === 'BM' ? 'Peta' : 'Map'}</span>
-        </button>
+          <button
+            onClick={() => {
+              setIsChatOpen(false);
+              setActiveTab('map');
+            }}
+            className={`flex flex-col items-center py-1 px-2 rounded-xl transition-all ${activeTab === 'map' && !isChatOpen ? 'text-indigo-600 dark:text-indigo-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'}`}
+          >
+            <MapIcon size={20} className={activeTab === 'map' && !isChatOpen ? 'stroke-[2.5]' : 'stroke-2'} />
+            <span className="text-[10px] font-semibold mt-0.5">{language === 'BM' ? 'Peta' : 'Map'}</span>
+          </button>
 
-        <button
-          onClick={() => setIsChatOpen(prev => !prev)}
-          className={`flex flex-col items-center space-y-0.5 relative transition-colors ${isChatOpen ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400 hover:text-indigo-500'}`}
-          title="Resident AI Aduan"
-        >
-          <div className="relative">
-            <Bot size={20} className={isChatOpen ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'} />
-            <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full animate-ping" />
-          </div>
-          <span className="text-[10px] font-semibold">{language === 'BM' ? 'AI Aduan' : 'AI Chat'}</span>
-        </button>
+          <button
+            onClick={() => setIsChatOpen(prev => !prev)}
+            className={`flex flex-col items-center py-1 px-2 rounded-xl transition-all ${isChatOpen ? 'text-indigo-600 dark:text-indigo-400 font-bold scale-105' : 'text-slate-400 hover:text-indigo-500'}`}
+            title="Resident AI Aduan"
+          >
+            <div className="relative">
+              <Bot size={20} className={isChatOpen ? 'text-indigo-600 dark:text-indigo-400 stroke-[2.5]' : 'text-purple-400'} />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full animate-ping" />
+            </div>
+            <span className="text-[10px] font-semibold mt-0.5 text-purple-300">{language === 'BM' ? 'AI Aduan' : 'AI Chat'}</span>
+          </button>
 
-        <button
-          onClick={() => {
-            setIsChatOpen(false);
-            setActiveTab('activity');
-          }}
-          className={`flex flex-col items-center space-y-0.5 ${activeTab === 'activity' && !isChatOpen ? 'text-blue-600' : 'text-slate-400'}`}
-        >
-          <Activity size={20} />
-          <span className="text-[10px] font-semibold">{language === 'BM' ? 'Aktiviti' : 'Activity'}</span>
-        </button>
+          <button
+            onClick={() => {
+              setIsChatOpen(false);
+              setActiveTab('activity');
+            }}
+            className={`flex flex-col items-center py-1 px-2 rounded-xl transition-all ${activeTab === 'activity' && !isChatOpen ? 'text-indigo-600 dark:text-indigo-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'}`}
+          >
+            <Activity size={20} className={activeTab === 'activity' && !isChatOpen ? 'stroke-[2.5]' : 'stroke-2'} />
+            <span className="text-[10px] font-semibold mt-0.5">{language === 'BM' ? 'Aktiviti' : 'Activity'}</span>
+          </button>
 
-        <button
-          onClick={() => {
-            setIsChatOpen(false);
-            setActiveTab('profile');
-          }}
-          className={`flex flex-col items-center space-y-0.5 ${activeTab === 'profile' && !isChatOpen ? 'text-blue-600' : 'text-slate-400'}`}
-        >
-          <User size={20} />
-          <span className="text-[10px] font-semibold">{language === 'BM' ? 'Profil' : 'Profile'}</span>
-        </button>
+          <button
+            onClick={() => {
+              setIsChatOpen(false);
+              setActiveTab('profile');
+            }}
+            className={`flex flex-col items-center py-1 px-2 rounded-xl transition-all ${activeTab === 'profile' && !isChatOpen ? 'text-indigo-600 dark:text-indigo-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'}`}
+          >
+            <User size={20} className={activeTab === 'profile' && !isChatOpen ? 'stroke-[2.5]' : 'stroke-2'} />
+            <span className="text-[10px] font-semibold mt-0.5">{language === 'BM' ? 'Profil' : 'Profile'}</span>
+          </button>
+        </div>
+
+        {/* Home Indicator Bar for simulated phone */}
+        <div className="w-28 h-1 bg-white/20 rounded-full mx-auto mt-1.5 hidden sm:block"></div>
       </nav>
 
-      {/* REPORT MODAL SHEET (Elevated z-[9999] and z-[10000] to cover Leaflet popups/map) */}
+      {/* REPORT MODAL SHEET (Contained natively within phone viewport) */}
       {showReportModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="bg-white dark:bg-[#161825] text-slate-900 dark:text-slate-100 rounded-t-3xl sm:rounded-3xl p-5 w-full max-w-md max-h-[95vh] overflow-y-auto animate-in slide-in-from-bottom relative z-[10000] border border-slate-200 dark:border-white/10 shadow-2xl">
+        <div className="absolute inset-0 bg-black/75 backdrop-blur-xs z-50 flex items-end justify-center p-0 animate-in fade-in">
+          <div className="bg-white dark:bg-[#161828] text-slate-900 dark:text-slate-100 rounded-t-3xl p-5 w-full max-h-[92%] overflow-y-auto animate-in slide-in-from-bottom relative z-10 border-t border-slate-200 dark:border-white/15 shadow-2xl custom-scrollbar">
             <div className="flex justify-between items-center mb-1">
               <h2 className="text-base font-extrabold text-slate-900 dark:text-white">
                 {language === 'BM' ? 'Laporkan Aduan Komuniti' : 'Report Community Issue'}
@@ -1795,10 +1819,10 @@ export default function CitizenView({
 
       {/* MODERN IN-APP TOAST */}
       {toastMessage && (
-        <div className="fixed top-5 left-1/2 -translate-x-1/2 w-full max-w-md px-4 pointer-events-none z-[10000] flex justify-center">
-          <div className="pointer-events-auto w-full bg-slate-900/95 dark:bg-white/95 text-white dark:text-slate-900 px-4 py-3 rounded-2xl shadow-2xl flex items-center justify-between gap-3 border border-white/10 animate-fade-up">
+        <div className="absolute top-14 left-3 right-3 pointer-events-none z-50 flex justify-center animate-fade-up">
+          <div className="pointer-events-auto w-full bg-slate-900/95 dark:bg-[#161825]/95 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center justify-between gap-3 border border-slate-700 dark:border-white/15">
             <div className="flex items-center gap-2.5 min-w-0">
-              <Info size={16} className="text-indigo-400 dark:text-indigo-600 shrink-0" />
+              <Info size={16} className="text-indigo-400 dark:text-indigo-400 shrink-0" />
               <p className="text-xs font-semibold leading-snug">{toastMessage}</p>
             </div>
             <button onClick={() => setToastMessage(null)} className="p-1 hover:opacity-70 transition shrink-0">
@@ -1835,6 +1859,7 @@ export default function CitizenView({
         onCloseControlled={() => setIsChatOpen(false)}
         layoutMode="phone"
       />
+      </div>
     </div>
   );
 }

@@ -149,10 +149,14 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
     setInputText('');
     setIsLoading(true);
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+
     try {
       const res = await fetch(`${API_BASE}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           message: query,
           role,
@@ -161,6 +165,7 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
           history: messages.slice(-4).map(m => ({ sender: m.sender, text: m.text }))
         })
       });
+      clearTimeout(timeoutId);
 
       if (res.ok) {
         const json = await res.json();
