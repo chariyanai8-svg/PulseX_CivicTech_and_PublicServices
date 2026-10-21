@@ -1,0 +1,209 @@
+{
+  "v0.1.0": [
+    {
+      "id": "NER-Location-Collapse",
+      "text": "Tolong baiki lampu jalan rosak teruk di Jalan SS2 semalam.",
+      "expected_category": "LIGHTING",
+      "pred_category": "LIGHTING",
+      "pred_score": 0.7565,
+      "category_match": true,
+      "entities": {
+        "issue": [],
+        "location": [
+          "Tolong baiki lampu jalan rosak teruk di Jalan SS2 semalam."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      }
+    },
+    {
+      "id": "Classification-Obstruction",
+      "text": "Kenderaan rosak ditinggalkan menghalang laluan keluar masuk lorong.",
+      "expected_category": "OBSTRUCTION",
+      "pred_category": "HAZARD",
+      "pred_score": 0.2932,
+      "category_match": false,
+      "entities": {
+        "issue": [],
+        "location": [
+          "Kenderaan rosak ditinggalkan menghalang laluan keluar masuk lorong."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      }
+    },
+    {
+      "id": "Classification-Other-Signboard",
+      "text": "Permohonan semakan papan tanda nama taman yang telah pudar.",
+      "expected_category": "OTHER",
+      "pred_category": "FALLEN_TREES",
+      "pred_score": 0.3748,
+      "category_match": false,
+      "entities": {
+        "issue": [],
+        "location": [
+          "Permohonan semakan papan tanda nama taman yang telah pudar."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      }
+    },
+    {
+      "id": "English-Roads",
+      "text": "There is a large pothole near the bus stop since Monday.",
+      "expected_category": "ROADS",
+      "pred_category": "ROADS",
+      "pred_score": 0.716,
+      "category_match": true,
+      "entities": {
+        "issue": [],
+        "location": [
+          "There is a large pothole near the bus stop since Monday."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      }
+    },
+    {
+      "id": "Mixed-CodeSwitch-Lighting",
+      "text": "Streetlight dekat school dah rosak sejak minggu lepas, bahaya sangat.",
+      "expected_category": "LIGHTING",
+      "pred_category": "LIGHTING",
+      "pred_score": 0.873,
+      "category_match": true,
+      "entities": {
+        "issue": [],
+        "location": [
+          "Streetlight dekat school dah rosak sejak minggu lepas, bahaya sangat."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      }
+    }
+  ],
+  "v0.2.0": [
+    {
+      "id": "NER-Location-Collapse",
+      "text": "Tolong baiki lampu jalan rosak teruk di Jalan SS2 semalam.",
+      "expected_category": "LIGHTING",
+      "pred_category": "LIGHTING",
+      "pred_score": 0.2572,
+      "category_match": true,
+      "entities": {
+        "issue": [
+          "lampu jalan"
+        ],
+        "location": [
+          "Jalan SS2"
+        ],
+        "severity": [
+          "rosa",
+          "k",
+          "teruk"
+        ],
+        "timing": [
+          "semalam"
+        ],
+        "symptom": []
+      }
+    },
+    {
+      "id": "Classification-Obstruction",
+      "text": "Kenderaan rosak ditinggalkan menghalang laluan keluar masuk lorong.",
+      "expected_category": "OBSTRUCTION",
+      "pred_category": "OBSTRUCTION",
+      "pred_score": 0.3093,
+      "category_match": true,
+      "entities": {
+        "issue": [
+          "Kend",
+          "era",
+          "rosa",
+          "k",
+          "ditinggalkan menghalang lalu"
+        ],
+        "location": [
+          "keluar",
+          "masuk lorong"
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      }
+    },
+    {
+      "id": "Classification-Other-Signboard",
+      "text": "Permohonan semakan papan tanda nama taman yang telah pudar.",
+      "expected_category": "OTHER",
+      "pred_category": "OTHER",
+      "pred_score": 0.4671,
+      "category_match": true,
+      "entities": {
+        "issue": [
+          "papan tanda",
+          "nama",
+          "pu"
+        ],
+        "location": [
+          "taman"
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      }
+    },
+    {
+      "id": "English-Roads",
+      "text": "There is a large pothole near the bus stop since Monday.",
+      "expected_category": "ROADS",
+      "pred_category": "ROADS",
+      "pred_score": 0.2369,
+      "category_match": true,
+      "entities": {
+        "issue": [
+          "pot",
+          "hole"
+        ],
+        "location": [
+          "near the bus stop"
+        ],
+        "severity": [],
+        "timing": [
+          "since Monday"
+        ],
+        "symptom": []
+      }
+    },
+    {
+      "id": "Mixed-CodeSwitch-Lighting",
+      "text": "Streetlight dekat school dah rosak sejak minggu lepas, bahaya sangat.",
+      "expected_category": "LIGHTING",
+      "pred_category": "LIGHTING",
+      "pred_score": 0.449,
+      "category_match": true,
+      "entities": {
+        "issue": [
+          "Street",
+          "light"
+        ],
+        "location": [
+          "dekat school"
+        ],
+        "severity": [
+          "rosa",
+          "bahaya"
+        ],
+        "timing": [
+          "sejak minggu lepas",
+          "."
+        ],
+        "symptom": []
+      }
+    }
+  ]
+}
