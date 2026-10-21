@@ -1464,7 +1464,7 @@ export default function App() {
               {/* Logout Button */}
               <button
                 onClick={() => {
-                  window.location.href = '/';
+                  window.location.href = 'http://localhost:3001/';
                 }}
                 className="w-full bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 py-3 rounded-2xl text-xs font-bold transition flex items-center justify-center space-x-2"
               >
