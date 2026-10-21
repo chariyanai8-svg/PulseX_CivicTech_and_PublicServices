@@ -221,17 +221,49 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
         fallbackActions = [
           { label: language === 'BM' ? 'Hantar Aduan Dalam Talian' : 'Submit Report', action: 'OPEN_REPORT_MODAL' }
         ];
+      } else if (lower.includes('terima kasih') || lower.includes('thank') || lower.includes('tq')) {
+        fallbackText = language === 'BM'
+          ? '🙏 **Sama-sama!** Gembira dapat membantu anda. Jika ada masalah komuniti lain, maklumkan kepada saya pada bila-bila masa.'
+          : '🙏 **You are most welcome!** Glad to help. Feel free to report any other neighborhood issues anytime.';
+        fallbackActions = [
+          { label: language === 'BM' ? 'Lihat Peta' : 'View Map', action: 'NAVIGATE_TAB', payload: 'Live Map' },
+          { label: language === 'BM' ? 'Hantar Aduan Baru' : 'New Report', action: 'OPEN_REPORT_MODAL' }
+        ];
+      } else if (lower.includes('siapa') || lower.includes('who are you') || lower.includes('fungsi')) {
+        fallbackText = language === 'BM'
+          ? '🤖 **Saya Pembantu AI Sivik CivicPulse untuk Petaling Jaya.**\n\nFungsi saya:\n1. Mengesan kategori aduan secara automatik (NLP Auto-Triage).\n2. Memeriksa status kerja pembaikan MBPJ/JKR.\n3. Memberikan direktori talian kecemasan & agensi.'
+          : '🤖 **I am the CivicPulse AI Concierge for Petaling Jaya.**\n\nWhat I can do:\n1. Auto-categorize municipal complaints.\n2. Track status of ongoing MBPJ/JKR public repairs.\n3. Provide emergency hotlines and agency routing.';
+        fallbackActions = [
+          { label: language === 'BM' ? '📝 Buat Aduan' : '📝 Make a Report', action: 'OPEN_REPORT_MODAL' },
+          { label: language === 'BM' ? '📞 Hotline' : '📞 Hotlines', action: 'SEND_PROMPT', payload: 'Hotline MBPJ' }
+        ];
+      } else if (lower.includes('lampu') || lower.includes('light') || lower.includes('gelap')) {
+        fallbackText = language === 'BM'
+          ? '💡 **Aduan Lampu Jalan:**\n\nLampu jalan yang terpadam atau rosak diuruskan bersama oleh TNB dan MBPJ. Sila hantar laporan dengan nombor tiang lampu untuk tindakan segera dalam masa 48 jam.'
+          : '💡 **Streetlight Complaints:**\n\nMalfunctioning or dark streetlights are repaired jointly by TNB and MBPJ. Please provide the pole number when submitting for expedited 48-hour repairs.';
+        fallbackActions = [
+          { label: language === 'BM' ? 'Lapor Lampu Rosak' : 'Report Streetlight', action: 'OPEN_REPORT_MODAL', payload: { title: 'Lampu Jalan Terpadam', description: 'Lampu jalan rosak / gelap pada waktu malam.' } },
+          { label: 'Hotline TNB (15454)', action: 'SEND_PROMPT', payload: 'Hotline MBPJ' }
+        ];
+      } else if (lower.includes('sampah') || lower.includes('waste') || lower.includes('rubbish') || lower.includes('longgok')) {
+        fallbackText = language === 'BM'
+          ? '🗑️ **Aduan Sisa & Sampah Haram:**\n\nPembersihan sampah pukal dan longgokan haram diuruskan oleh konsesi KDEB Waste Management / Alam Flora di bawah seliaan MBPJ.'
+          : '🗑️ **Waste & Illegal Dumping Reports:**\n\nBulk waste clearing and illegal dumpsite removal is serviced by KDEB Waste Management under MBPJ monitoring.';
+        fallbackActions = [
+          { label: language === 'BM' ? 'Lapor Sampah Haram' : 'Report Dumping', action: 'OPEN_REPORT_MODAL', payload: { title: 'Longgokan Sampah Haram', description: 'Sisa pukal dibuang tanpa kebenaran.' } }
+        ];
       } else {
         fallbackText = language === 'BM'
-          ? `🤖 **Pembantu AI Komuniti CivicPulse:**\n\nSaya sedia membantu aduan anda. Adakah anda mahu saya sediakan borang aduan dengan butiran ini?`
-          : `🤖 **CivicPulse AI Resident Concierge:**\n\nI noted your message. Would you like me to open the report form with your inquiry pre-filled?`;
+          ? `🤖 **Pembantu AI Komuniti CivicPulse:**\n\nSaya telah memahami pertanyaan anda: "${query}". Adakah anda mahu saya bantu semak status atau sediakan borang aduan?`
+          : `🤖 **CivicPulse AI Resident Concierge:**\n\nI noted your inquiry: "${query}". Would you like me to check active cases or open the complaint form for you?`;
         fallbackActions = [
           {
             label: language === 'BM' ? '📝 Buka Borang Aduan' : '📝 Open Report Form',
             action: 'OPEN_REPORT_MODAL',
             payload: { title: query.slice(0, 50), description: query }
           },
-          { label: language === 'BM' ? '🗺️ Peta Komuniti' : '🗺️ Community Map', action: 'NAVIGATE_TAB', payload: 'Live Map' }
+          { label: language === 'BM' ? '🗺️ Peta Komuniti' : '🗺️ Community Map', action: 'NAVIGATE_TAB', payload: 'Live Map' },
+          { label: language === 'BM' ? '📞 Hotline MBPJ' : '📞 MBPJ Hotline', action: 'SEND_PROMPT', payload: 'Hotline MBPJ' }
         ];
       }
 
