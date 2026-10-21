@@ -412,12 +412,12 @@ export const CivicChatbot: React.FC<CivicChatbotProps> = ({
       {isOpen && (
         isPhoneLayout ? (
           <>
-            {/* Transparent backdrop for outside clicks - no blur, no blackout */}
+            {/* Backdrop */}
             <div
-              className="fixed inset-0 z-[9490] cursor-default"
+              className="absolute inset-0 z-[9998] bg-black/60 backdrop-blur-xs cursor-default"
               onClick={() => handleSetOpen(false)}
             />
-            <div className="fixed inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-md z-[9500] bg-white dark:bg-[#121420] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-300 border-x border-slate-200 dark:border-white/10">
+            <div className="absolute inset-0 z-[9999] bg-[#0e101b] text-slate-100 shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-300">
               {/* TOP BAR FOR PHONE */}
               <div className="p-3.5 border-b border-slate-200 dark:border-white/10 flex items-center justify-between bg-gradient-to-r from-indigo-900 via-blue-900 to-slate-900 text-white shrink-0 chatbot-dark-topbar">
                 <div className="flex items-center space-x-2.5">
