@@ -1,0 +1,61 @@
+[project]
+name = "civicpulse-nlp"
+version = "0.1.0"
+description = "NLP backend service for CivicPulse civic issue platform"
+requires-python = ">=3.11"
+license = "MIT"
+
+dependencies = [
+    # Web framework
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+
+    # Validation & settings
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+
+    # ML / NLP (needed at inference time)
+    "torch>=2.1.0",
+    "transformers>=4.40.0",
+    "sentence-transformers>=3.0.0",
+    "safetensors>=0.4.0",
+
+    # Utilities
+    "numpy>=1.26.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+training = [
+    # Additional deps for model training (not needed in production)
+    "datasets>=2.18.0",
+    "scikit-learn>=1.4.0",
+    "accelerate>=0.30.0",
+    "seqeval>=1.2.2",
+    "matplotlib>=3.8.0",
+    "pyyaml>=6.0",
+]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "httpx>=0.27.0",
+    "ruff>=0.4.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages]
+find = {where = ["."], include = ["app*"], exclude = ["tests*", "training*"]}
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]

@@ -1,0 +1,486 @@
+{
+  "timestamp": 1791807931.9563138,
+  "api_tests": [
+    {
+      "name": "valid_input",
+      "status_code": 200,
+      "pass": true,
+      "response": {
+        "original_text": "Jalan berlubang depan kedai",
+        "clean_text": "Jalan berlubang depan kedai",
+        "language": "MS",
+        "has_code_switching": false,
+        "category": "ROADS",
+        "confidence": 0.5070210099220276,
+        "extracted_info": {
+          "issue": [],
+          "location": [
+            "Jalan berlubang depan kedai"
+          ],
+          "severity": [],
+          "timing": [],
+          "symptom": []
+        }
+      }
+    },
+    {
+      "name": "empty_string",
+      "status_code": 200,
+      "pass": true,
+      "response": {
+        "original_text": "",
+        "clean_text": "",
+        "language": "UNKNOWN",
+        "has_code_switching": false,
+        "category": "OTHER",
+        "confidence": 1.0,
+        "extracted_info": {
+          "issue": [],
+          "location": [],
+          "severity": [],
+          "timing": [],
+          "symptom": []
+        }
+      }
+    },
+    {
+      "name": "whitespace_only",
+      "status_code": 200,
+      "pass": true,
+      "response": {
+        "original_text": "   \n\t   ",
+        "clean_text": "",
+        "language": "UNKNOWN",
+        "has_code_switching": false,
+        "category": "OTHER",
+        "confidence": 1.0,
+        "extracted_info": {
+          "issue": [],
+          "location": [],
+          "severity": [],
+          "timing": [],
+          "symptom": []
+        }
+      }
+    },
+    {
+      "name": "missing_required_field",
+      "status_code": 422,
+      "pass": true,
+      "response": {
+        "detail": [
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "text"
+            ],
+            "msg": "Field required",
+            "input": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "incorrect_data_type_int",
+      "status_code": 422,
+      "pass": true,
+      "response": {
+        "detail": [
+          {
+            "type": "string_type",
+            "loc": [
+              "body",
+              "text"
+            ],
+            "msg": "Input should be a valid string",
+            "input": 12345
+          }
+        ]
+      }
+    },
+    {
+      "name": "incorrect_data_type_dict",
+      "status_code": 422,
+      "pass": true,
+      "response": {
+        "detail": [
+          {
+            "type": "string_type",
+            "loc": [
+              "body",
+              "text"
+            ],
+            "msg": "Input should be a valid string",
+            "input": {
+              "problem": "road"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "malformed_json",
+      "status_code": 422,
+      "pass": true,
+      "response": {
+        "detail": [
+          {
+            "type": "json_invalid",
+            "loc": [
+              "body",
+              0
+            ],
+            "msg": "JSON decode error",
+            "input": {},
+            "ctx": {
+              "error": "Expecting value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "very_short_text",
+      "status_code": 200,
+      "pass": true,
+      "response": {
+        "original_text": "A",
+        "clean_text": "A",
+        "language": "UNKNOWN",
+        "has_code_switching": false,
+        "category": "OTHER",
+        "confidence": 0.19434307515621185,
+        "extracted_info": {
+          "issue": [],
+          "location": [
+            "A"
+          ],
+          "severity": [],
+          "timing": [],
+          "symptom": []
+        }
+      }
+    },
+    {
+      "name": "long_text",
+      "status_code": 200,
+      "pass": true,
+      "response_category": "ROADS"
+    },
+    {
+      "name": "unicode_characters",
+      "status_code": 200,
+      "pass": true,
+      "response": {
+        "original_text": "\uff2a\uff41\uff4c\uff41\uff4e \uff52\uff4f\uff53\uff41\uff4b & longkang tersumbat (sekolah)",
+        "clean_text": "Jalan rosak & longkang tersumbat (sekolah)",
+        "language": "MS",
+        "has_code_switching": false,
+        "category": "DRAINAGE",
+        "confidence": 0.5142247676849365,
+        "extracted_info": {
+          "issue": [],
+          "location": [
+            "Jalan rosak & longkang tersumbat (sekolah)"
+          ],
+          "severity": [],
+          "timing": [],
+          "symptom": []
+        }
+      }
+    }
+  ],
+  "nlp_tests": [
+    {
+      "case_id": "A",
+      "name": "Bahasa Malaysia",
+      "input": "Longkang depan rumah tersumbat. Bila hujan, air naik sampai jalan.",
+      "expected_category": "DRAINAGE",
+      "predicted_category": "DRAINAGE",
+      "confidence": 0.6494095325469971,
+      "language": "MS",
+      "has_code_switching": false,
+      "extracted_info": {
+        "issue": [],
+        "location": [
+          "Longkang depan rumah tersumbat. Bila hujan, air naik sampai jalan."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      },
+      "category_match": true,
+      "status_code": 200
+    },
+    {
+      "case_id": "B",
+      "name": "English",
+      "input": "There is a large pothole near the bus stop.",
+      "expected_category": "ROADS",
+      "predicted_category": "ROADS",
+      "confidence": 0.7136424779891968,
+      "language": "EN",
+      "has_code_switching": false,
+      "extracted_info": {
+        "issue": [],
+        "location": [
+          "There is a large pothole near the bus stop."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      },
+      "category_match": true,
+      "status_code": 200
+    },
+    {
+      "case_id": "C",
+      "name": "Code-switching",
+      "input": "Streetlight dekat school dah rosak sejak minggu lepas.",
+      "expected_category": "LIGHTING",
+      "predicted_category": "LIGHTING",
+      "confidence": 0.8769055008888245,
+      "language": "MS",
+      "has_code_switching": false,
+      "extracted_info": {
+        "issue": [],
+        "location": [
+          "Streetlight dekat school dah rosak sejak minggu lepas."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      },
+      "category_match": true,
+      "status_code": 200
+    },
+    {
+      "case_id": "D",
+      "name": "Waste",
+      "input": "Sampah bertimbun dekat taman permainan dan masih belum dikutip.",
+      "expected_category": "WASTE",
+      "predicted_category": "WASTE",
+      "confidence": 0.6203177571296692,
+      "language": "MS",
+      "has_code_switching": false,
+      "extracted_info": {
+        "issue": [],
+        "location": [
+          "Sampah bertimbun dekat taman permainan dan masih belum dikutip."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      },
+      "category_match": true,
+      "status_code": 200
+    },
+    {
+      "case_id": "E",
+      "name": "Ambiguous Input",
+      "input": "Please help with the problem near my house.",
+      "expected_category": "OTHER",
+      "predicted_category": "OTHER",
+      "confidence": 0.7530755996704102,
+      "language": "EN",
+      "has_code_switching": false,
+      "extracted_info": {
+        "issue": [],
+        "location": [
+          "Please help with the problem near my house."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      },
+      "category_match": true,
+      "status_code": 200
+    },
+    {
+      "case_id": "F",
+      "name": "Multiple Issues",
+      "input": "The road is full of potholes and the streetlight is broken.",
+      "expected_category": [
+        "ROADS",
+        "LIGHTING"
+      ],
+      "predicted_category": "LIGHTING",
+      "confidence": 0.7953481674194336,
+      "language": "EN",
+      "has_code_switching": false,
+      "extracted_info": {
+        "issue": [],
+        "location": [
+          "The road is full of potholes and the streetlight is broken."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      },
+      "category_match": true,
+      "status_code": 200
+    },
+    {
+      "case_id": "G",
+      "name": "Empty or Invalid Input",
+      "input": "   ",
+      "expected_category": "OTHER",
+      "predicted_category": "OTHER",
+      "confidence": 1.0,
+      "language": "UNKNOWN",
+      "has_code_switching": false,
+      "extracted_info": {
+        "issue": [],
+        "location": [],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      },
+      "category_match": true,
+      "status_code": 200
+    }
+  ],
+  "category_tests": [
+    {
+      "expected": "ROADS",
+      "predicted": "ROADS",
+      "confidence": 0.4096,
+      "prompt": "Jalan raya berlubang besar dan sangat bahaya untuk motosikal.",
+      "match": true
+    },
+    {
+      "expected": "DRAINAGE",
+      "predicted": "DRAINAGE",
+      "confidence": 0.514,
+      "prompt": "Longkang tersumbat teruk dan air bertakung tidak mengalir.",
+      "match": true
+    },
+    {
+      "expected": "WASTE",
+      "predicted": "WASTE",
+      "confidence": 0.6697,
+      "prompt": "Sampah bertimbun di tepi jalan dan tidak dikutip selama seminggu.",
+      "match": true
+    },
+    {
+      "expected": "LIGHTING",
+      "predicted": "LIGHTING",
+      "confidence": 0.889,
+      "prompt": "Lampu jalan mati dan kawasan ini sangat gelap pada waktu malam.",
+      "match": true
+    },
+    {
+      "expected": "FALLEN_TREES",
+      "predicted": "FALLEN_TREES",
+      "confidence": 0.7663,
+      "prompt": "Pokok tumbang menghempap kabel elektrik dan menghalang laluan.",
+      "match": true
+    },
+    {
+      "expected": "OBSTRUCTION",
+      "predicted": "HAZARD",
+      "confidence": 0.2932,
+      "prompt": "Kenderaan rosak ditinggalkan menghalang laluan keluar masuk lorong.",
+      "match": false
+    },
+    {
+      "expected": "FACILITIES",
+      "predicted": "FACILITIES",
+      "confidence": 0.5013,
+      "prompt": "Tandas awam rosak dan paip air bocor di dewan serbaguna.",
+      "match": true
+    },
+    {
+      "expected": "PEDESTRIAN",
+      "predicted": "PEDESTRIAN",
+      "confidence": 0.5221,
+      "prompt": "Laluan pejalan kaki pecah dan jubin jalan retak berbahaya untuk orang tua.",
+      "match": true
+    },
+    {
+      "expected": "HAZARD",
+      "predicted": "HAZARD",
+      "confidence": 0.6132,
+      "prompt": "Kabel elektrik tergantung rendah di tepi jalan sangat bahaya.",
+      "match": true
+    },
+    {
+      "expected": "ENVIRONMENT",
+      "predicted": "ENVIRONMENT",
+      "confidence": 0.6805,
+      "prompt": "Pencemaran bau busuk akibat pelepasan asap kilang berhampiran.",
+      "match": true
+    },
+    {
+      "expected": "OTHER",
+      "predicted": "FALLEN_TREES",
+      "confidence": 0.3748,
+      "prompt": "Permohonan semakan papan tanda nama taman yang telah pudar.",
+      "match": false
+    }
+  ],
+  "ner_tests": [
+    {
+      "prompt": "Tolong baiki lampu jalan rosak teruk di Jalan SS2 semalam.",
+      "extracted_info": {
+        "issue": [],
+        "location": [
+          "Tolong baiki lampu jalan rosak teruk di Jalan SS2 semalam."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      }
+    },
+    {
+      "prompt": "Sampah berbau busuk dekat taman permainan seksyen 7.",
+      "extracted_info": {
+        "issue": [],
+        "location": [
+          "Sampah berbau busuk dekat taman permainan seksyen 7."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      }
+    },
+    {
+      "prompt": "Pothole on Jalan Bukit Bintang causing severe traffic.",
+      "extracted_info": {
+        "issue": [],
+        "location": [
+          "Pothole on Jalan Bukit Bintang causing severe traffic."
+        ],
+        "severity": [],
+        "timing": [],
+        "symptom": []
+      }
+    }
+  ],
+  "similarity_tests": [
+    {
+      "test": "cross_lingual_same_issue",
+      "score": 0.8808546662330627,
+      "pass": true
+    },
+    {
+      "test": "different_issues",
+      "score": 0.415630042552948,
+      "pass": true
+    },
+    {
+      "test": "symmetry",
+      "score_forward": 0.8808546662330627,
+      "score_reverse": 0.8808546662330627,
+      "pass": true
+    },
+    {
+      "test": "embedding_dimension",
+      "dimension": 384,
+      "pass": true
+    }
+  ],
+  "summary": {},
+  "model_startup_time_sec": 17.47
+}

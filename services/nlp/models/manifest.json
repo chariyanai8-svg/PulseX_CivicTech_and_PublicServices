@@ -1,0 +1,18 @@
+{
+  "classifier": {
+    "version": "v0.2.0",
+    "base_model": "xlm-roberta-base",
+    "status": "trained",
+    "path": "classifier/v0.2.0"
+  },
+  "ner": {
+    "version": "v0.2.0",
+    "status": "trained",
+    "base_model": "xlm-roberta-base",
+    "path": "ner/v0.2.0"
+  },
+  "similarity": {
+    "version": "paraphrase-multilingual-MiniLM-L12-v2",
+    "status": "pretrained_only"
+  }
+}

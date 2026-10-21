@@ -1,0 +1,28 @@
+{
+  "categories": {
+    "0": "ROADS",
+    "1": "DRAINAGE",
+    "2": "WASTE",
+    "3": "LIGHTING",
+    "4": "FALLEN_TREES",
+    "5": "OBSTRUCTION",
+    "6": "FACILITIES",
+    "7": "PEDESTRIAN",
+    "8": "HAZARD",
+    "9": "ENVIRONMENT",
+    "10": "OTHER"
+  },
+  "ner_tags": {
+    "0": "O",
+    "1": "B-ISSUE",
+    "2": "I-ISSUE",
+    "3": "B-LOCATION",
+    "4": "I-LOCATION",
+    "5": "B-SEVERITY",
+    "6": "I-SEVERITY",
+    "7": "B-TIMING",
+    "8": "I-TIMING",
+    "9": "B-SYMPTOM",
+    "10": "I-SYMPTOM"
+  }
+}

@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Environment
+.env
+
+# Model weights (too large for git)
+models/classifier/
+models/extractor/
+models/embedder/
+models/ner/
+training/checkpoints/
+
+# Virtual Environment
+.venv/
+venv/
+env/
+!models/manifest.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Training artifacts
+training/notebooks/.ipynb_checkpoints/
+training/data/processed/
+wandb/
